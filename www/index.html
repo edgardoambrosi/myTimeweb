@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" href="css/flipclock.css">
+
+        <title>Timeweb Monitor</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Orario Lavoro</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connetti TimeWeb</p>
+                <p class="event received">Disconnetti Timeweb</p>
+            </div>
+			<div id="giorno">
+				<label for="GiornoLavoro">Scegliere un giorno</label>
+				<input type="date" id="GiornoLavoro" name="GiornoLavoro"/>
+			</div>
+        </div>
+
+
+		<div id="monitor" style="display:none">
+			<table class="cartellino">
+				<tbody>
+					<tr>
+						<td><div id="strisciata" class="block-level embossed-heavy"></div></td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="tempo-restante" class="your-clock"></div>
+			<div id="tempo-trascorso" class="your-clock"></div>
+			<div id="saldo" class="saldo">
+				<h1>Saldo Giornata</h1>		
+			</div>
+		</div>
+
+		<div id="credenziali" style="display:none">
+			<label for="NomeUtente">Nome Utente</label>
+			<input type="text" id="NomeUtente" name="NomeUtente" value="11544amed"/></dd>
+			<label for="Password">Password</label>
+			<input type="password" id="Password" name="Password" value="00505504ii008022"/></dd>
+			<button id="credset" type="submit" >Autorizza</button>
+		</div>
+
+		<div>
+			<table class="menu">
+				<tbody>
+					<tr>
+						<td><div id="Ferie" class="block-level embossed-heavy">Ferie</div></td>
+						<td><div id="Notifiche" class="block-level embossed-heavy">Notifiche Ente</div></td>
+						<td><div id="Altro" class="block-level embossed-heavy">Altro</div></td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="menu-act">
+				<tbody>
+					<tr>
+						<td><div class="block-level embossed-heavy" style="zoom:.5; width:100%">MENU</div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+		<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery.xpath.js"></script>
+		<script src="js/flipclock.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/extra.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>

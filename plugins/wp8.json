@@ -1,0 +1,21 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
+        }
+    },
+    "dependent_plugins": {}
+}
