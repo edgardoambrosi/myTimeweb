@@ -386,12 +386,14 @@ $( document ).ready(function() {
 			timeweb.cartellino(DATA_GIORNO_LAVORATO);
 		});
 
-		$('.menu-act').show();
+		$('.menu-act').show(); 
 		$('.menu-act').click(function(){
+            $('.menu-act').hide();
 			$('.menu').toggleClass('menu-out');
 			$('.menu').toggleClass('menu-in');
 		});								
 		$('.menu').click(function(){
+            $('.menu-act').show();
 			$('.menu').toggleClass('menu-out');
 			$('.menu').toggleClass('menu-in');
 		})
