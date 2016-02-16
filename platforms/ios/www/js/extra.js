@@ -386,4 +386,13 @@ $( document ).ready(function() {
 			timeweb.cartellino(DATA_GIORNO_LAVORATO);
 		});
 
+		$('.menu-act').show();
+		$('.menu-act').click(function(){
+			$('.menu').toggleClass('menu-out');
+			$('.menu').toggleClass('menu-in');
+		});								
+		$('.menu').click(function(){
+			$('.menu').toggleClass('menu-out');
+			$('.menu').toggleClass('menu-in');
+		})
 });
