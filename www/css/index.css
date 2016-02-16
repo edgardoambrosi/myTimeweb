@@ -194,12 +194,7 @@ h1 {
 .menu{
 	opacity: 0;
 	position: fixed; 
-	bottom: 0; 
-}
-.menu-in{
-    opacity: 0;
-}
-.menu-out{
+	bottom: 0;
     -webkit-transition: opacity 3s ease-in-out;
     -moz-transition: opacity 3s ease-in-out;
     -ms-transition: opacity 3s ease-in-out;

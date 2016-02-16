@@ -186,7 +186,7 @@ h1 {
 }
 
 .menu-act{
-	opacity: 0.5;
+	opacity: 1;
 	width:100%;
 	position: fixed; 
 	bottom: 0; 
@@ -194,17 +194,12 @@ h1 {
 .menu{
 	opacity: 0;
 	position: fixed; 
-	bottom: 0; 
-}
-.menu-in{
-    opacity: 0;
-}
-.menu-out{
+	bottom: 0;
     -webkit-transition: opacity 3s ease-in-out;
     -moz-transition: opacity 3s ease-in-out;
     -ms-transition: opacity 3s ease-in-out;
     -o-transition: opacity 3s ease-in-out;
-     opacity: .5;
+     opacity: .7;
 }
 /***********************/
 
@@ -251,26 +246,5 @@ h1 {
 	-o-transform:scale(1);
 }
 /*************************/
-
-.gradient-menu {
-    padding-left: 1.25em;
-    position: relative;
-}
-.gradient-menu:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.21em;
-    bottom: 0.21em;
-    width: 1em;
-    background: linear-gradient(
-    top,
-    black, black 20%,
-    white 20%, white 40%,
-    black 40%, black 60%,
-    white 60%, white 80%,
-    black 80%, black 100%
-    );
-}
 
 
