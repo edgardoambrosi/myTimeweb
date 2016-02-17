@@ -341,8 +341,60 @@ $( document ).ready(function() {
 					}	
 
 				});
-			}
-		};
+			},
+                    contatori:function(da,a){
+                    var DA=da;
+                    var A=a;
+                    $.ajax({
+                           url: server_url,
+                           //data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE=1075",
+                           data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS=01-01-2014&DATAFINEMENS=31-12-2014&VOCISELEZIONATE=1075",
+                           method: 'POST'
+                           }).success(function(a,b,c) {
+                                      console.log("Riepiloghi");
+                                      //_FERIE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(1).text();
+                                      _FERIE=$(a).find('table[id="divDatiTB"]').text();
+                                      $('#pannello-menu').append("<p>"+_FERIE+"</>");
+                                      /*
+                                      esame_timbrature.individuazione(_TIMBRATURE);
+                                      esame_timbrature.dalavorare_lavorato();
+                                      $('#strisciata').text(_TIMBRATURE);
+                                      
+                                      clockCD = $('#tempo-restante').FlipClock({
+                                                                               autoStart:false
+                                                                               });
+                                      clockCD.setTime(DALAVORARE);
+                                      clockCD.setCountdown(true);
+                                      GIORNATATERMINATASOSPESA===true?clockCD.stop():clockCD.start();
+                                      
+
+                                      $('#tempo-restante-extra').remove();
+                                      esame_timbrature.uscita_prevista();
+                                      USCITA=esame_timbrature.inorario(USCITA_PREVISTA);
+                                      $('#tempo-restante').before("<p id='tempo-restante-extra'>DA LAVORARE: ( uscita prevista: "+USCITA+" )</p>");
+                                      $('#tempo-restante-extra').addClass('tempo-restante-extra');
+                                      
+                                      clockCN = $('#tempo-trascorso').FlipClock({
+                                                                                autoStart:false
+                                                                                });
+                                      clockCN.setTime(LAVORATO);
+                                      clockCN.setCountdown(false);
+                                      GIORNATATERMINATASOSPESA===true?clockCN.stop():clockCN.start();
+                                      $('#_saldo').remove();
+                                      $('#saldo').append("<h1 id='_saldo'>"+SALDOstr+"</h1>");
+                                      if ( SALDO < 0){
+                                      $('#saldo').addClass('saldo-negativo');
+                                      $('#saldo').removeClass('saldo-positivo');
+                                      }
+                                      if ( SALDO > 0) {
+                                      $('#saldo').addClass('saldo-positivo');
+                                      $('#saldo').removeClass('saldo-negativo');
+                                      }	
+                                      */
+                                      });
+                    }
+                    
+        };
 
 
 		/*CONTROLLO TIMBRATURE SUCCESSIVE*/
@@ -401,5 +453,6 @@ $( document ).ready(function() {
                     clockFace: 'Counter'
             });
             $('#perConteggio').fadeToggle("fast","linear");
+                          timeweb.contatori();
 		})
 });
