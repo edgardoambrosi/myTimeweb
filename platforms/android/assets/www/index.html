@@ -68,20 +68,42 @@
 			<button id="credset" type="submit" >Autorizza</button>
 		</div>
 
+
+    <div id="pannello-menu" class="block-level embossed-heavy pannello-embossed-heavy" style="display:none">
+
+      <div id="perConteggio" style="display:none">
+        <div id="giorno_inizio">
+            <label for="GiornoLavoro_inizio">Giorno Inizio</label>
+            <input type="date" id="GiornoLavoro_inizio" name="GiornoLavoroInizio"/>
+        </div>
+        <div id="giorno_fine">
+            <label for="GiornoLavoro_fine">Giorno Fine</label>
+            <input type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/>
+        </div>
+
+        <div id="quantita" class="your-clock"></div>
+      </div>
+      
+      
+    </div>
+    
 		<div>
-			<table class="menu">
+			<table class="menu" style='display:none'>
 				<tbody>
 					<tr>
-						<td><div id="Ferie" class="block-level embossed-heavy">Ferie</div></td>
-						<td><div id="Notifiche" class="block-level embossed-heavy">Notifiche Ente</div></td>
-						<td><div id="Altro" class="block-level embossed-heavy">Altro</div></td>
+						<td><div id="Ferie" class="block-level embossed-heavy menu-embossed-heavy">Ferie</div></td>
+						<td><div id="Notifiche" class="block-level embossed-heavy menu-embossed-heavy">Monte Ore</div></td>
+						<td><div id="Altro" class="block-level embossed-heavy menu-embossed-heavy">Notifiche</div></td>
 					</tr>
 				</tbody>
 			</table>
-			<table class="menu-act">
+			<table class="menu-act" style='display:none'>
 				<tbody>
 					<tr>
-						<td><div class="block-level embossed-heavy gradient-menu" style="zoom:.5; width:100%">MENU</div></td>
+						<td><div style="zoom:2.7; width:100%">
+                                <img src="http://f.cl.ly/items/1U2c3b1215383h3a2T2r/icon-menu.svg"/>
+                            </div>
+                        </td>
 					</tr>
 				</tbody>
 			</table>

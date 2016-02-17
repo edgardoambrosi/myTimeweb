@@ -16,7 +16,8 @@ $( document ).ready(function() {
 		var clockCN="";
 		var server_url="https://gescar.rm.cnr.it/timeweb/TwNet.dll";
 		var DATA_GIORNO_LAVORATO="";
-
+        var DATA_GIORNO_INIZIO="";
+        var DATA_GIORNO_FINE="";
 
 		var app = {
 			//SERVER DISPONIBILE
@@ -245,7 +246,7 @@ $( document ).ready(function() {
 			}
 		};
 
-		var timeweb={
+		var timeweb={  
 			connetti:function(u,p,d){
 				$.ajax({
 				  url: server_url,
@@ -258,6 +259,7 @@ $( document ).ready(function() {
 					$('.listening').hide();
 					$('#credenziali').hide();					
 					$('#monitor').show();
+	            	$('.menu-act').show();
 				});
 			},
 			disconnetti:function(){
@@ -360,6 +362,7 @@ $( document ).ready(function() {
 			console.log("...tento la disconnessione...");
 			timeweb.disconnetti();
 			$('#monitor').hide();
+            $('.menu-act').hide();
 			app.initialize();
 			env.reset();
 		});
@@ -386,13 +389,17 @@ $( document ).ready(function() {
 			timeweb.cartellino(DATA_GIORNO_LAVORATO);
 		});
 
-		$('.menu-act').show();
 		$('.menu-act').click(function(){
-            $('.menu-act').hide();
-            $('.menu').show();
+            $('.menu').fadeToggle("fast","linear");
+            $('#pannello-menu').fadeToggle("fast","linear");
+            $('#monitor').fadeToggle("fast","linear");
+            $('.app').fadeToggle("fast","linear");
+            
 		});								
-		$('.menu').click(function(){
-            $('.menu').hide();
-			$('.menu-act').show();
+		$('#Ferie').click(function(){
+            $('#quantita').FlipClock(100, {
+                    clockFace: 'Counter'
+            });
+            $('#perConteggio').fadeToggle("fast","linear");
 		})
 });
