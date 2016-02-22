@@ -92,6 +92,19 @@ $( document ).ready(function() {
 					var d=t.split("-");		
 					DATA_GIORNO_LAVORATO=d[2]+"-"+d[1]+"-"+d[0];
 				}
+				t=$('#GiornoLavoro_inizio').val();
+				if(typeof t=="undefined" || t=="" ){
+					DATA_GIORNO_INIZIO=data.composizione();
+				}else{
+					DATA_GIORNO_INIZIO=data.composizione(t);
+				}
+				t=$('#GiornoLavoro_fine').val();
+				if(typeof t=="undefined" || t=="" ){
+					DATA_GIORNO_FINE=data.composizione();
+				}else{
+					DATA_GIORNO_FINE=data.composizione(t);
+				}
+
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
 				navigator.notification.vibrate(2500);
@@ -230,19 +243,32 @@ $( document ).ready(function() {
 			}
 		};
 		var data={
-			composizione:function(){
+			composizione:function(d){
 				var mesi=["Jan","Feb","Mar", "Apr", "May", "Giu", "Jul", "Aug", "Sep","Oct","Nov","Dec"];
 				var nmesi=["01","02","03", "04", "05", "06", "07", "08", "09","10","11","12"];
-				var oggi=(new Date()).toString().split(" ");
-				var giorno=oggi[2];
-				var mese=oggi[1];
-				var anno=oggi[3];
-				$(mesi).each(function(i,e){
-					if ( mese == e){
-						oggi=giorno+"-"+nmesi[i]+"-"+anno;
-					}
-				});
-				return oggi;
+				if (typeof d=="undefined"){
+					var oggi=(new Date()).toString().split(" ");
+					var giorno=oggi[2];
+					var mese=oggi[1];
+					var anno=oggi[3];
+					$(mesi).each(function(i,e){
+						if ( mese == e){
+							oggi=giorno+"-"+nmesi[i]+"-"+anno;
+						}
+					});
+					return oggi;
+				}else{
+					var oggi=(new Date(d)).toString().split(" ");
+					var giorno=oggi[2];
+					var mese=oggi[1];
+					var anno=oggi[3];
+					$(mesi).each(function(i,e){
+						if ( mese == e){
+							oggi=giorno+"-"+nmesi[i]+"-"+anno;
+						}
+					});
+					return oggi;
+				}
 			}
 		};
 
@@ -346,20 +372,26 @@ $( document ).ready(function() {
                     var DA=da;
                     var A=a;
                     $.ajax({
+						   dataType:"html",
+						   dataFilter:function(d,t){
+								return $(d);
+						   },
                            url: server_url,
-                           //data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE=1075",
-                           data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS=01-01-2014&DATAFINEMENS=31-12-2014&VOCISELEZIONATE=1075",
+                           data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE=8034&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
                            method: 'POST'
                            }).success(function(a,b,c) {
-                                      console.log("Riepiloghi");
-                                      //_FERIE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(1).text();
-                                      _FERIE=$(a).find('table[id="divDatiTB"]').text();
-                                      $('#pannello-menu').append("<p>"+_FERIE+"</>");
+                                      console.log("Riepiloghi Contatori: "+ DA+" "+A);
+   				                      _FERIE=$(a).find('#divDatiTB tr td[align="right"]');
+                                      $.each(_FERIE,function(i,e){
+										  if (i<(_FERIE.length-1) || ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
+             							  	console.log(_FERIE.length+" "+ i +$(e).text()) 
+										  }													
+  							          })
                                       /*
                                       esame_timbrature.individuazione(_TIMBRATURE);
                                       esame_timbrature.dalavorare_lavorato();
                                       $('#strisciata').text(_TIMBRATURE);
-                                      
+                                       
                                       clockCD = $('#tempo-restante').FlipClock({
                                                                                autoStart:false
                                                                                });
@@ -449,10 +481,14 @@ $( document ).ready(function() {
             
 		});								
 		$('#Ferie').click(function(){
-            $('#quantita').FlipClock(100, {
+            $('#quantita').FlipClock(0, {
                     clockFace: 'Counter'
             });
             $('#perConteggio').fadeToggle("fast","linear");
-                          timeweb.contatori();
 		})
+		$('#calcola').click(function(){
+			env.reset();
+			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE);
+		})
+		
 });
