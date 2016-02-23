@@ -18,7 +18,8 @@ $( document ).ready(function() {
 		var DATA_GIORNO_LAVORATO="";
         var DATA_GIORNO_INIZIO="";
         var DATA_GIORNO_FINE="";
-		var FERIE=0;
+		var CAUSALE=0;
+		var CAUSALE_SEL="";
 
 		var app = {
 			//SERVER DISPONIBILE
@@ -82,7 +83,8 @@ $( document ).ready(function() {
 				GIORNATATERMINATASOSPESA;
 				DATA_GIORNO_LAVORATO="";
 				TOTALE="07:42:00";
-				FERIE=0;
+				CAUSALE=0;
+				CAUSALE_SEL="";
 				//$('#tempo-restante').setTime(LAVORATO);
 				//$('#tempo-trascorso').setTime(DALAVORARE);
 				$('#strisciata').text("");
@@ -106,6 +108,8 @@ $( document ).ready(function() {
 				}else{
 					DATA_GIORNO_FINE=data.composizione(t);
 				}
+				
+				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
 
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
@@ -379,18 +383,18 @@ $( document ).ready(function() {
 								return $(d);
 						   },
                            url: server_url,
-                           data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE=8034&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
+                           data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE="+CAUSALE_SEL+"&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
                            method: 'POST'
                            }).success(function(a,b,c) {
                                   console.log("Riepiloghi Contatori: "+ DA+" "+A);
-			                      _FERIE=$(a).find('#divDatiTB tr td[align="right"]');
-                                  $.each(_FERIE,function(i,e){
-									  if (i<(_FERIE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
+			                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
+                                  $.each(_CAUSALE,function(i,e){
+									  if (i<(_CAUSALE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
 										var n=parseInt($(e).text());
-         							  	FERIE=FERIE+n;
+         							  	CAUSALE=CAUSALE+n;
 									  }													
 						          })
-								  $('#quantita').FlipClock(FERIE, {
+								  $('#quantita').FlipClock(CAUSALE, {
 										clockFace: 'Counter'
 								  });
                             });
@@ -449,13 +453,18 @@ $( document ).ready(function() {
             $('#monitor').fadeToggle("fast","linear");
             $('.app').fadeToggle("fast","linear");
             
-		});								
-		$('#Ferie').click(function(){
+		});		
+						
+		$('#Causale').click(function(){
             $('#quantita').FlipClock(0, {
                     clockFace: 'Counter'
             });
+			var sel=$('select[name="VOCISELEZIONATE"]');
+			$(sel).removeAttr('multiple');
+			$('#causale_sel').append(sel);
             $('#perConteggio').fadeToggle("fast","linear");
 		})
+
 		$('#calcola').click(function(){
 			env.reset();
 			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE);
