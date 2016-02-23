@@ -18,6 +18,7 @@ $( document ).ready(function() {
 		var DATA_GIORNO_LAVORATO="";
         var DATA_GIORNO_INIZIO="";
         var DATA_GIORNO_FINE="";
+        var CAUSALI;
 		var CAUSALE=0;
 		var CAUSALE_SEL="";
 
@@ -83,6 +84,7 @@ $( document ).ready(function() {
 				GIORNATATERMINATASOSPESA;
 				DATA_GIORNO_LAVORATO="";
 				TOTALE="07:42:00";
+                CAUSALI;
 				CAUSALE=0;
 				CAUSALE_SEL="";
 				//$('#tempo-restante').setTime(LAVORATO);
@@ -398,8 +400,21 @@ $( document ).ready(function() {
 										clockFace: 'Counter'
 								  });
                             });
+                    },
+                    causali:function(){
+                    $.ajax({
+                        dataType:"html",
+                        dataFilter:function(d,t){
+                           return $(d);
+                        },
+                        url: server_url,
+                        data:"AZIONE=RIEPILOGHIVGMENSILI",
+                        method: 'GET'
+                        }).success(function(a,b,c) {
+                            console.log("Recupero Causali: ");
+                            CAUSALI=$('select[name="VOCISELEZIONATE"]');
+                        });
                     }
-                    
         };
 
 
@@ -459,9 +474,9 @@ $( document ).ready(function() {
             $('#quantita').FlipClock(0, {
                     clockFace: 'Counter'
             });
-			var sel=$('select[name="VOCISELEZIONATE"]');
-			$(sel).removeAttr('multiple');
-			$('#causale_sel').append(sel);
+            timeweb.causali();
+			$(CAUSALI).removeAttr('multiple');
+			$('#causale_sel').append(CAUSALI);
             $('#perConteggio').fadeToggle("fast","linear");
 		})
 

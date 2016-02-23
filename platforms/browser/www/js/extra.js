@@ -18,6 +18,7 @@ $( document ).ready(function() {
 		var DATA_GIORNO_LAVORATO="";
         var DATA_GIORNO_INIZIO="";
         var DATA_GIORNO_FINE="";
+        var CAUSALI=new Object();
 		var CAUSALE=0;
 		var CAUSALE_SEL="";
 
@@ -83,6 +84,7 @@ $( document ).ready(function() {
 				GIORNATATERMINATASOSPESA;
 				DATA_GIORNO_LAVORATO="";
 				TOTALE="07:42:00";
+                CAUSALI=new Object();
 				CAUSALE=0;
 				CAUSALE_SEL="";
 				//$('#tempo-restante').setTime(LAVORATO);
@@ -110,12 +112,12 @@ $( document ).ready(function() {
 				}
 				
 				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
-
+console.log(CAUSALE_SEL)
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
-				navigator.notification.vibrate(2500);
+				//navigator.notification.vibrate(2500);
 				/*ANDROID*/
-				navigator.vibrate(2500);
+				//navigator.vibrate(2500);
 			}
 		};
 
@@ -374,9 +376,10 @@ $( document ).ready(function() {
 
 				});
 			},
-                    contatori:function(da,a){
+                    contatori:function(da,a,cs){
                     var DA=da;
                     var A=a;
+                    var CAUSALE_SEL=cs;
                     $.ajax({
 						   dataType:"html",
 						   dataFilter:function(d,t){
@@ -398,8 +401,23 @@ $( document ).ready(function() {
 										clockFace: 'Counter'
 								  });
                             });
+                    },
+                    causali:function(){
+                    $.ajax({
+                        dataType:"html",
+                        dataFilter:function(d,t){
+                           return $(d);
+                        },
+                        url: server_url,
+                        data:"AZIONE=RIEPILOGHIVGMENSILI",
+                        method: 'GET'
+                        }).success(function(a,b,c) {
+                            console.log("Recupero Causali: ");
+                            CAUSALI=$(a).find('select[name="VOCISELEZIONATE"]');
+                            $('#causale_sel').append(CAUSALI);
+                        console.log($(CAUSALI).text())
+                        });
                     }
-                    
         };
 
 
@@ -459,15 +477,13 @@ $( document ).ready(function() {
             $('#quantita').FlipClock(0, {
                     clockFace: 'Counter'
             });
-			var sel=$('select[name="VOCISELEZIONATE"]');
-			$(sel).removeAttr('multiple');
-			$('#causale_sel').append(sel);
+            timeweb.causali();
             $('#perConteggio').fadeToggle("fast","linear");
 		})
 
 		$('#calcola').click(function(){
 			env.reset();
-			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE);
+			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE,CAUSALE_SEL);
 		})
 		
 });

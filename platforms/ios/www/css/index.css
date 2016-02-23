@@ -224,6 +224,10 @@ h1 {
     position: fixed;
     color:black;
 }
+#calcola{
+    width:13vmax;
+    height:5vmax;
+}
 
 /***********************/
 
