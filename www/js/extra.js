@@ -112,7 +112,7 @@ $( document ).ready(function() {
 				}
 				
 				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
-console.log(CAUSALE_SEL)
+
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
 				//navigator.notification.vibrate(2500);
@@ -414,8 +414,11 @@ console.log(CAUSALE_SEL)
                         }).success(function(a,b,c) {
                             console.log("Recupero Causali: ");
                             CAUSALI=$(a).find('select[name="VOCISELEZIONATE"]');
+							$(CAUSALI).removeAttr('multiple');
+							$('select[name="VOCISELEZIONATE"]').remove();
                             $('#causale_sel').append(CAUSALI);
-                        console.log($(CAUSALI).text())
+							$(CAUSALI).css("position","relative")
+							$(CAUSALI).css("top","-30px")
                         });
                     }
         };
@@ -477,6 +480,7 @@ console.log(CAUSALE_SEL)
             $('#quantita').FlipClock(0, {
                     clockFace: 'Counter'
             });
+			env.reset();
             timeweb.causali();
             $('#perConteggio').fadeToggle("fast","linear");
 		})
