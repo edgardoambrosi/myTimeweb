@@ -37,7 +37,7 @@ body {
     );
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
+    font-size:15px;
     height:100%;
     margin:0px;
     padding:0px;
@@ -265,7 +265,7 @@ h1 {
 	-webkit-box-shadow: inset 0px 10px 10px 0px rgb(128,128,128);
 	box-shadow: inset 0px 10px 10px 0px rgb(128,128,128);
 
-	zoom: 1;
+	zoom: 1.1;
 
 	transform:scale(1);
 	-ms-transform:scale(1);
