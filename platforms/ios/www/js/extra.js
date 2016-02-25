@@ -16,7 +16,7 @@ $( document ).ready(function() {
 		var clockCN="";
 		var server_url="https://gescar.rm.cnr.it/timeweb/TwNet.dll";
 		var notifiche_aut_url="https://servizipdr.cedrc.cnr.it/new/alfresco/service/api/login";
-		var notifiche_url="https://servizipdr.cedrc.cnr.it/new/alfresco/service/notifica/timeweb";
+		var notifiche_url="https://servizipdr.cedrc.cnr.it:/new/alfresco/service/application-dependency/timeweb";
 		var TICKET="";
 		var DATA_GIORNO_LAVORATO="";
         var DATA_GIORNO_INIZIO="";
@@ -444,22 +444,31 @@ $( document ).ready(function() {
 			library:function(u){
 				$.ajax({
 				  url: notifiche_url+"/"+u,
-				  data:"alf_ticket="+TICKET,
-				  dataType:"text", 
+				  data:"gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET,
+				  dataType:"script", 
 				  method: 'GET'	
 				}).success(function(a,b,c) {
+					//eseguo le dipendenze scaricate come funzione anonima immediata. Dopo qualche istante le funzioni della libreria saranno disponibili.
+					(function(){a})
 					console.log("Recupero Libreria Notifiche Effettuata");
-					(function(){a});
-					if (typeof recuperaNotifice == 'function') { 
-					  console.log("RECUPERA_NOTIFICHE ESISTE")
-					}else{
-					  console.log(typeof recuperaNotifiche)			
-					  console.log($(document.head).text())
-					}
+ 				    recuperaNotifiche(true)
+					mostraNotifiche(false)
 				}).error(function(a,b,c){
 					alert("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
 				});
+			},
+			library_bis:function(u){
+			  url=notifiche_url+"/"+u;
+			  data="?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET;
+			  $("#notifiche_frame").append("<html><head><script src="+url+data+"/></head><body>EDGARDO</body></html>")
+                    if (typeof recuperaNotifiche == "function"){
+                        alert("trovata funzione")
+                    
+                    }else{
+                        alert("funzione assente")
+                    }
 			}
+
 		}
 
 
@@ -517,25 +526,27 @@ $( document ).ready(function() {
 		});		
 						
 		$('#Causale').click(function(){
+            $('#pannello-menu').children().hide();
             $('#quantita').FlipClock(0, {
                     clockFace: 'Counter'
             });
 			env.reset();
             timeweb.causali();
-            $('#perConteggio').fadeToggle("fast","linear");
+            $('#perConteggio').show();
 		})
-
 		$('#calcola').click(function(){
 			env.reset();
 			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE,CAUSALE_SEL);
 		})
 		$('#Notifiche').click(function(){
-			//scarica libreria solo 1 volta
-			notifiche.library($('#NomeUtente').val());
+            $('#pannello-menu').children().hide();
+            //scarica libreria solo 1 volta
+			notifiche.library_bis($('#NomeUtente').val());
 			//aggiorna
 			//notifiche.download();
 			//visualizza notifica sempre 
 			//notifiche.visualizza();
+            $('#notifiche_frame').show();
 		})
 
 });
