@@ -15,6 +15,9 @@ $( document ).ready(function() {
 		var clockCD="";	
 		var clockCN="";
 		var server_url="https://gescar.rm.cnr.it/timeweb/TwNet.dll";
+		var notifiche_aut_url="https://servizipdr.cedrc.cnr.it/new/alfresco/service/api/login";
+		var notifiche_url="https://servizipdr.cedrc.cnr.it:/new/alfresco/service/application-dependency/timeweb";
+		var TICKET="";
 		var DATA_GIORNO_LAVORATO="";
         var DATA_GIORNO_INIZIO="";
         var DATA_GIORNO_FINE="";
@@ -87,6 +90,7 @@ $( document ).ready(function() {
                 CAUSALI=new Object();
 				CAUSALE=0;
 				CAUSALE_SEL="";
+				TICKET="";
 				//$('#tempo-restante').setTime(LAVORATO);
 				//$('#tempo-trascorso').setTime(DALAVORARE);
 				$('#strisciata').text("");
@@ -376,52 +380,97 @@ $( document ).ready(function() {
 
 				});
 			},
-                    contatori:function(da,a,cs){
-                    var DA=da;
-                    var A=a;
-                    var CAUSALE_SEL=cs;
-                    $.ajax({
-						   dataType:"html",
-						   dataFilter:function(d,t){
-								return $(d);
-						   },
-                           url: server_url,
-                           data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE="+CAUSALE_SEL+"&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
-                           method: 'POST'
-                           }).success(function(a,b,c) {
-                                  console.log("Riepiloghi Contatori: "+ DA+" "+A);
-			                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
-                                  $.each(_CAUSALE,function(i,e){
-									  if (i<(_CAUSALE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
-										var n=parseInt($(e).text());
-         							  	CAUSALE=CAUSALE+n;
-									  }													
-						          })
-								  $('#quantita').FlipClock(CAUSALE, {
-										clockFace: 'Counter'
-								  });
-                            });
-                    },
-                    causali:function(){
-                    $.ajax({
-                        dataType:"html",
-                        dataFilter:function(d,t){
-                           return $(d);
-                        },
-                        url: server_url,
-                        data:"AZIONE=RIEPILOGHIVGMENSILI",
-                        method: 'GET'
-                        }).success(function(a,b,c) {
-                            console.log("Recupero Causali: ");
-                            CAUSALI=$(a).find('select[name="VOCISELEZIONATE"]');
-							$(CAUSALI).removeAttr('multiple');
-							$('select[name="VOCISELEZIONATE"]').remove();
-                            $('#causale_sel').append(CAUSALI);
-							$(CAUSALI).css("position","relative")
-							$(CAUSALI).css("top","-30px")
-                        });
-                    }
+            contatori:function(da,a,cs){
+            var DA=da;
+            var A=a;
+            var CAUSALE_SEL=cs;
+            $.ajax({
+				   dataType:"html",
+				   dataFilter:function(d,t){
+						return $(d);
+				   },
+                   url: server_url,
+                   data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE="+CAUSALE_SEL+"&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
+                   method: 'POST'
+                   }).success(function(a,b,c) {
+                          console.log("Riepiloghi Contatori: "+ DA+" "+A);
+	                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
+                          $.each(_CAUSALE,function(i,e){
+							  if (i<(_CAUSALE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
+								var n=parseInt($(e).text());
+ 							  	CAUSALE=CAUSALE+n;
+							  }													
+				          })
+						  $('#quantita').FlipClock(CAUSALE, {
+								clockFace: 'Counter'
+						  });
+                    });
+            },
+            causali:function(){
+            $.ajax({
+                dataType:"html",
+                dataFilter:function(d,t){
+                   return $(d);
+                },
+                url: server_url,
+                data:"AZIONE=RIEPILOGHIVGMENSILI",
+                method: 'GET'
+                }).success(function(a,b,c) {
+                    console.log("Recupero Causali: ");
+                    CAUSALI=$(a).find('select[name="VOCISELEZIONATE"]');
+					$(CAUSALI).removeAttr('multiple');
+					$('select[name="VOCISELEZIONATE"]').remove();
+                    $('#causale_sel').append(CAUSALI);
+					$(CAUSALI).css("position","relative")
+					$(CAUSALI).css("top","-30px")
+                });
+            }
         };
+
+		var notifiche={
+			connetti:function(u,p){
+				nome="edgardo.ambrosi";
+				$.ajax({
+				  url: notifiche_aut_url,
+				  data:"u="+nome+"&pw="+p,
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					console.log("Autenticazione Notifiche Effettuata");
+					TICKET=$(c.responseText).text();
+				}).error(function(a,b,c){
+					alert("Autenticazione Notifiche Incompleta. Non si potranno recuperare le comunicazioni da parte dell'ente. Verificare le credenziali del sistema di notifica.")	
+				});
+			},
+			library:function(u){
+				$.ajax({
+				  url: notifiche_url+"/"+u,
+				  data:"gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET,
+				  dataType:"script", 
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					//eseguo le dipendenze scaricate come funzione anonima immediata. Dopo qualche istante le funzioni della libreria saranno disponibili.
+					(function(){a})
+					console.log("Recupero Libreria Notifiche Effettuata");
+ 				    recuperaNotifiche(true)
+					mostraNotifiche(false)
+				}).error(function(a,b,c){
+					alert("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
+				});
+			},
+			library_bis:function(u){
+			  url=notifiche_url+"/"+u;
+			  data="?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET;
+              $('<iframe />');  // Create an iframe element
+              $('<iframe />', {
+                  name: 'frame1',
+                  id: 'frame1',
+				  style: "width:100%; height:100%;",
+  				  sandbox: 'allow-scripts',
+              }).appendTo('#pannello-menu');
+			  $("#frame1").append("<html><head><script src="+url+data+"/></head><body></body></html>")
+			}
+
+		}
 
 
 		/*CONTROLLO TIMBRATURE SUCCESSIVE*/
@@ -454,6 +503,7 @@ $( document ).ready(function() {
 		$("#credset").click(function() {
 			env.reset();
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
+			notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});
 
 		$('#NomeUtente').on('input', function() {
@@ -489,5 +539,13 @@ $( document ).ready(function() {
 			env.reset();
 			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE,CAUSALE_SEL);
 		})
-		
+		$('#Notifiche').click(function(){
+			//scarica libreria solo 1 volta
+			notifiche.library_bis($('#NomeUtente').val());
+			//aggiorna
+			//notifiche.download();
+			//visualizza notifica sempre 
+			//notifiche.visualizza();
+		})
+
 });

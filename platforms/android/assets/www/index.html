@@ -38,7 +38,7 @@
                 <p class="event listening">Connetti TimeWeb</p>
                 <p class="event received">Disconnetti Timeweb</p>
             </div>
-			<div id="giorno">
+			<div id="giorno" class="generale-centrato generale-imbottitura">
 				<label for="GiornoLavoro">Scegliere un giorno</label>
 				<input type="date" id="GiornoLavoro" name="GiornoLavoro"/>
 			</div>
@@ -64,7 +64,7 @@
 			<label for="NomeUtente">Nome Utente</label>
 			<input type="text" id="NomeUtente" name="NomeUtente" value="11544amed"/></dd>
 			<label for="Password">Password</label>
-			<input type="password" id="Password" name="Password" value="00505504ii008022"/></dd>
+			<input type="password" id="Password" name="Password" value="El1sab3tta"/></dd>
 			<button id="credset" type="submit" >Autorizza</button>
 		</div>
 
@@ -74,19 +74,19 @@
       <div id="perConteggio" style="display:none">
         <h1>Rapporto Conteggio</h1>
         <div id="giorno_inizio">
-            <label for="GiornoLavoro_inizio">Giorno Inizio</label>
-            <input type="date" id="GiornoLavoro_inizio" name="GiornoLavoroInizio"/>
+            <label for="GiornoLavoro_inizio">Giorno Inizio:</label>
+            <input class="generale-quasi-centrato" type="date" id="GiornoLavoro_inizio" name="GiornoLavoroInizio"/>
         </div>
         <div id="giorno_fine">
-            <label for="GiornoLavoro_fine">Giorno Fine</label>
-            <input type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/>
+            <label for="GiornoLavoro_fine">Giorno Fine:</label>
+            <input class="generale-quasi-centrato" type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/> 
         </div>
-        <div id="causale_sel"><span style="padding-top:5vmax;background-color:red">Seleziona Cosa Conteggiare</span></div>
+        <div id="causale_sel"><p>Seleziona la Causale:</p></div>
 		<button id="calcola">Calcola</button>
-        <div id="quantita" class="your-clock"  style="margin:auto"></div>
+        <div>
+            <div id="quantita" class="your-clock"></div>
+        </div>
       </div>
-      
-      
     </div>
     
 		<div>

@@ -15,6 +15,9 @@ $( document ).ready(function() {
 		var clockCD="";	
 		var clockCN="";
 		var server_url="https://gescar.rm.cnr.it/timeweb/TwNet.dll";
+		var notifiche_aut_url="https://servizipdr.cedrc.cnr.it/new/alfresco/service/api/login";
+		var notifiche_url="https://servizipdr.cedrc.cnr.it/new/alfresco/service/notifica/timeweb";
+		var TICKET="";
 		var DATA_GIORNO_LAVORATO="";
         var DATA_GIORNO_INIZIO="";
         var DATA_GIORNO_FINE="";
@@ -87,6 +90,7 @@ $( document ).ready(function() {
                 CAUSALI=new Object();
 				CAUSALE=0;
 				CAUSALE_SEL="";
+				TICKET="";
 				//$('#tempo-restante').setTime(LAVORATO);
 				//$('#tempo-trascorso').setTime(DALAVORARE);
 				$('#strisciata').text("");
@@ -112,7 +116,7 @@ $( document ).ready(function() {
 				}
 				
 				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
-console.log(CAUSALE_SEL)
+
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
 				//navigator.notification.vibrate(2500);
@@ -376,49 +380,87 @@ console.log(CAUSALE_SEL)
 
 				});
 			},
-                    contatori:function(da,a,cs){
-                    var DA=da;
-                    var A=a;
-                    var CAUSALE_SEL=cs;
-                    $.ajax({
-						   dataType:"html",
-						   dataFilter:function(d,t){
-								return $(d);
-						   },
-                           url: server_url,
-                           data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE="+CAUSALE_SEL+"&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
-                           method: 'POST'
-                           }).success(function(a,b,c) {
-                                  console.log("Riepiloghi Contatori: "+ DA+" "+A);
-			                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
-                                  $.each(_CAUSALE,function(i,e){
-									  if (i<(_CAUSALE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
-										var n=parseInt($(e).text());
-         							  	CAUSALE=CAUSALE+n;
-									  }													
-						          })
-								  $('#quantita').FlipClock(CAUSALE, {
-										clockFace: 'Counter'
-								  });
-                            });
-                    },
-                    causali:function(){
-                    $.ajax({
-                        dataType:"html",
-                        dataFilter:function(d,t){
-                           return $(d);
-                        },
-                        url: server_url,
-                        data:"AZIONE=RIEPILOGHIVGMENSILI",
-                        method: 'GET'
-                        }).success(function(a,b,c) {
-                            console.log("Recupero Causali: ");
-                            CAUSALI=$(a).find('select[name="VOCISELEZIONATE"]');
-                            $('#causale_sel').append(CAUSALI);
-                        console.log($(CAUSALI).text())
-                        });
-                    }
+            contatori:function(da,a,cs){
+            var DA=da;
+            var A=a;
+            var CAUSALE_SEL=cs;
+            $.ajax({
+				   dataType:"html",
+				   dataFilter:function(d,t){
+						return $(d);
+				   },
+                   url: server_url,
+                   data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE="+CAUSALE_SEL+"&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
+                   method: 'POST'
+                   }).success(function(a,b,c) {
+                          console.log("Riepiloghi Contatori: "+ DA+" "+A);
+	                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
+                          $.each(_CAUSALE,function(i,e){
+							  if (i<(_CAUSALE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
+								var n=parseInt($(e).text());
+ 							  	CAUSALE=CAUSALE+n;
+							  }													
+				          })
+						  $('#quantita').FlipClock(CAUSALE, {
+								clockFace: 'Counter'
+						  });
+                    });
+            },
+            causali:function(){
+            $.ajax({
+                dataType:"html",
+                dataFilter:function(d,t){
+                   return $(d);
+                },
+                url: server_url,
+                data:"AZIONE=RIEPILOGHIVGMENSILI",
+                method: 'GET'
+                }).success(function(a,b,c) {
+                    console.log("Recupero Causali: ");
+                    CAUSALI=$(a).find('select[name="VOCISELEZIONATE"]');
+					$(CAUSALI).removeAttr('multiple');
+					$('select[name="VOCISELEZIONATE"]').remove();
+                    $('#causale_sel').append(CAUSALI);
+					$(CAUSALI).css("position","relative")
+					$(CAUSALI).css("top","-30px")
+                });
+            }
         };
+
+		var notifiche={
+			connetti:function(u,p){
+				nome="edgardo.ambrosi";
+				$.ajax({
+				  url: notifiche_aut_url,
+				  data:"u="+nome+"&pw="+p,
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					console.log("Autenticazione Notifiche Effettuata");
+					TICKET=$(c.responseText).text();
+				}).error(function(a,b,c){
+					alert("Autenticazione Notifiche Incompleta. Non si potranno recuperare le comunicazioni da parte dell'ente. Verificare le credenziali del sistema di notifica.")	
+				});
+			},
+			library:function(u){
+				$.ajax({
+				  url: notifiche_url+"/"+u,
+				  data:"alf_ticket="+TICKET,
+				  dataType:"text", 
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					console.log("Recupero Libreria Notifiche Effettuata");
+					(function(){a});
+					if (typeof recuperaNotifice == 'function') { 
+					  console.log("RECUPERA_NOTIFICHE ESISTE")
+					}else{
+					  console.log(typeof recuperaNotifiche)			
+					  console.log($(document.head).text())
+					}
+				}).error(function(a,b,c){
+					alert("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
+				});
+			}
+		}
 
 
 		/*CONTROLLO TIMBRATURE SUCCESSIVE*/
@@ -451,6 +493,7 @@ console.log(CAUSALE_SEL)
 		$("#credset").click(function() {
 			env.reset();
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
+			notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});
 
 		$('#NomeUtente').on('input', function() {
@@ -477,6 +520,7 @@ console.log(CAUSALE_SEL)
             $('#quantita').FlipClock(0, {
                     clockFace: 'Counter'
             });
+			env.reset();
             timeweb.causali();
             $('#perConteggio').fadeToggle("fast","linear");
 		})
@@ -485,5 +529,13 @@ console.log(CAUSALE_SEL)
 			env.reset();
 			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE,CAUSALE_SEL);
 		})
-		
+		$('#Notifiche').click(function(){
+			//scarica libreria solo 1 volta
+			notifiche.library($('#NomeUtente').val());
+			//aggiorna
+			//notifiche.download();
+			//visualizza notifica sempre 
+			//notifiche.visualizza();
+		})
+
 });
