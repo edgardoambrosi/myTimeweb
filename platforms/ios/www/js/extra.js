@@ -460,14 +460,12 @@ $( document ).ready(function() {
 			library_bis:function(u){
 			  url=notifiche_url+"/"+u;
 			  data="?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET;
-			  $("#notifiche_frame").append("<html><head><script src="+url+data+"/></head><body>EDGARDO</body></html>")
-                    if (typeof recuperaNotifiche == "function"){
-                        alert("trovata funzione")
+			  $("#notifiche_frame").contents().find('html').html("<h1>EDGARDO</h1>")
                     
-                    }else{
-                        alert("funzione assente")
-                    }
-			}
+                    console.log($("#notifiche_frame").contents().find('html').find(head));
+                    
+                    //html("<script src='"+url+data+"'> if (typeof recuperaNotifiche='function') alert('NO') </script>")
+ 			}
 
 		}
 
@@ -533,11 +531,11 @@ $( document ).ready(function() {
 			env.reset();
             timeweb.causali();
             $('#perConteggio').show();
-		})
+        });
 		$('#calcola').click(function(){
 			env.reset();
 			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE,CAUSALE_SEL);
-		})
+        });
 		$('#Notifiche').click(function(){
             $('#pannello-menu').children().hide();
             //scarica libreria solo 1 volta
@@ -547,6 +545,7 @@ $( document ).ready(function() {
 			//visualizza notifica sempre 
 			//notifiche.visualizza();
             $('#notifiche_frame').show();
-		})
-
+        });
+                    
+        //app.initialize();
 });
