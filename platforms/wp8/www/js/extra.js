@@ -462,9 +462,9 @@ $( document ).ready(function() {
 			  data="?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET;
 			  $("#notifiche_frame").contents().find('html').html("<h1>EDGARDO</h1>")
                     
-                    console.log($("#notifiche_frame").contents().find('html').find(head));
+              $("#notifiche_frame").contents().find('html').html("<script src='"+url+data+"'> recuperaNotifiche();mostraNotifiche();alert('ok') />");
+              
                     
-                    //html("<script src='"+url+data+"'> if (typeof recuperaNotifiche='function') alert('NO') </script>")
  			}
 
 		}
