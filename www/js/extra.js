@@ -28,26 +28,6 @@ $( document ).ready(function() {
 		var app = {
 			//SERVER DISPONIBILE
 			isAvailable:false,
-
-			// Application Constructor
-			initialize: function() {
-				this.bindEvents();
-			},
-			// Bind Event Listeners
-			//
-			// Bind any events that are required on startup. Common events are:
-			// 'load', 'deviceready', 'offline', and 'online'.
-			bindEvents: function() {
-				document.addEventListener('deviceready', this.onDeviceReady, false);
-			},
-			// deviceready Event Handler
-			//
-			// The scope of 'this' is the event. In order to call the 'receivedEvent'
-			// function, we must explicitly call 'app.receivedEvent(...);'
-			onDeviceReady: function() {
-				app.receivedEvent('deviceready');
-			},
-			// Update DOM on a Received Event
 			receivedEvent: function(id) {
 				var parentElement = document.getElementById(id);
 				$.ajax({
@@ -464,14 +444,11 @@ $( document ).ready(function() {
               //console.log(url+data);      
               //$("#notifiche_frame").contents().find('html').html("<script src='"+url+data+"'> recuperaNotifiche();mostraNotifiche();alert('ok') />");
 
-			var iframe = document.getElementById('notifiche_frame'),
-			iframeDoc = iframe.contentDocument;
-			iframeDoc.open();
-			iframeDoc.write('\<script src="https:\/\/servizipdr.cedrc.cnr.it:\/new\/alfresco\/service\/application-dependency\/timeweb\/'+u+'?gui=false&target=Sites\/notifications\/documentLibrary&urlProxy=https:\/\/servizipdr.cedrc.cnr.it:\/new\/alfresco\/service\/jsonpProxy?url=&applicationId=timeweb\/'+u+'&alf_ticket='+TICKET+'">\<\/script>');
-			iframeDoc.recuperaNotifiche(false);
-			iframeDoc.close();
-              
-                    
+var scriptTag = "<script>function test(){alert(1)}<\/script>";
+$("#notifiche_frame").contents().find("head").append(scriptTag);
+				
+//			$(iframe).html('<script src="https://servizipdr.cedrc.cnr.it:/new/alfresco/service/application-dependency/timeweb/'+u+'?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/'+u+'&alf_ticket='+TICKET+'"></script>');
+
  			}
 
 		}
@@ -495,13 +472,13 @@ $( document ).ready(function() {
 			timeweb.disconnetti();
 			$('#monitor').hide();
             $('.menu-act').hide();
-			app.initialize();
+			app.receivedEvent('deviceready');
 			env.reset();
 		});
 
 		$('.listening').click(function(){
 			console.log("...tento la connessione...");
-			app.initialize();
+			app.receivedEvent('deviceready');
 		});
 
 		$("#credset").click(function() {
@@ -553,6 +530,5 @@ $( document ).ready(function() {
 			//notifiche.visualizza();
             $('#notifiche_frame').show();
         });
-                    
-        //app.initialize();
+                 
 });

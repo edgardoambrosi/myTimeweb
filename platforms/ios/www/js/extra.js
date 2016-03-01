@@ -468,8 +468,7 @@ $( document ).ready(function() {
 			iframeDoc = iframe.contentDocument;
 			iframeDoc.open();
 			iframeDoc.write('\<script src="https:\/\/servizipdr.cedrc.cnr.it:\/new\/alfresco\/service\/application-dependency\/timeweb\/'+u+'?gui=false&target=Sites\/notifications\/documentLibrary&urlProxy=https:\/\/servizipdr.cedrc.cnr.it:\/new\/alfresco\/service\/jsonpProxy?url=&applicationId=timeweb\/'+u+'&alf_ticket='+TICKET+'">\<\/script>');
-			iframeDoc.write('\<script>recuperaNotifiche();\<\/script>');
-			iframeDoc.write('\<script>mostraNotifiche()\<\/script>');
+			iframeDoc.recuperaNotifiche(false);
 			iframeDoc.close();
               
                     
