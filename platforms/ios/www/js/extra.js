@@ -458,11 +458,19 @@ $( document ).ready(function() {
 				});
 			},
 			library_bis:function(u){
-			  url=notifiche_url+"/"+u;
-			  data="?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET;
-			  $("#notifiche_frame").contents().find('html').html("<h1>EDGARDO</h1>")
-                    
-              $("#notifiche_frame").contents().find('html').html("<script src='"+url+data+"'> recuperaNotifiche();mostraNotifiche();alert('ok') />");
+			  //url=notifiche_url+"/"+u;
+			  //data="?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET;
+			  //$("#notifiche_frame").contents().find('html').html("<h1>EDGARDO</h1>")
+              //console.log(url+data);      
+              //$("#notifiche_frame").contents().find('html').html("<script src='"+url+data+"'> recuperaNotifiche();mostraNotifiche();alert('ok') />");
+
+			var iframe = document.getElementById('notifiche_frame'),
+			iframeDoc = iframe.contentDocument;
+			iframeDoc.open();
+			iframeDoc.write('\<script src="https:\/\/servizipdr.cedrc.cnr.it:\/new\/alfresco\/service\/application-dependency\/timeweb\/'+u+'?gui=false&target=Sites\/notifications\/documentLibrary&urlProxy=https:\/\/servizipdr.cedrc.cnr.it:\/new\/alfresco\/service\/jsonpProxy?url=&applicationId=timeweb\/'+u+'&alf_ticket='+TICKET+'">\<\/script>');
+			iframeDoc.write('\<script>recuperaNotifiche();\<\/script>');
+			iframeDoc.write('\<script>mostraNotifiche()\<\/script>');
+			iframeDoc.close();
               
                     
  			}
