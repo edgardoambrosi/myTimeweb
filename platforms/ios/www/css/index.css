@@ -223,6 +223,7 @@ h1 {
     height: 90vmax;
     position: fixed;
     color:black;
+	overflow: scroll;
 }
 #calcola{
     width:13vmax;
@@ -302,3 +303,46 @@ h1 {
 	margin-left:auto;
 	margin-right:auto;
 }
+/*************************/
+
+/*************************/
+/*http://www.jankoatwarpspeed.com/css-message-boxes-for-different-message-types/*/
+.info{
+	font-family:Arial, Helvetica, sans-serif; 
+	font-size:13px;
+	border: 1px solid;
+	width: 43vmax;
+	margin: 10px 0px;
+	padding:15px 10px 15px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	color: black;
+	background-color: #4CB24C;
+	background-image: url('../img/info.png');
+}
+/*************************/
+
+/*************************/
+/*http://www.cssportal.com/blog/create-css-notification-badge/*/
+.badge {
+   position:relative;
+}
+.badge[data-badge]:after {
+    content: attr(data-badge);
+    position: absolute;
+    top: -10px;
+    right: 70px;
+    font-size: .9em;
+    background: red;
+    color: white;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #333;
+}
+
+/*************************/
+
+

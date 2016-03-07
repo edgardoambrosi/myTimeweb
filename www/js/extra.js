@@ -12,6 +12,7 @@ $( document ).ready(function() {
 		var USCITA_PREVISTA=0;
 		var GIORNATATERMINATASOSPESA;
 		var	TOTALE="07:42:00";
+		var PAUSAPRANZO="00:30:00"
 		var clockCD="";	
 		var clockCN="";
 		var server_url="https://gescar.rm.cnr.it/timeweb/TwNet.dll";
@@ -67,6 +68,7 @@ $( document ).ready(function() {
 				GIORNATATERMINATASOSPESA;
 				DATA_GIORNO_LAVORATO="";
 				TOTALE="07:42:00";
+				PAUSAPRANZO="00:30:00"
                 CAUSALI=new Object();
 				CAUSALE=0;
 				CAUSALE_SEL="";
@@ -161,6 +163,9 @@ $( document ).ready(function() {
 									t.toISOString().substr(11, 8);
 									SALDOstr="-"+t.toISOString().substr(11, 8);
 									SALDO=DALAVORARE * (-1);
+/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
+									PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
+									SALDO=( SALDO - PAUSAPRANZOsec );
 								}else{					
 									SALDO=LAVORATO-TOTALEsec;
 									t = new Date(null);
@@ -195,6 +200,10 @@ $( document ).ready(function() {
 								t.toISOString().substr(11, 8);
 								SALDOstr="-"+t.toISOString().substr(11, 8);
 								SALDO=DALAVORARE * (-1);
+
+/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
+								PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
+								SALDO=( SALDO - PAUSAPRANZOsec );
 							}else{					
 								SALDO=LAVORATO-TOTALEsec;
 								t = new Date(null);
