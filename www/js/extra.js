@@ -220,7 +220,12 @@ $( document ).ready(function() {
 			uscita_prevista:function(){
 					ORARIOATTUALE=((new Date()).toString().split(" "))[4];
 					ORARIOATTUALEsec=esame_timbrature.insecondi(ORARIOATTUALE);
-					USCITA_PREVISTA=DALAVORARE+ORARIOATTUALEsec;
+                    TOTALEsec=esame_timbrature.insecondi(TOTALE);
+                    if ( TOTALEsec > LAVORATO ) {
+                        USCITA_PREVISTA=DALAVORARE+ORARIOATTUALEsec;
+                    }else{
+                        USCITA_PREVISTA=0;
+                    }
 			},
 			insecondi:function(orario){
 				var hms = orario;   // your input string tipo '02:04:33'
@@ -323,7 +328,7 @@ $( document ).ready(function() {
 
 					/*TEST EFFETTUATI*/
 					//valide				
-					//_TIMBRATURE='E10:56'
+					//_TIMBRATURE='E10:56 U11:00'
 					//_TIMBRATURE='E07:56 U16:24' 
 					//_TIMBRATURE='E07:56 U08:30 E09:45' 
 					//_TIMBRATURE='E07:56 U08:30 E09:45 U10:15' 

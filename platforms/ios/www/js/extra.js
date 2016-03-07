@@ -163,10 +163,9 @@ $( document ).ready(function() {
 									t.toISOString().substr(11, 8);
 									SALDOstr="-"+t.toISOString().substr(11, 8);
 									SALDO=DALAVORARE * (-1);
+/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
 									PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
-									SALDO=SALDO - PAUSAPRANZOsec;
-alert(SALDO)
-alert(PAUSAPRANZO)
+									SALDO=( SALDO - PAUSAPRANZOsec );
 								}else{					
 									SALDO=LAVORATO-TOTALEsec;
 									t = new Date(null);
@@ -201,6 +200,10 @@ alert(PAUSAPRANZO)
 								t.toISOString().substr(11, 8);
 								SALDOstr="-"+t.toISOString().substr(11, 8);
 								SALDO=DALAVORARE * (-1);
+
+/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
+								PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
+								SALDO=( SALDO - PAUSAPRANZOsec );
 							}else{					
 								SALDO=LAVORATO-TOTALEsec;
 								t = new Date(null);
@@ -217,7 +220,12 @@ alert(PAUSAPRANZO)
 			uscita_prevista:function(){
 					ORARIOATTUALE=((new Date()).toString().split(" "))[4];
 					ORARIOATTUALEsec=esame_timbrature.insecondi(ORARIOATTUALE);
-					USCITA_PREVISTA=DALAVORARE+ORARIOATTUALEsec;
+                    TOTALEsec=esame_timbrature.insecondi(TOTALE);
+                    if ( TOTALEsec > LAVORATO ) {
+                        USCITA_PREVISTA=DALAVORARE+ORARIOATTUALEsec;
+                    }else{
+                        USCITA_PREVISTA=0;
+                    }
 			},
 			insecondi:function(orario){
 				var hms = orario;   // your input string tipo '02:04:33'
@@ -320,7 +328,7 @@ alert(PAUSAPRANZO)
 
 					/*TEST EFFETTUATI*/
 					//valide				
-					//_TIMBRATURE='E10:56'
+					//_TIMBRATURE='E10:56 U11:00'
 					//_TIMBRATURE='E07:56 U16:24' 
 					//_TIMBRATURE='E07:56 U08:30 E09:45' 
 					//_TIMBRATURE='E07:56 U08:30 E09:45 U10:15' 
