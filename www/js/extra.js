@@ -16,7 +16,7 @@ $( document ).ready(function() {
 		var clockCN="";
 		var server_url="https://gescar.rm.cnr.it/timeweb/TwNet.dll";
 		var notifiche_aut_url="https://servizipdr.cedrc.cnr.it/new/alfresco/service/api/login";
-		var notifiche_url="https://servizipdr.cedrc.cnr.it:/new/alfresco/service/application-dependency/timeweb";
+		var notifiche_url="https://servizipdr.cedrc.cnr.it:/new/alfresco/service/application-dependency/timeweb_mobile";
 		var TICKET="";
 		var DATA_GIORNO_LAVORATO="";
         var DATA_GIORNO_INIZIO="";
@@ -416,7 +416,9 @@ $( document ).ready(function() {
 				  method: 'GET'	
 				}).success(function(a,b,c) {
 					console.log("Autenticazione Notifiche Effettuata");
-					TICKET=$(c.responseText).text();
+					TICKET=$(c.responseText).text().replace("\n", ""); //sostituisco \n perchè il testo estratto con text() come primo carattere lo include.
+					//subito dopo il login al servizio notifica effettuo il download delle notifiche
+		       		notifiche.library($('#NomeUtente').val());
 				}).error(function(a,b,c){
 					alert("Autenticazione Notifiche Incompleta. Non si potranno recuperare le comunicazioni da parte dell'ente. Verificare le credenziali del sistema di notifica.")	
 				});
@@ -428,29 +430,24 @@ $( document ).ready(function() {
 				  dataType:"script", 
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					//eseguo le dipendenze scaricate come funzione anonima immediata. Dopo qualche istante le funzioni della libreria saranno disponibili.
-					(function(){a})
 					console.log("Recupero Libreria Notifiche Effettuata");
- 				    recuperaNotifiche(true)
-					mostraNotifiche(false)
+					var t=setInterval(function(){
+					 if ( typeof recuperaNotifiche === "function"){
+						recuperaNotifiche(false);
+						clearInterval(t);
+						var f=setInterval(function(){
+							if ( listaNotification.length > 0 ){
+								$('#Notifiche').attr('data-badge',listaNotification.length)
+								//clearInterval(f);
+							}
+						},1000)
+					 }	
+					},5000);
+
 				}).error(function(a,b,c){
 					alert("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
 				});
-			},
-			library_bis:function(u){
-			  //url=notifiche_url+"/"+u;
-			  //data="?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET;
-			  //$("#notifiche_frame").contents().find('html').html("<h1>EDGARDO</h1>")
-              //console.log(url+data);      
-              //$("#notifiche_frame").contents().find('html').html("<script src='"+url+data+"'> recuperaNotifiche();mostraNotifiche();alert('ok') />");
-
-var scriptTag = "<script>function test(){alert(1)}<\/script>";
-$("#notifiche_frame").contents().find("head").append(scriptTag);
-				
-//			$(iframe).html('<script src="https://servizipdr.cedrc.cnr.it:/new/alfresco/service/application-dependency/timeweb/'+u+'?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/'+u+'&alf_ticket='+TICKET+'"></script>');
-
- 			}
-
+			}
 		}
 
 
@@ -502,9 +499,9 @@ $("#notifiche_frame").contents().find("head").append(scriptTag);
 		$('.menu-act').click(function(){
             $('.menu').fadeToggle("fast","linear");
             $('#pannello-menu').fadeToggle("fast","linear");
+			$("div[id*='info']").remove();
             $('#monitor').fadeToggle("fast","linear");
             $('.app').fadeToggle("fast","linear");
-            
 		});		
 						
 		$('#Causale').click(function(){
@@ -522,13 +519,19 @@ $("#notifiche_frame").contents().find("head").append(scriptTag);
         });
 		$('#Notifiche').click(function(){
             $('#pannello-menu').children().hide();
-            //scarica libreria solo 1 volta
-			notifiche.library_bis($('#NomeUtente').val());
-			//aggiorna
-			//notifiche.download();
-			//visualizza notifica sempre 
-			//notifiche.visualizza();
-            $('#notifiche_frame').show();
+
+			$("div[id*='info']").remove()
+			var f=setInterval(function(){
+				if ( listaNotification.length > 0 ){
+					$.each(listaNotification,function(i,e){
+						var d=$('#pannello-menu').append('<div id="info-'+i+'"></div>');
+						$("#info-"+i).addClass('info');
+						$("#info-"+i).append('<h1>'+atob($.parseJSON(e)[0].titolo)+'</h1>')
+						$("#info-"+i).append('<h2>'+atob($.parseJSON(e)[0].notification)+'</h2>')																
+					})
+					clearInterval(f);
+				}
+			},1000)
         });
                  
 });

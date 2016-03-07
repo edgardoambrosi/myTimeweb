@@ -28,26 +28,6 @@ $( document ).ready(function() {
 		var app = {
 			//SERVER DISPONIBILE
 			isAvailable:false,
-
-			// Application Constructor
-			initialize: function() {
-				this.bindEvents();
-			},
-			// Bind Event Listeners
-			//
-			// Bind any events that are required on startup. Common events are:
-			// 'load', 'deviceready', 'offline', and 'online'.
-			bindEvents: function() {
-				document.addEventListener('deviceready', this.onDeviceReady, false);
-			},
-			// deviceready Event Handler
-			//
-			// The scope of 'this' is the event. In order to call the 'receivedEvent'
-			// function, we must explicitly call 'app.receivedEvent(...);'
-			onDeviceReady: function() {
-				app.receivedEvent('deviceready');
-			},
-			// Update DOM on a Received Event
 			receivedEvent: function(id) {
 				var parentElement = document.getElementById(id);
 				$.ajax({
@@ -445,34 +425,15 @@ $( document ).ready(function() {
 				$.ajax({
 				  url: notifiche_url+"/"+u,
 				  data:"gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET,
-				  dataType:"script", 
+				  dataType:"text", 
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					//eseguo le dipendenze scaricate come funzione anonima immediata. Dopo qualche istante le funzioni della libreria saranno disponibili.
-					(function(){a})
 					console.log("Recupero Libreria Notifiche Effettuata");
- 				    recuperaNotifiche(true)
-					mostraNotifiche(false)
 				}).error(function(a,b,c){
 					alert("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
 				});
-			},
-			library_bis:function(u){
-			  //url=notifiche_url+"/"+u;
-			  //data="?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET;
-			  //$("#notifiche_frame").contents().find('html').html("<h1>EDGARDO</h1>")
-              //console.log(url+data);      
-              //$("#notifiche_frame").contents().find('html').html("<script src='"+url+data+"'> recuperaNotifiche();mostraNotifiche();alert('ok') />");
-
-			var iframe = document.getElementById('notifiche_frame'),
-			iframeDoc = iframe.contentDocument;
-			iframeDoc.open();
-			iframeDoc.write('\<script src="https:\/\/servizipdr.cedrc.cnr.it:\/new\/alfresco\/service\/application-dependency\/timeweb\/'+u+'?gui=false&target=Sites\/notifications\/documentLibrary&urlProxy=https:\/\/servizipdr.cedrc.cnr.it:\/new\/alfresco\/service\/jsonpProxy?url=&applicationId=timeweb\/'+u+'&alf_ticket='+TICKET+'">\<\/script>');
-			iframeDoc.recuperaNotifiche(false);
-			iframeDoc.close();
-              
-                    
- 			}
+			}
+//			$(iframe).html('<script src="https://servizipdr.cedrc.cnr.it:/new/alfresco/service/application-dependency/timeweb/'+u+'?gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/'+u+'&alf_ticket='+TICKET+'"></script>');
 
 		}
 
@@ -495,13 +456,13 @@ $( document ).ready(function() {
 			timeweb.disconnetti();
 			$('#monitor').hide();
             $('.menu-act').hide();
-			app.initialize();
+			app.receivedEvent('deviceready');
 			env.reset();
 		});
 
 		$('.listening').click(function(){
 			console.log("...tento la connessione...");
-			app.initialize();
+			app.receivedEvent('deviceready');
 		});
 
 		$("#credset").click(function() {
@@ -546,13 +507,12 @@ $( document ).ready(function() {
 		$('#Notifiche').click(function(){
             $('#pannello-menu').children().hide();
             //scarica libreria solo 1 volta
-			notifiche.library_bis($('#NomeUtente').val());
+			notifiche.library($('#NomeUtente').val());
 			//aggiorna
 			//notifiche.download();
 			//visualizza notifica sempre 
 			//notifiche.visualizza();
             $('#notifiche_frame').show();
         });
-                    
-        //app.initialize();
+                 
 });
