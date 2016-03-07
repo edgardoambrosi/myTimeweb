@@ -164,8 +164,9 @@ $( document ).ready(function() {
 									SALDOstr="-"+t.toISOString().substr(11, 8);
 									SALDO=DALAVORARE * (-1);
 /*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
+                    alert("QUI")
 									PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
-									SALDO=( SALDO - PAUSAPRANZOsec );
+									//SALDO=( SALDO - PAUSAPRANZOsec );
 								}else{					
 									SALDO=LAVORATO-TOTALEsec;
 									t = new Date(null);
