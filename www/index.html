@@ -61,15 +61,28 @@
 		</div>
 
 		<div id="credenziali" style="display:none">
-			<label for="NomeUtente">Nome Utente</label>
-			<input type="text" id="NomeUtente" name="NomeUtente" value="11544amed"/></dd>
-			<label for="Password">Password</label>
-			<input type="password" id="Password" name="Password" value="El1sab3tta"/></dd>
+			<label for="NomeUtente">Nome Utente</label><input type="text" id="NomeUtente" name="NomeUtente" value=""/></br>
+			<label for="Password">Password</label><input type="password" id="Password" name="Password" value=""/></br>
+			<input type="checkbox" name="SaveCred" value="false" />Ricordami su questo dispositivo
 			<button id="credset" type="submit" >Autorizza</button>
 		</div>
 
 
 		<div id="pannello-menu" class="block-level embossed-heavy pannello-embossed-heavy" style="display:none">
+
+			<form class="block-level embossed-heavy pannello-embossed-heavy settings" style="display:none">
+				<label for="TOTALE">Totale ore da lavorare:</label><br>
+				<input type="time" name="TOTALE" value="07:42:00" checked><br>
+				<label for="PAUSAPRANZO">Pausa pranzo:</label><br>
+				<input type="time" name="PAUSAPRANZO" value="00:30:00"><br>
+				<label for="server_url">Server URL:</label><br>	
+				<input type="url" name="server_url" size="55" value="https://gescar.rm.cnr.it/timeweb/TwNet.dll"><br>
+				<label for="notifiche_aut_url">Servizio Notifiche Login URL:</label><br>	
+				<input type="url" name="notifiche_aut_url" size="55" value="https://servizipdr.cedrc.cnr.it/new/alfresco/service/api/login"><br>
+				<label for="notifiche_url">Server URL:</label><br>	
+				<input type="url" name="Servizio Notifiche URL" size="55" value="https://servizipdr.cedrc.cnr.it:/new/alfresco/service/application-dependency/timeweb_mobile"><br>
+			</form> 
+
 
 		  <div id="perConteggio" style="display:none">
 		    <h1>Rapporto Conteggio</h1>
@@ -88,7 +101,7 @@
 		    </div>
 		  </div>
 		</div>
-    
+
 		<div>
 			<table class="menu" style='display:none'>
 				<tbody>
@@ -102,8 +115,12 @@
 			<table class="menu-act" style='display:none'>
 				<tbody>
 					<tr>
-						<td><div style="zoom:2.3; width:100%">
+						<td><div id="imgmenu" style="zoom:2.3;">
                                 <img src="img/menu.svg"/>
+                            </div>
+                        </td>
+						<td><div id="imgset" style="zoom:0.07; display:none">
+                                <img src="img/settings.svg"/>
                             </div>
                         </td>
 					</tr>

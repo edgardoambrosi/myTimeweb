@@ -464,7 +464,6 @@ $( document ).ready(function() {
 			}
 		}
 
-
 		/*CONTROLLO TIMBRATURE SUCCESSIVE*/
 		$('#strisciata').click(function(){
 			console.log("...controllo timbrature...")
@@ -492,8 +491,58 @@ $( document ).ready(function() {
 			app.receivedEvent('deviceready');
 		});
 
+		$("input[name='SaveCred']").click(function() {
+			if ( $("input[name='SaveCred']").prop('checked') ){
+		        var db = window.openDatabase("Credenziali", "1.0", "Credenziali", 200000);
+				db.transaction(
+					function(transaction){
+						transaction.executeSql(
+						  'select username,password from credenziali;',
+						  [],
+						  function(tx, results){
+							  for (var j=0; j<results.rows.length; j++) {
+								var row = results.rows.item(j);
+									$('#NomeUtente').val(row['username']);
+									$('#Password').val(row['password']);
+							  }
+						   }
+						 );
+					}
+				)			
+			 }	
+
+			if ( !($("input[name='SaveCred']").prop('checked')) ){
+		        var db = window.openDatabase("Credenziali", "1.0", "Credenziali", 200000);
+				db.transaction(
+					function(transaction){
+						transaction.executeSql(
+						  'DROP TABLE IF EXISTS credenziali;'
+						);
+					}
+				)			
+			 }	
+
+		});
+
 		$("#credset").click(function() {
 			env.reset();
+			//se SaveCred è vero, creo DB credenziali se non esiste
+			if ( $("input[name='SaveCred']").prop('checked') ){
+		        var credenziali = window.openDatabase("Credenziali", "1.0", "Credenziali", 200000);
+				credenziali.transaction(
+					function(tx){tx.executeSql('DROP TABLE IF EXISTS credenziali')},
+					function(tx,err){console.log("Error processing SQL: "+err);}							
+				);
+				credenziali.transaction(
+					function(tx){tx.executeSql('CREATE TABLE IF NOT EXISTS credenziali (username unique,password)')},
+					function(tx,err){console.log("Error processing SQL: "+err);}							
+				);
+                credenziali.transaction(
+					function(tx) {
+				        tx.executeSql("INSERT INTO credenziali (username, password) VALUES ('"+$('#NomeUtente').val()+"','"+$('#Password').val()+"')");
+				    }
+				);			
+			}
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
 			notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});
@@ -510,13 +559,21 @@ $( document ).ready(function() {
 			timeweb.cartellino(DATA_GIORNO_LAVORATO);
 		});
 
-		$('.menu-act').click(function(){
+		$('#imgmenu').click(function(){
             $('.menu').fadeToggle("fast","linear");
             $('#pannello-menu').fadeToggle("fast","linear");
+			$('#imgset').fadeToggle("fast","linear");
 			$("div[id*='info']").remove();
             $('#monitor').fadeToggle("fast","linear");
             $('.app').fadeToggle("fast","linear");
 		});		
+
+		$('#imgset').click(function(){
+            $('#pannello-menu').children().hide();
+            $('.settings').fadeToggle("fast","linear");
+				
+		});		
+
 						
 		$('#Causale').click(function(){
             $('#pannello-menu').children().hide();
@@ -547,5 +604,9 @@ $( document ).ready(function() {
 				}
 			},1000)
         });
-                 
+   		
+
+		//Prima operazione eseguita è l'abilitazione ad usare le credenziali salvate.
+		//Questo viene fatto simulando il click sul flag "Ricordami su questo dispositivo"
+		$("input[name='SaveCred']").trigger('click')           
 });

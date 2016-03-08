@@ -163,10 +163,9 @@ $( document ).ready(function() {
 									t.toISOString().substr(11, 8);
 									SALDOstr="-"+t.toISOString().substr(11, 8);
 									SALDO=DALAVORARE * (-1);
+/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
 									PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
-									SALDO=SALDO - PAUSAPRANZOsec;
-alert(SALDO)
-alert(PAUSAPRANZO)
+									SALDO=( SALDO - PAUSAPRANZOsec );
 								}else{					
 									SALDO=LAVORATO-TOTALEsec;
 									t = new Date(null);
@@ -201,6 +200,10 @@ alert(PAUSAPRANZO)
 								t.toISOString().substr(11, 8);
 								SALDOstr="-"+t.toISOString().substr(11, 8);
 								SALDO=DALAVORARE * (-1);
+
+/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
+								PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
+								SALDO=( SALDO - PAUSAPRANZOsec );
 							}else{					
 								SALDO=LAVORATO-TOTALEsec;
 								t = new Date(null);
@@ -217,7 +220,12 @@ alert(PAUSAPRANZO)
 			uscita_prevista:function(){
 					ORARIOATTUALE=((new Date()).toString().split(" "))[4];
 					ORARIOATTUALEsec=esame_timbrature.insecondi(ORARIOATTUALE);
-					USCITA_PREVISTA=DALAVORARE+ORARIOATTUALEsec;
+                    TOTALEsec=esame_timbrature.insecondi(TOTALE);
+                    if ( TOTALEsec > LAVORATO ) {
+                        USCITA_PREVISTA=DALAVORARE+ORARIOATTUALEsec;
+                    }else{
+                        USCITA_PREVISTA=0;
+                    }
 			},
 			insecondi:function(orario){
 				var hms = orario;   // your input string tipo '02:04:33'
@@ -320,7 +328,7 @@ alert(PAUSAPRANZO)
 
 					/*TEST EFFETTUATI*/
 					//valide				
-					//_TIMBRATURE='E10:56'
+					//_TIMBRATURE='E10:56 U11:00'
 					//_TIMBRATURE='E07:56 U16:24' 
 					//_TIMBRATURE='E07:56 U08:30 E09:45' 
 					//_TIMBRATURE='E07:56 U08:30 E09:45 U10:15' 
@@ -456,7 +464,6 @@ alert(PAUSAPRANZO)
 			}
 		}
 
-
 		/*CONTROLLO TIMBRATURE SUCCESSIVE*/
 		$('#strisciata').click(function(){
 			console.log("...controllo timbrature...")
@@ -486,6 +493,20 @@ alert(PAUSAPRANZO)
 
 		$("#credset").click(function() {
 			env.reset();
+			//se SaveCred è vero, creo DB credenziali se non esiste
+			if ( $("input[name='SaveCred']").prop('checked') ){
+		        var credenziali = window.openDatabase("Credenziali", "1.0", "Credenziali", 200000);
+				credenziali.transaction(
+					function(tx){tx.executeSql('CREATE TABLE IF NOT EXISTS credenziali (username unique,password)')},
+					function(tx,err){console.log("Error processing SQL: "+err);}							
+				);
+/*                credenziali.transaction(
+					function(tx) {
+				        tx.executeSql("INSERT INTO credenziali (username, password) VALUES ("+$('#NomeUtente').val()+","+$('#Password').val()+")");
+				    },
+*/
+				);			
+			}
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
 			notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});

@@ -164,9 +164,8 @@ $( document ).ready(function() {
 									SALDOstr="-"+t.toISOString().substr(11, 8);
 									SALDO=DALAVORARE * (-1);
 /*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
-                    alert("QUI")
 									PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
-									//SALDO=( SALDO - PAUSAPRANZOsec );
+									SALDO=( SALDO - PAUSAPRANZOsec );
 								}else{					
 									SALDO=LAVORATO-TOTALEsec;
 									t = new Date(null);
@@ -465,7 +464,6 @@ $( document ).ready(function() {
 			}
 		}
 
-
 		/*CONTROLLO TIMBRATURE SUCCESSIVE*/
 		$('#strisciata').click(function(){
 			console.log("...controllo timbrature...")
@@ -495,6 +493,20 @@ $( document ).ready(function() {
 
 		$("#credset").click(function() {
 			env.reset();
+			//se SaveCred è vero, creo DB credenziali se non esiste
+			if ( $("input[name='SaveCred']").prop('checked') ){
+		        var credenziali = window.openDatabase("Credenziali", "1.0", "Credenziali", 200000);
+				credenziali.transaction(
+					function(tx){tx.executeSql('CREATE TABLE IF NOT EXISTS credenziali (username unique,password)')},
+					function(tx,err){console.log("Error processing SQL: "+err);}							
+				);
+/*                credenziali.transaction(
+					function(tx) {
+				        tx.executeSql("INSERT INTO credenziali (username, password) VALUES ("+$('#NomeUtente').val()+","+$('#Password').val()+")");
+				    },
+*/
+				);			
+			}
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
 			notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});
