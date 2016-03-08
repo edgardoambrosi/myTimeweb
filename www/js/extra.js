@@ -610,29 +610,30 @@ $( document ).ready(function() {
 		//Questo viene fatto simulando il click sul flag "Ricordami su questo dispositivo"
 		$("input[name='SaveCred']").trigger('click')     
 					
-		//cerca il db impostazioni, se c'è lo carico e imposto i settaggi. Altrimenti scrivo nel db quelli di default.		
-		var setDb=false;
+		//cerca il db impostazioni, se c'è lo carico e imposto i settaggi. Altrimenti scrivo nel db quelli di default.
         var impostazioni = window.openDatabase("Impostazioni", "1.0", "Impostazioni", 200000);
+        impostazioni.transaction(
+            function(tx){tx.executeSql('drop table impostazioni;')}
+        )
 		impostazioni.transaction(
 			function(tx){tx.executeSql('create table impostazioni (totale,pausa,server,notifiche_server,notifiche_auth);')},
 			function(err){
 				//se la tabella esiste viene restituito codice 5				
 				if (err.code==5){
-					 console.log("Carico Impostazioni");
+                    console.log("Carico Impostazioni");
 				}
 			},
-			function(tx){
+			function(){
 			    console.log("Db creare...");
-				impostazioni.transaction(
-					function(tx){tx.executeSql("INSERT INTO impostazioni (totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+TOTALE+"','"+PAUSAPRANZO+"'"+server_url+"','"+"'"+notifiche_url+"','"+notifiche_aut_url+"')")}
-				)
-				setDb=true;
-			}
+                impostazioni.transaction(
+                    function(tx){
+                        tx.executeSql("INSERT INTO impostazioni (totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+TOTALE+"','"+PAUSAPRANZO+"','"+server_url+"'+'"+notifiche_url+"','"+notifiche_aut_url+"')")
+                    },
+                    function(err){alert("QUI"+err)},
+                    function(){alert("Inizializzazione eseguita.")}
+                                         
+                )
+            }
+
 		);
-		if (setDb){
-			console.log("...Inizializzo")
-			impostazioni.transaction(
-				function(tx){tx.executeSql("INSERT INTO impostazioni (totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+TOTALE+"','"+PAUSAPRANZO+"'"+server_url+"','"+"'"+notifiche_url+"','"+notifiche_aut_url+"')")}
-			)}			
-      
 });
