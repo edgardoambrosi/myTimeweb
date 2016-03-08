@@ -187,9 +187,16 @@ h1 {
 
 .menu-act{
 	opacity: 1;
-	width:100%;
+}
+#imgmenu{
 	position: fixed; 
-	top: 2vmax;
+	width:70%;
+	top: .5vmax;
+}
+#imgset{
+	position: fixed;
+    top: 10vmax;
+    right: 20vmax;
 }
 .menu{
 	opacity: 0;
