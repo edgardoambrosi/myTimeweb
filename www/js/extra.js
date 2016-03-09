@@ -25,6 +25,7 @@ $( document ).ready(function() {
         var CAUSALI=new Object();
 		var CAUSALE=0;
 		var CAUSALE_SEL="";
+		var CONNESSO=false;
 
 		var app = {
 			//SERVER DISPONIBILE
@@ -98,6 +99,9 @@ $( document ).ready(function() {
 				}
 				
 				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
+
+				//salvataggio impostazioni 
+				main.salva_impostazioni();
 
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
@@ -285,13 +289,22 @@ $( document ).ready(function() {
 				  data:"TIPOAUT=0&AZIONE=RICHIESTAAUTENTIFICAZIONE&NOMEPAGATTUALE=MOSTRALOGIN&USERNAME="+u+"&PASSWORD="+p+"&btnConf=Login",
 				  method: 'POST'	
 				}).complete(function(a,b,c) {
-					console.log("Autenticazione Effettuata");
-					timeweb.cartellino(d);
-					$('.received').show()
-					$('.listening').hide();
-					$('#credenziali').hide();					
-					$('#monitor').show();
-	            	$('.menu-act').show();
+					if ($($.parseHTML(a.responseText)[5]).text()=="Login"){
+						alert("Autenticazione non valida. L'accesso è garantito solo per la gestione dell'applicazione.")
+						$('.received').show()
+						$('.listening').hide();
+						$('#credenziali').hide();					
+		            	$('.menu-act').show();
+					}else{
+						console.log("Autenticazione Effettuata");
+						timeweb.cartellino(d);
+						$('.received').show()
+						$('.listening').hide();
+						$('#credenziali').hide();					
+						$('#monitor').show();
+		            	$('.menu-act').show();
+						CONNESSO=true;
+					}
 				});
 			},
 			disconnetti:function(){
@@ -423,10 +436,13 @@ $( document ).ready(function() {
 
 		var notifiche={
 			connetti:function(u,p){
-				nome="edgardo.ambrosi";
+				//nome="edgardo.ambrosi";
+				nome="timeweb";
+				password="timeweb";
 				$.ajax({
 				  url: notifiche_aut_url,
-				  data:"u="+nome+"&pw="+p,
+				  //data:"u="+u+"&pw="+p,
+				  data:"u="+nome+"&pw="+password,
 				  method: 'GET'	
 				}).success(function(a,b,c) {
 					console.log("Autenticazione Notifiche Effettuata");
@@ -491,6 +507,21 @@ $( document ).ready(function() {
 			app.receivedEvent('deviceready');
 		});
 
+		$("#reset_set").click(function(){
+			main.reset_impostazioni(true);
+			main.salva_impostazioni();
+		});
+		$("#salva_set").click(function(){
+			TOTALE=$("input[name='TOTALE']").val();
+			PAUSAPRANZO=$("input[name='PAUSAPRANZO']").val();
+			server_url=$("input[name='server_url']").val();
+			notifiche_url=$("input[name='notifiche_url']").val();
+			notifiche_aut_url=$("input[name='notifiche_aut_url']").val();
+			main.reset_impostazioni();
+			main.salva_impostazioni(true);
+					
+		});
+
 		$("input[name='SaveCred']").click(function() {
 			if ( $("input[name='SaveCred']").prop('checked') ){
 		        var db = window.openDatabase("Credenziali", "1.0", "Credenziali", 200000);
@@ -544,7 +575,7 @@ $( document ).ready(function() {
 				);			
 			}
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
-			notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
+			if (CONNESSO) notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});
 
 		$('#NomeUtente').on('input', function() {
@@ -569,6 +600,12 @@ $( document ).ready(function() {
 		});		
 
 		$('#imgset').click(function(){
+			$("input[name='TOTALE']").val(TOTALE);
+			$("input[name='PAUSAPRANZO']").val(PAUSAPRANZO);
+			$("input[name='server_url']").val(server_url);
+			$("input[name='notifiche_url']").val(notifiche_url);
+			$("input[name='notifiche_aut_url']").val(notifiche_aut_url);
+
             $('#pannello-menu').children().hide();
             $('.settings').fadeToggle("fast","linear");
 				
@@ -605,35 +642,68 @@ $( document ).ready(function() {
 			},1000)
         });
    		
-		//Operazioni Principali
-		//Prima operazione eseguita è l'abilitazione ad usare le credenziali salvate.
-		//Questo viene fatto simulando il click sul flag "Ricordami su questo dispositivo"
-		$("input[name='SaveCred']").trigger('click')     
-					
-		//cerca il db impostazioni, se c'è lo carico e imposto i settaggi. Altrimenti scrivo nel db quelli di default.
-        var impostazioni = window.openDatabase("Impostazioni", "1.0", "Impostazioni", 200000);
-        impostazioni.transaction(
-            function(tx){tx.executeSql('drop table impostazioni;')}
-        )
-		impostazioni.transaction(
-			function(tx){tx.executeSql('create table impostazioni (totale,pausa,server,notifiche_server,notifiche_auth);')},
-			function(err){
-				//se la tabella esiste viene restituito codice 5				
-				if (err.code==5){
-                    console.log("Carico Impostazioni");
-				}
-			},
-			function(){
-			    console.log("Db creare...");
-                impostazioni.transaction(
-                    function(tx){
-                        tx.executeSql("INSERT INTO impostazioni (totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+TOTALE+"','"+PAUSAPRANZO+"','"+server_url+"'+'"+notifiche_url+"','"+notifiche_aut_url+"')")
-                    },
-                    function(err){alert("QUI"+err)},
-                    function(){alert("Inizializzazione eseguita.")}
-                                         
-                )
-            }
 
-		);
+		var main={
+			//Abilitazione ad usare le credenziali salvate.
+			//Questo viene fatto simulando il click sul flag "Ricordami su questo dispositivo"
+			salva_cred:function(){	$("input[name='SaveCred']").trigger('click')  },
+			reset_impostazioni:function(feedback){
+				var impostazioni = window.openDatabase("Impostazioni", "1.0", "Impostazioni", 200000);
+				impostazioni.transaction(
+				    function(tx){tx.executeSql('drop table impostazioni;')},
+					function(err){alert("Reset Fallito")},
+					function(){if (feedback) alert("Reset Eseguito")}
+				)
+			},
+			salva_impostazioni:function(feedback){					
+				//Cerca il db impostazioni, se c'è lo carico e imposto i settaggi. Altrimenti scrivo nel db quelli di default.
+				var impostazioni = window.openDatabase("Impostazioni", "1.0", "Impostazioni", 200000);
+				impostazioni.transaction(
+					function(tx){tx.executeSql('create table impostazioni (totale,pausa,server,notifiche_server,notifiche_auth);')},
+					function(err){
+						//se la tabella esiste viene restituito codice 5				
+						if (err.code==5){
+				            console.log("Carico Impostazioni");
+							impostazioni.transaction(
+								function(tx){
+									tx.executeSql(
+									  'select totale,pausa,server,notifiche_server,notifiche_auth from impostazioni;',
+									  [],
+									  function(tx, results){
+										  for (var j=0; j<results.rows.length; j++) {
+											var row = results.rows.item(j);
+												TOTALE=row['totale'];
+												PAUSAPRANZO=row['pausa'];
+												server_url=row['server'];
+												notifiche_url=row['notifiche_server'];
+												notifiche_aut_url=row['notifiche_auth'];
+										  }
+									   }
+									 );
+								}
+							)			
+						}
+					},
+					function(){
+						console.log("Creazione Db...");
+				        impostazioni.transaction(
+				            function(tx){
+								tx.executeSql("INSERT INTO impostazioni (totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+TOTALE+"','"+PAUSAPRANZO+"','"+server_url+"','"+notifiche_url+"','"+notifiche_aut_url+"');")
+				            },
+				            function(err){console.log(err)},
+				            function(){
+								console.log("Inizializzazione eseguita.")
+								if (feedback) alert("Salvataggio eseguito");
+							}
+				                                 
+				        )
+				    }
+
+				);
+			}
+		};
+
+		//Operazioni Principali
+		main.salva_cred()
+		main.salva_impostazioni()
 });
