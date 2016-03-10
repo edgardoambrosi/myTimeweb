@@ -11,6 +11,9 @@
     <feature name="Vibration">
         <param name="android-package" value="org.apache.cordova.vibration.Vibration" />
     </feature>
+    <feature name="SpinnerPlugin">
+        <param name="android-package" value="net.justincredible.SpinnerPlugin" />
+    </feature>
     <allow-intent href="market:*" />
     <name>Timeweb Monitor</name>
     <description>

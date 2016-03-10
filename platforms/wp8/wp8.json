@@ -26,6 +26,9 @@
         },
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
+        },
+        "cordova-plugin-spinner": {
+            "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
         }
     },
     "dependent_plugins": {},
@@ -51,11 +54,20 @@
                 "navigator.notification",
                 "navigator"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-spinner/www/spinner-plugin.js",
+            "id": "cordova-plugin-spinner.SpinnerPlugin",
+            "pluginId": "cordova-plugin-spinner",
+            "clobbers": [
+                "SpinnerPlugin"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-calendar": "4.4.7",
         "cordova-plugin-whitelist": "1.2.1",
-        "cordova-plugin-vibration": "2.1.0"
+        "cordova-plugin-vibration": "2.1.0",
+        "cordova-plugin-spinner": "1.0.0"
     }
 }

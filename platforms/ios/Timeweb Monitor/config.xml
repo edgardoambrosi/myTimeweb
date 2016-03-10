@@ -19,6 +19,9 @@
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
     </feature>
+    <feature name="SpinnerPlugin">
+        <param name="ios-package" value="SpinnerPlugin" />
+    </feature>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <name>Timeweb Monitor</name>

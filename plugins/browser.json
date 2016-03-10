@@ -15,6 +15,9 @@
         },
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "it.cnr.si"
+        },
+        "cordova-plugin-spinner": {
+            "PACKAGE_NAME": "it.cnr.si"
         }
     },
     "dependent_plugins": {}
