@@ -55,6 +55,13 @@ $( document ).ready(function() {
 			}
 		};
 
+		var avvisi={
+			comunicazione:function(mess){
+				navigator.notification.alert(mess,null,"AVVISO",null);
+			}
+		}
+
+
 		var env={
 			reset: function(){
 				XTIMBRATURE="";
@@ -291,7 +298,7 @@ $( document ).ready(function() {
 				  method: 'POST'	
 				}).complete(function(a,b,c) {
 					if ($($.parseHTML(a.responseText)[5]).text()=="Login"){
-						alert("Autenticazione non valida. L'accesso è garantito solo per la gestione dell'applicazione.")
+						avvisi.comunicazione("Autenticazione non valida. L'accesso è garantito solo per la gestione dell'applicazione.")
 						$('.received').show()
 						$('.listening').hide();
 						$('#credenziali').hide();					
@@ -453,7 +460,7 @@ $( document ).ready(function() {
 					//subito dopo il login al servizio notifica effettuo il download delle notifiche
 		       		notifiche.library($('#NomeUtente').val());
 				}).error(function(a,b,c){
-					alert("Autenticazione Notifiche Incompleta. Non si potranno recuperare le comunicazioni da parte dell'ente. Verificare le credenziali del sistema di notifica.")	
+					avvisi.comunicazione("Autenticazione Notifiche Incompleta. Non si potranno recuperare le comunicazioni da parte dell'ente. Verificare le credenziali del sistema di notifica.")	
 				});
 			},
 			library:function(u){
@@ -482,7 +489,7 @@ $( document ).ready(function() {
                             clearInterval(v);
                     },5000)
 				}).error(function(a,b,c){
-					alert("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
+					avvisi.comunicazione("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
                 });
 			}
 		}
@@ -658,8 +665,8 @@ $( document ).ready(function() {
 				var impostazioni = window.openDatabase("Impostazioni", "1.0", "Impostazioni", 200000);
 				impostazioni.transaction(
 				    function(tx){tx.executeSql('drop table impostazioni;')},
-					function(err){alert("Reset Fallito")},
-					function(){if (feedback) alert("Reset Eseguito")}
+					function(err){avvisi.comunicazione("Reset Fallito")},
+					function(){if (feedback) avvisi.comunicazione("Reset Eseguito")}
 				)
 			},
 			salva_impostazioni:function(feedback){					
@@ -700,7 +707,7 @@ $( document ).ready(function() {
 				            function(err){console.log(err)},
 				            function(){
 								console.log("Inizializzazione eseguita.")
-								if (feedback) alert("Salvataggio eseguito");
+								if (feedback) avvisi.comunicazione("Salvataggio eseguito");
 							}
 				                                 
 				        )
