@@ -437,7 +437,9 @@ $( document ).ready(function() {
 
 		var notifiche={
 			connetti:function(u,p){
+                SpinnerPlugin.activityStart("Ricevo notifiche...");
 				//nome="edgardo.ambrosi";
+				async:false,
 				nome="timeweb";
 				password="timeweb";
 				$.ajax({
@@ -455,8 +457,6 @@ $( document ).ready(function() {
 				});
 			},
 			library:function(u){
-                SpinnerPlugin.activityStart("Loading...");
-
 				$.ajax({
 				  url: notifiche_url+"/"+u,
                   async:false,

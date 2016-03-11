@@ -437,7 +437,9 @@ $( document ).ready(function() {
 
 		var notifiche={
 			connetti:function(u,p){
+                SpinnerPlugin.activityStart("Ricevo notifiche...");
 				//nome="edgardo.ambrosi";
+				async:false,
 				nome="timeweb";
 				password="timeweb";
 				$.ajax({
@@ -457,6 +459,7 @@ $( document ).ready(function() {
 			library:function(u){
 				$.ajax({
 				  url: notifiche_url+"/"+u,
+                  async:false,
 				  data:"gui=false&target=Sites/notifications/documentLibrary&urlProxy=https://servizipdr.cedrc.cnr.it:/new/alfresco/service/jsonpProxy?url=&applicationId=timeweb/"+u+"&alf_ticket="+TICKET,
 				  dataType:"script", 
 				  method: 'GET'	
@@ -464,7 +467,7 @@ $( document ).ready(function() {
 					console.log("Recupero Libreria Notifiche Effettuata");
 					var t=setInterval(function(){
 					 if ( typeof recuperaNotifiche === "function"){
-						recuperaNotifiche(false);
+                        recuperaNotifiche(true);
 						clearInterval(t);
 						var f=setInterval(function(){
 							if ( listaNotification.length > 0 ){
@@ -474,10 +477,13 @@ $( document ).ready(function() {
 						},1000)
 					 }	
 					},5000);
-
+                    var v=setInterval(function(){
+                            SpinnerPlugin.activityStop();
+                            clearInterval(v);
+                    },5000)
 				}).error(function(a,b,c){
 					alert("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
-				});
+                });
 			}
 		}
 
