@@ -1,9 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="it.cnr.si" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
-    <feature name="Calendar">
-        <param name="android-package" value="nl.xservices.plugins.Calendar" />
-    </feature>
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
@@ -11,10 +8,12 @@
     <feature name="Vibration">
         <param name="android-package" value="org.apache.cordova.vibration.Vibration" />
     </feature>
-    <feature name="SpinnerPlugin">
-        <param name="android-package" value="net.justincredible.SpinnerPlugin" />
+    <feature name="SpinnerDialog">
+        <param name="android-package" value="hu.dpal.phonegap.plugins.SpinnerDialog" />
     </feature>
-    <allow-intent href="market:*" />
+    <feature name="Flashlight">
+        <param name="android-package" value="nl.xservices.plugins.Flashlight" />
+    </feature>
     <name>Timeweb Monitor</name>
     <description>
 		Timeweb monitor ti permette di avere alcune informazioni importanti relative alla tua giornata lavorativa.
@@ -58,6 +57,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+    <gap:plugin name="cordova-plugin-spinnerdialog" source="npm" />
     <icon src="www/img/mySplash.png" />
     <splash src="www/img/mySplash.png" />
     <access origin="*" />

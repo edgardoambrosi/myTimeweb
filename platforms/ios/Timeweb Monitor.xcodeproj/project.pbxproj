@@ -40,12 +40,11 @@
 		7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DB1810823500FA85AD /* icon-76@2x.png */; };
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
-		825600C687004B618BAD0B94 /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05D023783449AB684C3DB /* Calendar.m */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		FD6A56DF7AB64D71B597D068 /* CDVVibration.m in Sources */ = {isa = PBXBuildFile; fileRef = DD205EBB377A45B5AA374D1B /* CDVVibration.m */; };
 		FDF6EF2DDE94489BA1A89C94 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E3B083C21A4ABEB94256EB /* EventKit.framework */; };
-		1B6A39C63B484E31BF6AB98E /* SpinnerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 062F47B314214D46BDEC4B3D /* SpinnerPlugin.m */; };
-		40BE6AD1F50647D8A739723A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D2001DB9958E4479B96574D6 /* MBProgressHUD.m */; };
+		98EBE2EE4EEC4BF59023DFB0 /* CDVSpinnerDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5690927C11814166B2D029E7 /* CDVSpinnerDialog.m */; };
+		4F65C795EB4641598BF9894C /* Flashlight.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C779A2D79F4DC186BAC3FE /* Flashlight.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,18 +107,16 @@
 		8F15605447964A4D819DC15A /* EventKitUI.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		929EBBE18F324B85A260F512 /* CDVVibration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVVibration.h; path = "cordova-plugin-vibration/CDVVibration.h"; sourceTree = "<group>"; };
 		96E3B083C21A4ABEB94256EB /* EventKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
-		AAA05D023783449AB684C3DB /* Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Calendar.m; path = "cordova-plugin-calendar/Calendar.m"; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		DD205EBB377A45B5AA374D1B /* CDVVibration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVVibration.m; path = "cordova-plugin-vibration/CDVVibration.m"; sourceTree = "<group>"; };
-		EA7C8008B3FE4166BC41DF8B /* Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Calendar.h; path = "cordova-plugin-calendar/Calendar.h"; sourceTree = "<group>"; };
 		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Timeweb Monitor/config.xml"; sourceTree = "<group>"; };
-		062F47B314214D46BDEC4B3D /* SpinnerPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "SpinnerPlugin.m"; path = "cordova-plugin-spinner/SpinnerPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		D2001DB9958E4479B96574D6 /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD.m"; path = "cordova-plugin-spinner/MBProgressHUD.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		21B99727B244413BB4B82ADE /* SpinnerPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SpinnerPlugin.h"; path = "cordova-plugin-spinner/SpinnerPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		2A17510EDDE64AFB8269FD4F /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD.h"; path = "cordova-plugin-spinner/MBProgressHUD.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		5690927C11814166B2D029E7 /* CDVSpinnerDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSpinnerDialog.m"; path = "cordova-plugin-spinner-dialog/CDVSpinnerDialog.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		DF7D1273DA674FD0BC460BAA /* CDVSpinnerDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSpinnerDialog.h"; path = "cordova-plugin-spinner-dialog/CDVSpinnerDialog.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		B1C779A2D79F4DC186BAC3FE /* Flashlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Flashlight.m"; path = "cordova-plugin-flashlight/Flashlight.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		EB92C64DB6844BF7B2880AE9 /* Flashlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Flashlight.h"; path = "cordova-plugin-flashlight/Flashlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,14 +221,12 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				AAA05D023783449AB684C3DB /* Calendar.m */,
-				EA7C8008B3FE4166BC41DF8B /* Calendar.h */,
 				DD205EBB377A45B5AA374D1B /* CDVVibration.m */,
 				929EBBE18F324B85A260F512 /* CDVVibration.h */,
-				062F47B314214D46BDEC4B3D /* SpinnerPlugin.m */,
-				D2001DB9958E4479B96574D6 /* MBProgressHUD.m */,
-				21B99727B244413BB4B82ADE /* SpinnerPlugin.h */,
-				2A17510EDDE64AFB8269FD4F /* MBProgressHUD.h */,
+				5690927C11814166B2D029E7 /* CDVSpinnerDialog.m */,
+				DF7D1273DA674FD0BC460BAA /* CDVSpinnerDialog.h */,
+				B1C779A2D79F4DC186BAC3FE /* Flashlight.m */,
+				EB92C64DB6844BF7B2880AE9 /* Flashlight.h */,
 			);
 			name = Plugins;
 			path = "Timeweb Monitor/Plugins";
@@ -421,10 +416,9 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				825600C687004B618BAD0B94 /* Calendar.m in Sources */,
 				FD6A56DF7AB64D71B597D068 /* CDVVibration.m in Sources */,
-				1B6A39C63B484E31BF6AB98E /* SpinnerPlugin.m in Sources */,
-				40BE6AD1F50647D8A739723A /* MBProgressHUD.m in Sources */,
+				98EBE2EE4EEC4BF59023DFB0 /* CDVSpinnerDialog.m in Sources */,
+				4F65C795EB4641598BF9894C /* Flashlight.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

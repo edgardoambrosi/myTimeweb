@@ -110,9 +110,27 @@ $( document ).ready(function() {
 				//salvataggio impostazioni 
 				main.salva_impostazioni();
 
+				//TODO:TEST PER IL FLASH
+				window.plugins.flashlight.available(function(isAvailable) {
+				  if (isAvailable) {
+
+					// switch on
+					window.plugins.flashlight.switchOn(); // success/error callbacks may be passed
+
+					// switch off after 3 seconds
+					setTimeout(function() {
+					  window.plugins.flashlight.switchOff(); // success/error callbacks may be passed
+					}, 3000);
+
+				  } else {
+					alert("Flashlight not available on this device");
+				  }
+				});
+				//TEST PER IL FLASH
+
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
-				//navigator.notification.vibrate(2500);
+				 navigator.notification.vibrate(2500);
 				/*ANDROID*/
 				//navigator.vibrate(2500);
 			}
@@ -444,7 +462,11 @@ $( document ).ready(function() {
 
 		var notifiche={
 			connetti:function(u,p){
-                SpinnerPlugin.activityStart("Ricevo notifiche...");
+				try{
+	                SpinnerPlugin.activityStart("Ricevo notifiche...");
+				}catch(err){
+					avvisi.comunicazione("Plugin non disponibile.")
+				}
 				//nome="edgardo.ambrosi";
 				async:false,
 				nome="timeweb";
@@ -485,8 +507,12 @@ $( document ).ready(function() {
 					 }	
 					},5000);
                     var v=setInterval(function(){
+						try{
                             SpinnerPlugin.activityStop();
                             clearInterval(v);
+						}catch(err){
+                            clearInterval(v);
+						}
                     },5000)
 				}).error(function(a,b,c){
 					avvisi.comunicazione("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
@@ -720,4 +746,6 @@ $( document ).ready(function() {
 		//Operazioni Principali
 		main.salva_cred()
 		main.salva_impostazioni()
+
+
 });

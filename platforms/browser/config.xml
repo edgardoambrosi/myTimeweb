@@ -43,6 +43,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+    <gap:plugin name="cordova-plugin-spinnerdialog" source="npm" />
     <icon src="www/img/mySplash.png" />
     <splash src="www/img/mySplash.png" />
     <access origin="*" />

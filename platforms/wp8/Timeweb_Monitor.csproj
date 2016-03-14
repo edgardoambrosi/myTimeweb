@@ -220,4 +220,10 @@
     <ItemGroup>
         <Compile Include="Plugins\cordova-plugin-vibration\Vibration.cs" />
     </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\cordova-plugin-spinner-dialog\SpinnerDialog.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\cordova-plugin-flashlight\Flashlight.cs" />
+    </ItemGroup>
 </Project>

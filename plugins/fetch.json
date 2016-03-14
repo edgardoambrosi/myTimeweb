@@ -7,14 +7,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-calendar": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-calendar"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-vibration": {
         "source": {
             "type": "registry",
@@ -23,10 +15,18 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-spinner": {
+    "cordova-plugin-spinner-dialog": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-spinner"
+            "id": "cordova-plugin-spinner-dialog"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-flashlight": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-flashlight"
         },
         "is_top_level": true,
         "variables": {}
