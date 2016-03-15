@@ -57,7 +57,7 @@ $( document ).ready(function() {
 
 		var avvisi={
 			comunicazione:function(mess){
-				navigator.notification.alert(mess,null,"AVVISO",null);
+				navigator.notification.alert(mess,null,"AVVISO","TEST");
 			}
 		}
 
@@ -112,8 +112,7 @@ $( document ).ready(function() {
 
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
-				 window.plugins.flashlight.switchOn(); // success/error callbacks may be passed
-				 navigator.notification.vibrate(2500);
+                //navigator.notification.vibrate(2500);
 				/*ANDROID*/
 				//navigator.vibrate(2500);
 			}
@@ -446,15 +445,15 @@ $( document ).ready(function() {
 		var notifiche={
 			connetti:function(u,p){
 				try{
-	                SpinnerPlugin.activityStart("Ricevo notifiche...");
+                    SpinnerPlugin.activityStart("Ricevo notifiche...");
 				}catch(err){
 					avvisi.comunicazione("Plugin non disponibile.")
 				}
 				//nome="edgardo.ambrosi";
-				async:false,
 				nome="timeweb";
 				password="timeweb";
 				$.ajax({
+				  async:false,
 				  url: notifiche_aut_url,
 				  //data:"u="+u+"&pw="+p,
 				  data:"u="+nome+"&pw="+password,

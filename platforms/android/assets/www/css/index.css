@@ -232,7 +232,7 @@ h1 {
     color:black;
 	overflow: scroll;
 }
-#calcola{
+#calcola, #salva_set, #reset_set{
     width:13vmax;
     height:5vmax;
 }

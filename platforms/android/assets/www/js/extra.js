@@ -57,7 +57,7 @@ $( document ).ready(function() {
 
 		var avvisi={
 			comunicazione:function(mess){
-				navigator.notification.alert(mess,null,"AVVISO",null);
+				navigator.notification.alert(mess,null,"AVVISO","LETTO");
 			}
 		}
 
@@ -112,8 +112,7 @@ $( document ).ready(function() {
 
 				/*VIBRAZIONE DI CONFERMA*/
 				/*iOS*/
-				 window.plugins.flashlight.switchOn(); // success/error callbacks may be passed
-				 navigator.notification.vibrate(2500);
+                //navigator.notification.vibrate(2500);
 				/*ANDROID*/
 				//navigator.vibrate(2500);
 			}
@@ -145,6 +144,7 @@ $( document ).ready(function() {
 								break; 
 							}
 						}else{
+                            LAVORATO=NaN;
 							break;
 						}
 					}
@@ -212,8 +212,6 @@ $( document ).ready(function() {
 								t.toISOString().substr(11, 8);
 								SALDOstr="-"+t.toISOString().substr(11, 8);
 								SALDO=DALAVORARE * (-1);
-
-/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
 								PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
 								SALDO=( SALDO - PAUSAPRANZOsec );
 							}else{					
@@ -223,7 +221,16 @@ $( document ).ready(function() {
 								t.toISOString().substr(11, 8);
 								SALDOstr=t.toISOString().substr(11, 8);
 							}
-							GIORNATATERMINATASOSPESA=false;
+                    
+                            //SE LA GIORNATA CHE SI STA ANALIZZANDO E' QUELLA ATTUALE VIENE SETTATO IL FLAG GIORNATATERMINATASOSPESA FALSE
+                            if (DATA_GIORNO_LAVORATO==data.composizione()){
+                                GIORNATATERMINATASOSPESA=false;
+                            }else{
+                                //ALTRIMENTI IL FLAG GIORNATATERMINATASOSPESA VIENE MESSO A TRUE E IL CONTATORE DALAVORARE INDEFINITO.
+                                DALAVORARE=NaN;
+                                SALDOstr=NaN;
+                                GIORNATATERMINATASOSPESA=true;
+                            }
 						}
 					}
 				}
@@ -446,15 +453,15 @@ $( document ).ready(function() {
 		var notifiche={
 			connetti:function(u,p){
 				try{
-	                SpinnerPlugin.activityStart("Ricevo notifiche...");
+                    SpinnerPlugin.activityStart("Ricevo notifiche...");
 				}catch(err){
 					avvisi.comunicazione("Plugin non disponibile.")
 				}
 				//nome="edgardo.ambrosi";
-				async:false,
 				nome="timeweb";
 				password="timeweb";
 				$.ajax({
+				  async:false,
 				  url: notifiche_aut_url,
 				  //data:"u="+u+"&pw="+p,
 				  data:"u="+nome+"&pw="+password,

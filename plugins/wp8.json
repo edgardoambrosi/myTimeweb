@@ -13,10 +13,13 @@
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
         },
-        "cordova-plugin-spinner-dialog": {
+        "cordova-plugin-flashlight": {
             "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
         },
-        "cordova-plugin-flashlight": {
+        "cordova-plugin-spinner": {
+            "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
+        },
+        "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "{a8c51f80-ce73-11e5-93fa-5184dc945d81}"
         }
     },

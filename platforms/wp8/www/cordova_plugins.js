@@ -10,19 +10,27 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-spinner-dialog/www/spinner.js",
-        "id": "cordova-plugin-spinner-dialog.SpinnerDialog",
-        "pluginId": "cordova-plugin-spinner-dialog",
-        "merges": [
-            "window.plugins.spinnerDialog"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-flashlight/www/Flashlight.js",
         "id": "cordova-plugin-flashlight.Flashlight",
         "pluginId": "cordova-plugin-flashlight",
         "clobbers": [
             "window.plugins.flashlight"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-spinner/www/spinner-plugin.js",
+        "id": "cordova-plugin-spinner.SpinnerPlugin",
+        "pluginId": "cordova-plugin-spinner",
+        "clobbers": [
+            "SpinnerPlugin"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
         ]
     }
 ];
@@ -31,8 +39,9 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.2.1",
     "cordova-plugin-vibration": "2.1.0",
-    "cordova-plugin-spinner-dialog": "1.3.1",
-    "cordova-plugin-flashlight": "3.0.0"
+    "cordova-plugin-flashlight": "3.0.0",
+    "cordova-plugin-spinner": "1.0.0",
+    "cordova-plugin-dialogs": "1.2.0"
 }
 // BOTTOM OF METADATA
 });

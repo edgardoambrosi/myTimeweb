@@ -43,8 +43,11 @@
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		FD6A56DF7AB64D71B597D068 /* CDVVibration.m in Sources */ = {isa = PBXBuildFile; fileRef = DD205EBB377A45B5AA374D1B /* CDVVibration.m */; };
 		FDF6EF2DDE94489BA1A89C94 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E3B083C21A4ABEB94256EB /* EventKit.framework */; };
-		98EBE2EE4EEC4BF59023DFB0 /* CDVSpinnerDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5690927C11814166B2D029E7 /* CDVSpinnerDialog.m */; };
 		4F65C795EB4641598BF9894C /* Flashlight.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C779A2D79F4DC186BAC3FE /* Flashlight.m */; };
+		4EB7BF9F7F244E7F83AA434A /* SpinnerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 654693A930BF4A5E82CC0AC3 /* SpinnerPlugin.m */; };
+		2C3162CD4CF5484787AACBA0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C7BBDEE2BF4019971AF742 /* MBProgressHUD.m */; };
+		9C5F7017A5C14CFAB76B5DB7 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6202FDCA079348B3BD939A21 /* CDVNotification.m */; };
+		BF1FB326E3F54AB5AD835B23 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 801773A58028407EBEA62D1E /* CDVNotification.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,10 +116,15 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Timeweb Monitor/config.xml"; sourceTree = "<group>"; };
-		5690927C11814166B2D029E7 /* CDVSpinnerDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSpinnerDialog.m"; path = "cordova-plugin-spinner-dialog/CDVSpinnerDialog.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		DF7D1273DA674FD0BC460BAA /* CDVSpinnerDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSpinnerDialog.h"; path = "cordova-plugin-spinner-dialog/CDVSpinnerDialog.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		B1C779A2D79F4DC186BAC3FE /* Flashlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Flashlight.m"; path = "cordova-plugin-flashlight/Flashlight.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		EB92C64DB6844BF7B2880AE9 /* Flashlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Flashlight.h"; path = "cordova-plugin-flashlight/Flashlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		654693A930BF4A5E82CC0AC3 /* SpinnerPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "SpinnerPlugin.m"; path = "cordova-plugin-spinner/SpinnerPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		39C7BBDEE2BF4019971AF742 /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD.m"; path = "cordova-plugin-spinner/MBProgressHUD.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		4730CF227814443BA6C0A76A /* SpinnerPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SpinnerPlugin.h"; path = "cordova-plugin-spinner/SpinnerPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		652EB9C507B44727977EFD61 /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD.h"; path = "cordova-plugin-spinner/MBProgressHUD.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		6202FDCA079348B3BD939A21 /* CDVNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVNotification.m"; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		6A1AA0653EF94D9ABB21F14C /* CDVNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVNotification.h"; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		801773A58028407EBEA62D1E /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "CDVNotification.bundle"; path = "CDVNotification.bundle"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +200,7 @@
 				308D052D1370CCF300D202BF /* icons */,
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* Timeweb Monitor-Info.plist */,
+				801773A58028407EBEA62D1E /* CDVNotification.bundle */,
 			);
 			name = Resources;
 			path = "Timeweb Monitor/Resources";
@@ -223,10 +232,14 @@
 			children = (
 				DD205EBB377A45B5AA374D1B /* CDVVibration.m */,
 				929EBBE18F324B85A260F512 /* CDVVibration.h */,
-				5690927C11814166B2D029E7 /* CDVSpinnerDialog.m */,
-				DF7D1273DA674FD0BC460BAA /* CDVSpinnerDialog.h */,
 				B1C779A2D79F4DC186BAC3FE /* Flashlight.m */,
 				EB92C64DB6844BF7B2880AE9 /* Flashlight.h */,
+				654693A930BF4A5E82CC0AC3 /* SpinnerPlugin.m */,
+				39C7BBDEE2BF4019971AF742 /* MBProgressHUD.m */,
+				4730CF227814443BA6C0A76A /* SpinnerPlugin.h */,
+				652EB9C507B44727977EFD61 /* MBProgressHUD.h */,
+				6202FDCA079348B3BD939A21 /* CDVNotification.m */,
+				6A1AA0653EF94D9ABB21F14C /* CDVNotification.h */,
 			);
 			name = Plugins;
 			path = "Timeweb Monitor/Plugins";
@@ -385,6 +398,7 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
+				BF1FB326E3F54AB5AD835B23 /* CDVNotification.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,8 +431,10 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				FD6A56DF7AB64D71B597D068 /* CDVVibration.m in Sources */,
-				98EBE2EE4EEC4BF59023DFB0 /* CDVSpinnerDialog.m in Sources */,
 				4F65C795EB4641598BF9894C /* Flashlight.m in Sources */,
+				4EB7BF9F7F244E7F83AA434A /* SpinnerPlugin.m in Sources */,
+				2C3162CD4CF5484787AACBA0 /* MBProgressHUD.m in Sources */,
+				9C5F7017A5C14CFAB76B5DB7 /* CDVNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
