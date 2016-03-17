@@ -777,6 +777,4 @@ $( document ).ready(function() {
 		//Operazioni Principali
 		main.salva_cred()
 		main.salva_impostazioni()
-
-
 });

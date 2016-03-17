@@ -54,7 +54,7 @@
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="cordova-plugin-spinnerdialog" source="npm" />
     <icon src="www/img/mySplash.png" />
-    <splash src="www/img/mySplash.png" />
+    <splash height="480" platform="ios" src="www/img/mySplash.png" width="320" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
