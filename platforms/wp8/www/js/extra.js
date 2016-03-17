@@ -57,7 +57,7 @@ $( document ).ready(function() {
 
 		var avvisi={
 			comunicazione:function(mess){
-				navigator.notification.alert(mess,null,"AVVISO","TEST");
+				navigator.notification.alert(mess,null,"AVVISO","LETTO");
 			}
 		}
 
@@ -119,6 +119,7 @@ $( document ).ready(function() {
 		};
 
 		var esame_timbrature={
+			//IMPOSTO ALCUNE VARIABILI NECESSARIE PER I CONTEGGI
 			individuazione:function(TIMBRATURE){
 				XTIMBRATURE=TIMBRATURE.split(" ");
 				NTIMBRATURE=XTIMBRATURE.length;
@@ -126,6 +127,7 @@ $( document ).ready(function() {
 				PREV=XTIMBRATURE[(NTIMBRATURE-3)<0?0:NTIMBRATURE-3];
 				NEXT=XTIMBRATURE[NTIMBRATURE-2];
 			},
+			//CALCOLO IL TEMPO LAVORATO E QUELLO DA LAVORARE
 			dalavorare_lavorato:function(){
 				var n=0;
 				for (var i=0;i<=XTIMBRATURE.length;i++){
@@ -137,6 +139,7 @@ $( document ).ready(function() {
 							if ( XTIMBRATURE[i].charAt(0)=="E"){
 								//...SE LO È ASSEGNO L'ENTRATA
 								ENTRATA=XTIMBRATURE[i];
+								//INTERROMPO QUESTA FASE E PROSEGUO AL PUNTO (2)
 								continue;
 							}else{
 								//...ALTRIMENTI, SE ESISTE E NON È UNA ENTRATA IL CONTEGGIO NON PUO ESSRE EFFETTUATO 
@@ -147,6 +150,7 @@ $( document ).ready(function() {
 							break;
 						}
 					}
+					//PUNTO (2)
 					//CONTROLLO SE LA TIMBRATURA È PARI OSSIA LA 2° LA 4° ETC mi aspetto sempre una uscita o nessuna timbratura
 					if ( (i+1) %2 == 0 ){
 						//CONTROLLO CHE LA TIMBRATURA ESISTE
@@ -174,7 +178,7 @@ $( document ).ready(function() {
 									t.toISOString().substr(11, 8);
 									SALDOstr="-"+t.toISOString().substr(11, 8);
 									SALDO=DALAVORARE * (-1);
-/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
+									/*TODO:DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
 									PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
 									SALDO=( SALDO - PAUSAPRANZOsec );
 								}else{					
@@ -211,8 +215,6 @@ $( document ).ready(function() {
 								t.toISOString().substr(11, 8);
 								SALDOstr="-"+t.toISOString().substr(11, 8);
 								SALDO=DALAVORARE * (-1);
-
-/*DA SISTEMARE IL SALDO E LA PAUSA PRANZO*/
 								PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
 								SALDO=( SALDO - PAUSAPRANZOsec );
 							}else{					
@@ -222,7 +224,17 @@ $( document ).ready(function() {
 								t.toISOString().substr(11, 8);
 								SALDOstr=t.toISOString().substr(11, 8);
 							}
-							GIORNATATERMINATASOSPESA=false;
+                    
+                            //SE LA GIORNATA CHE SI STA ANALIZZANDO E' QUELLA ATTUALE VIENE SETTATO IL FLAG GIORNATATERMINATASOSPESA FALSE
+                            if (DATA_GIORNO_LAVORATO==data.composizione()){
+                                GIORNATATERMINATASOSPESA=false;
+                            }else{
+                                //ALTRIMENTI IL FLAG GIORNATATERMINATASOSPESA VIENE MESSO A TRUE E IL CONTATORE DALAVORARE,LAVORATO INDEFINITO.
+                                LAVORATO=NaN;
+                                DALAVORARE=NaN;
+                                SALDOstr=NaN;
+                                GIORNATATERMINATASOSPESA=true;
+                            }
 						}
 					}
 				}
@@ -232,11 +244,19 @@ $( document ).ready(function() {
 					ORARIOATTUALE=((new Date()).toString().split(" "))[4];
 					ORARIOATTUALEsec=esame_timbrature.insecondi(ORARIOATTUALE);
                     TOTALEsec=esame_timbrature.insecondi(TOTALE);
-                    if ( TOTALEsec > LAVORATO ) {
-                        USCITA_PREVISTA=DALAVORARE+ORARIOATTUALEsec;
+                    //SE LA GIORNATA CHE SI STA ANALIZZANDO E' QUELLA ATTUALE ALLORA CALCOLO LA USCITA_PREVISTA
+                    if (DATA_GIORNO_LAVORATO==data.composizione()){
+		                if ( TOTALEsec > LAVORATO ) {
+		                    USCITA_PREVISTA=DALAVORARE+ORARIOATTUALEsec;
+		                }else{
+		                    USCITA_PREVISTA=0;
+		                }
+		            //ALTRIMENTI IL CALCOLO DELLA USCITA_PREVISTA NON HA SIGNIFICATO
                     }else{
-                        USCITA_PREVISTA=0;
+		                    USCITA_PREVISTA=0;
                     }
+
+
 			},
 			insecondi:function(orario){
 				var hms = orario;   // your input string tipo '02:04:33'
@@ -613,12 +633,41 @@ $( document ).ready(function() {
 		});
 
 		$('#imgmenu').click(function(){
-            $('.menu').fadeToggle("fast","linear");
-            $('#pannello-menu').fadeToggle("fast","linear");
-			$('#imgset').fadeToggle("fast","linear");
+		//SE STO ACCENDENDO IL MENU, QUINDI E' SPENTO
+		if(!$('.menu').is(":visible")){
+			//ACCENDO IL MENU
+            $('.menu').show();
+            //ACCENDO IL SECONDO COMANDO MENU
+			$('#imgset').show();
+            //ACCENDO IL PANNELLO DEI MENU
+            $('#pannello-menu').show();
+            //RIMUOVO LE NOTIFICHE
 			$("div[id*='info']").remove();
-            $('#monitor').fadeToggle("fast","linear");
-            $('.app').fadeToggle("fast","linear");
+			//IN CASO DI FALLIMENTO DI LOGIN, MI ASPETTO CHE IL MONITOR SIA SPENTO E QUINDI NON DEVE ESSERE RISPENTO.
+			if ($('#monitor').is(":visible")){
+				$('#monitor').hide();
+			}
+			//SPENGO IL CONTROLLO DI AVVIO
+            $('.app').hide();
+         //SE LO STO SPEGNENDO   
+         }else{
+			//SPENGO IL MENU
+            $('.menu').hide()
+            //SPENGO IL SECONDO COMANDO MENU
+			$('#imgset').hide();
+            //SPENGO IL PANNELLO DEI MENU
+            $('#pannello-menu').hide();
+            //RIMUOVO LE NOTIFICHE
+			$("div[id*='info']").remove();
+			//IN CASO DI FALLIMENTO DI LOGIN, MI ASPETTO CHE IL MONITOR SIA SPENTO E QUINDI NON DEVE ESSERE RIACCESO.
+			if ( CONNESSO ){
+				$('#monitor').show();
+			}else{
+				$('#monitor').hide();
+			}
+			//ACCENDO IL CONTROLLO DI AVVIO
+            $('.app').show();
+         }   
 		});		
 
 		$('#imgset').click(function(){
