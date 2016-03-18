@@ -306,7 +306,13 @@ $( document ).ready(function() {
 					});
 					return oggi;
 				}
-			}
+			},
+            iniziofinemese:function(){
+                var date = new Date();
+                var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                return [ firstDay,lastDay];
+            }
 		};
 
 		var timeweb={  
@@ -415,30 +421,88 @@ $( document ).ready(function() {
 
 				});
 			},
-            contatori:function(da,a,cs){
+                    cartellino:function(a){
+                    var oggi;
+                    if ( typeof a=="undefined"){
+                    oggi=DATA_GIORNO_LAVORATO;
+                    }else{
+                    oggi=a;
+                    }
+                    $.ajax({
+                           url: server_url,
+                           data:"AZIONE=CARTELLINO&DATAINIZIO="+oggi+"&DATAFINE="+oggi,
+                           //data:"AZIONE=CARTELLINO&DATAINIZIO=03-02-2016&DATAFINE=03-02-2016",
+                           method: 'GET'
+                           }).success(function(a,b,c) {
+                                      console.log("Orari Cartellino");
+                                      //alert("Orari Cartellino")
+                                      _TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(1).text();
+                                      
+                                      /*TEST EFFETTUATI*/
+                                      //valide
+                                      //_TIMBRATURE='E10:56 U11:00'
+                                      //_TIMBRATURE='E07:56 U16:24'
+                                      //_TIMBRATURE='E07:56 U08:30 E09:45'
+                                      //_TIMBRATURE='E07:56 U08:30 E09:45 U10:15'
+                                      //_TIMBRATURE='E07:56 U08:30 E09:45 U10:15 E10:23'
+                                      //errori
+                                      //_TIMBRATURE='U07:56'
+                                      //_TIMBRATURE='E07:56 E12:34'
+                                      //_TIMBRATURE='E07:56 U12:34 U15:12'
+                                      esame_timbrature.individuazione(_TIMBRATURE);
+                                      esame_timbrature.dalavorare_lavorato();
+                                      $('#strisciata').text(_TIMBRATURE);
+                                      
+                                      clockCD = $('#tempo-restante').FlipClock({
+                                                                               autoStart:false
+                                                                               });
+                                      clockCD.setTime(DALAVORARE);
+                                      clockCD.setCountdown(true);
+                                      GIORNATATERMINATASOSPESA===true?clockCD.stop():clockCD.start();
+                                      
+                                      /*CALCOLO SEMPRE L'ORA IN CUI DOVREBBE ESSERE EFFETTUATA L'USCITA*/
+                                      $('#tempo-restante-extra').remove();
+                                      esame_timbrature.uscita_prevista();
+                                      USCITA=esame_timbrature.inorario(USCITA_PREVISTA);
+                                      $('#tempo-restante').before("<p id='tempo-restante-extra'>DA LAVORARE: ( uscita prevista: "+USCITA+" )</p>");
+                                      $('#tempo-restante-extra').addClass('tempo-restante-extra');
+                                      
+                                      clockCN = $('#tempo-trascorso').FlipClock({
+                                                                                autoStart:false
+                                                                                });
+                                      clockCN.setTime(LAVORATO);
+                                      clockCN.setCountdown(false);
+                                      GIORNATATERMINATASOSPESA===true?clockCN.stop():clockCN.start();
+                                      $('#_saldo').remove();
+                                      $('#saldo').append("<h1 id='_saldo'>"+SALDOstr+"</h1>");
+                                      if ( SALDO < 0){
+                                      $('#saldo').addClass('saldo-negativo');
+                                      $('#saldo').removeClass('saldo-positivo');
+                                      }
+                                      if ( SALDO > 0) {
+                                      $('#saldo').addClass('saldo-positivo');
+                                      $('#saldo').removeClass('saldo-negativo');
+                                      }	
+                                      
+                                      });
+                    },
+            saldi:function(da,a){
             var DA=da;
             var A=a;
-            var CAUSALE_SEL=cs;
             $.ajax({
 				   dataType:"html",
 				   dataFilter:function(d,t){
 						return $(d);
 				   },
                    url: server_url,
-                   data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE="+CAUSALE_SEL+"&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
-                   method: 'POST'
+                   data:"AZIONE=CARTELLINO&DETTAGLIOAZIONE=TOTALIVB&DATAINIZIO="+DA+"&DATAFINE="+A,
+                   method: 'GET'
                    }).success(function(a,b,c) {
-                          console.log("Riepiloghi Contatori: "+ DA+" "+A);
-	                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
-                          $.each(_CAUSALE,function(i,e){
-							  if (i<(_CAUSALE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
-								var n=parseInt($(e).text());
- 							  	CAUSALE=CAUSALE+n;
-							  }													
-				          })
-						  $('#quantita').FlipClock(CAUSALE, {
-								clockFace: 'Counter'
-						  });
+                          console.log("Saldi: "+ DA+" "+A);
+	                      _TABLE=$(a).find('.CSTR').parent().parent().next().find('table').eq(1);
+                          _TABLE.addClass('responstable')
+                          $('#saldi').append($(_TABLE));
+                          $('#saldi').css('display','block')
                     });
             },
             causali:function(){
@@ -617,7 +681,7 @@ $( document ).ready(function() {
 				);			
 			}
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
-			if (CONNESSO) notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
+            if (CONNESSO) notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});
 
 		$('#NomeUtente').on('input', function() {
@@ -682,6 +746,13 @@ $( document ).ready(function() {
 				
 		});		
 
+        $('#Saldi').click(function(){
+            $('#pannello-menu').children().hide();
+            $('#saldi').children().remove()
+            var t=data.iniziofinemese(new Date())
+            //timeweb.saldi("01-03-2016","18-03-2016");
+            timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
+        })
 						
 		$('#Causale').click(function(){
             $('#pannello-menu').children().hide();
