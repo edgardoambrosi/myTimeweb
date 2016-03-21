@@ -280,6 +280,7 @@ $( document ).ready(function() {
 			}
 		};
 		var data={
+			//compone una data dal formato ISO al semplice formato dd-mm-yyyy
 			composizione:function(d){
 				var mesi=["Jan","Feb","Mar", "Apr", "May", "Giu", "Jul", "Aug", "Sep","Oct","Nov","Dec"];
 				var nmesi=["01","02","03", "04", "05", "06", "07", "08", "09","10","11","12"];
@@ -307,12 +308,30 @@ $( document ).ready(function() {
 					return oggi;
 				}
 			},
+			//calcola il range del mese corrente dal primo giorno al secondo giorno
             iniziofinemese:function(){
                 var date = new Date();
                 var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 return [ firstDay,lastDay];
-            }
+            },
+			//somma due orari in formato hh.mm
+			sommaorario:function(orario1,orario2){
+				h1=new String(orario1).split(".");
+				h2=new String(orario2).split(".");
+				h1h=Number(h1[0]);
+				h1m=Number(h1[1]);
+                h1h>0?h1hm=( (h1h*60)+h1m ):h1hm=( ( Math.abs(h1h) * 60 ) + h1m ) * (-1);
+				h2h=Number(h2[0]);
+				h2m=Number(h2[1]);
+                h2h>0?h2hm=( (h2h*60)+h2m ):h2hm=( ( Math.abs(h2h) * 60 ) + h2m ) * (-1);
+				hhmt=h1hm+h2hm;
+     			m=(Math.abs(hhmt)) % 60;
+				h=( (Math.abs(hhmt) - m) /60 )
+				hhmt>0?T=h+"."+m:T=(h*(-1))+"."+m;
+				return T
+			}
+			
 		};
 
 		var timeweb={  
@@ -421,71 +440,50 @@ $( document ).ready(function() {
 
 				});
 			},
-                    cartellino:function(a){
-                    var oggi;
-                    if ( typeof a=="undefined"){
-                    oggi=DATA_GIORNO_LAVORATO;
-                    }else{
-                    oggi=a;
-                    }
-                    $.ajax({
-                           url: server_url,
-                           data:"AZIONE=CARTELLINO&DATAINIZIO="+oggi+"&DATAFINE="+oggi,
-                           //data:"AZIONE=CARTELLINO&DATAINIZIO=03-02-2016&DATAFINE=03-02-2016",
-                           method: 'GET'
-                           }).success(function(a,b,c) {
-                                      console.log("Orari Cartellino");
-                                      //alert("Orari Cartellino")
-                                      _TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(1).text();
-                                      
-                                      /*TEST EFFETTUATI*/
-                                      //valide
-                                      //_TIMBRATURE='E10:56 U11:00'
-                                      //_TIMBRATURE='E07:56 U16:24'
-                                      //_TIMBRATURE='E07:56 U08:30 E09:45'
-                                      //_TIMBRATURE='E07:56 U08:30 E09:45 U10:15'
-                                      //_TIMBRATURE='E07:56 U08:30 E09:45 U10:15 E10:23'
-                                      //errori
-                                      //_TIMBRATURE='U07:56'
-                                      //_TIMBRATURE='E07:56 E12:34'
-                                      //_TIMBRATURE='E07:56 U12:34 U15:12'
-                                      esame_timbrature.individuazione(_TIMBRATURE);
-                                      esame_timbrature.dalavorare_lavorato();
-                                      $('#strisciata').text(_TIMBRATURE);
-                                      
-                                      clockCD = $('#tempo-restante').FlipClock({
-                                                                               autoStart:false
-                                                                               });
-                                      clockCD.setTime(DALAVORARE);
-                                      clockCD.setCountdown(true);
-                                      GIORNATATERMINATASOSPESA===true?clockCD.stop():clockCD.start();
-                                      
-                                      /*CALCOLO SEMPRE L'ORA IN CUI DOVREBBE ESSERE EFFETTUATA L'USCITA*/
-                                      $('#tempo-restante-extra').remove();
-                                      esame_timbrature.uscita_prevista();
-                                      USCITA=esame_timbrature.inorario(USCITA_PREVISTA);
-                                      $('#tempo-restante').before("<p id='tempo-restante-extra'>DA LAVORARE: ( uscita prevista: "+USCITA+" )</p>");
-                                      $('#tempo-restante-extra').addClass('tempo-restante-extra');
-                                      
-                                      clockCN = $('#tempo-trascorso').FlipClock({
-                                                                                autoStart:false
-                                                                                });
-                                      clockCN.setTime(LAVORATO);
-                                      clockCN.setCountdown(false);
-                                      GIORNATATERMINATASOSPESA===true?clockCN.stop():clockCN.start();
-                                      $('#_saldo').remove();
-                                      $('#saldo').append("<h1 id='_saldo'>"+SALDOstr+"</h1>");
-                                      if ( SALDO < 0){
-                                      $('#saldo').addClass('saldo-negativo');
-                                      $('#saldo').removeClass('saldo-positivo');
-                                      }
-                                      if ( SALDO > 0) {
-                                      $('#saldo').addClass('saldo-positivo');
-                                      $('#saldo').removeClass('saldo-negativo');
-                                      }	
-                                      
-                                      });
-                    },
+            contatori:function(da,a,cs){
+            var DA=da;
+            var A=a;
+            var CAUSALE_SEL=cs;
+            $.ajax({
+				   dataType:"html",
+				   dataFilter:function(d,t){
+						return $(d);
+				   },
+                   url: server_url,
+                   data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE="+CAUSALE_SEL+"&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
+                   method: 'POST'
+                   }).success(function(a,b,c) {
+                          console.log("Riepiloghi Contatori: "+ DA+" "+A);
+						  __CAUSALE="00.00";
+	                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
+                          $.each(_CAUSALE,function(i,e){
+							  if (i<(_CAUSALE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
+								var n=parseFloat($(e).text());
+								//VERIFICA FLOAT
+								if (Number(n) === n && n % 1 !== 0){									
+									CAUSALE=data.sommaorario(__CAUSALE,n);
+									__CAUSALE=CAUSALE;
+									console.log(__CAUSALE)
+									  $('#quantita1').FlipClock(__CAUSALE.split('.')[0], {
+											clockFace: 'Counter'
+									  });
+									  $('#quantita1').show();
+									  $('#quantita2').FlipClock(__CAUSALE.split('.')[1], {
+											clockFace: 'Counter'
+									  });
+								}else {
+									if (Number(n) === n && n % 1 === 0){
+										CAUSALE=CAUSALE+n;
+										  $('#quantita1').FlipClock(CAUSALE, {
+												clockFace: 'Counter'
+										  });
+										  $('#quantita1').hide();
+									}								
+								}
+							  }													
+				          })
+                    });
+            },
             saldi:function(da,a){
             var DA=da;
             var A=a;
@@ -748,7 +746,7 @@ $( document ).ready(function() {
 
         $('#Saldi').click(function(){
             $('#pannello-menu').children().hide();
-            $('#saldi').children().remove()
+            $('#saldi').find('table').remove();
             var t=data.iniziofinemese(new Date())
             //timeweb.saldi("01-03-2016","18-03-2016");
             timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
@@ -756,7 +754,10 @@ $( document ).ready(function() {
 						
 		$('#Causale').click(function(){
             $('#pannello-menu').children().hide();
-            $('#quantita').FlipClock(0, {
+            $('#quantita1').FlipClock(0, {
+                    clockFace: 'Counter'
+            });
+            $('#quantita2').FlipClock(0, {
                     clockFace: 'Counter'
             });
 			env.reset();

@@ -280,6 +280,7 @@ $( document ).ready(function() {
 			}
 		};
 		var data={
+			//compone una data dal formato ISO al semplice formato dd-mm-yyyy
 			composizione:function(d){
 				var mesi=["Jan","Feb","Mar", "Apr", "May", "Giu", "Jul", "Aug", "Sep","Oct","Nov","Dec"];
 				var nmesi=["01","02","03", "04", "05", "06", "07", "08", "09","10","11","12"];
@@ -306,7 +307,31 @@ $( document ).ready(function() {
 					});
 					return oggi;
 				}
+			},
+			//calcola il range del mese corrente dal primo giorno al secondo giorno
+            iniziofinemese:function(){
+                var date = new Date();
+                var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                return [ firstDay,lastDay];
+            },
+			//somma due orari in formato hh.mm
+			sommaorario:function(orario1,orario2){
+				h1=new String(orario1).split(".");
+				h2=new String(orario2).split(".");
+				h1h=Number(h1[0]);
+				h1m=Number(h1[1]);
+                h1h>0?h1hm=( (h1h*60)+h1m ):h1hm=( ( Math.abs(h1h) * 60 ) + h1m ) * (-1);
+				h2h=Number(h2[0]);
+				h2m=Number(h2[1]);
+                h2h>0?h2hm=( (h2h*60)+h2m ):h2hm=( ( Math.abs(h2h) * 60 ) + h2m ) * (-1);
+				hhmt=h1hm+h2hm;
+     			m=(Math.abs(hhmt)) % 60;
+				h=( (Math.abs(hhmt) - m) /60 )
+				hhmt>0?T=h+"."+m:T=(h*(-1))+"."+m;
+				return T
 			}
+			
 		};
 
 		var timeweb={  
@@ -429,16 +454,53 @@ $( document ).ready(function() {
                    method: 'POST'
                    }).success(function(a,b,c) {
                           console.log("Riepiloghi Contatori: "+ DA+" "+A);
+						  __CAUSALE="00.00";
 	                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
                           $.each(_CAUSALE,function(i,e){
 							  if (i<(_CAUSALE.length-1) && ($(e).text()!=="" && typeof $(e).text()!=="undefined") ){ 
-								var n=parseInt($(e).text());
- 							  	CAUSALE=CAUSALE+n;
+								var n=parseFloat($(e).text());
+								//VERIFICA FLOAT
+								if (Number(n) === n && n % 1 !== 0){									
+									CAUSALE=data.sommaorario(__CAUSALE,n);
+									__CAUSALE=CAUSALE;
+									console.log(__CAUSALE)
+									  $('#quantita1').FlipClock(__CAUSALE.split('.')[0], {
+											clockFace: 'Counter'
+									  });
+									  $('#quantita1').show();
+									  $('#quantita2').FlipClock(__CAUSALE.split('.')[1], {
+											clockFace: 'Counter'
+									  });
+								}else {
+									if (Number(n) === n && n % 1 === 0){
+										CAUSALE=CAUSALE+n;
+										  $('#quantita1').FlipClock(CAUSALE, {
+												clockFace: 'Counter'
+										  });
+										  $('#quantita1').hide();
+									}								
+								}
 							  }													
 				          })
-						  $('#quantita').FlipClock(CAUSALE, {
-								clockFace: 'Counter'
-						  });
+                    });
+            },
+            saldi:function(da,a){
+            var DA=da;
+            var A=a;
+            $.ajax({
+				   dataType:"html",
+				   dataFilter:function(d,t){
+						return $(d);
+				   },
+                   url: server_url,
+                   data:"AZIONE=CARTELLINO&DETTAGLIOAZIONE=TOTALIVB&DATAINIZIO="+DA+"&DATAFINE="+A,
+                   method: 'GET'
+                   }).success(function(a,b,c) {
+                          console.log("Saldi: "+ DA+" "+A);
+	                      _TABLE=$(a).find('.CSTR').parent().parent().next().find('table').eq(1);
+                          _TABLE.addClass('responstable')
+                          $('#saldi').append($(_TABLE));
+                          $('#saldi').css('display','block')
                     });
             },
             causali:function(){
@@ -617,7 +679,7 @@ $( document ).ready(function() {
 				);			
 			}
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
-			if (CONNESSO) notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
+            if (CONNESSO) notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});
 
 		$('#NomeUtente').on('input', function() {
@@ -682,10 +744,20 @@ $( document ).ready(function() {
 				
 		});		
 
+        $('#Saldi').click(function(){
+            $('#pannello-menu').children().hide();
+            $('#saldi').find('table').remove();
+            var t=data.iniziofinemese(new Date())
+            //timeweb.saldi("01-03-2016","18-03-2016");
+            timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
+        })
 						
 		$('#Causale').click(function(){
             $('#pannello-menu').children().hide();
-            $('#quantita').FlipClock(0, {
+            $('#quantita1').FlipClock(0, {
+                    clockFace: 'Counter'
+            });
+            $('#quantita2').FlipClock(0, {
                     clockFace: 'Counter'
             });
 			env.reset();
