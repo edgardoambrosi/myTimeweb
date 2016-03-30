@@ -32,7 +32,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace it.cnr.si
+namespace edgardo.ambrosi.mytimeweb
 {
     public partial class App : Application
     {

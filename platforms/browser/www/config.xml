@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="it.cnr.si" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="edgardo.ambrosi.mytimeweb" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Timeweb Monitor</name>
     <description>
 		Timeweb monitor ti permette di avere alcune informazioni importanti relative alla tua giornata lavorativa.
     </description>
-    <author email="edgardo.ambrosi@cnr.it" href="">
+    <author email="edgardo.ambrosi@gmail.com" href="">
 		Edgardo Ambrosi
     </author>
     <content src="index.html" />

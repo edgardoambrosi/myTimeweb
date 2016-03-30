@@ -34,7 +34,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Resources;
 
 
-namespace it.cnr.si
+namespace edgardo.ambrosi.mytimeweb
 {
     public partial class MainPage : PhoneApplicationPage
     {

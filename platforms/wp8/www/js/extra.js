@@ -343,7 +343,8 @@ $( document ).ready(function() {
 				  method: 'POST'	
 				}).complete(function(a,b,c) {
 					if ($($.parseHTML(a.responseText)[5]).text()=="Login"){
-						avvisi.comunicazione("Autenticazione non valida. L'accesso è garantito solo per la gestione dell'applicazione.")
+						avvisi.comunicazione("Autenticazione non valida. L'accesso è garantito solo per la gestione dell'applicazione!")
+						console.log($(window).width())						
 						$('.received').show()
 						$('.listening').hide();
 						$('#credenziali').hide();					

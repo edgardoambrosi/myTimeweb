@@ -9,11 +9,7 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>",
+                            "xml": "<feature name=\"Calendar\"><param name=\"android-package\" value=\"nl.xservices.plugins.Calendar\" /></feature>",
                             "count": 1
                         },
                         {
@@ -25,7 +21,11 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "xml": "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -35,11 +35,19 @@
                 "parents": {
                     "/manifest": [
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "xml": "<uses-permission android:name=\"android.permission.READ_CALENDAR\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CALENDAR\" />",
                             "count": 1
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
                             "count": 1
                         }
                     ]
@@ -48,38 +56,36 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "cordova-plugin-vibration": {
-            "PACKAGE_NAME": "it.cnr.si"
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
         "cordova-plugin-flashlight": {
-            "PACKAGE_NAME": "it.cnr.si"
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
         "cordova-plugin-spinner": {
-            "PACKAGE_NAME": "it.cnr.si"
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
-        "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "it.cnr.si"
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         }
     },
     "dependent_plugins": {},
     "modules": [
         {
-            "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-            "id": "cordova-plugin-whitelist.whitelist",
-            "pluginId": "cordova-plugin-whitelist",
-            "runs": true
+            "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
+            "id": "cordova-plugin-calendar.Calendar",
+            "pluginId": "cordova-plugin-calendar",
+            "clobbers": [
+                "Calendar"
+            ]
         },
         {
-            "file": "plugins/cordova-plugin-vibration/www/vibration.js",
-            "id": "cordova-plugin-vibration.notification",
-            "pluginId": "cordova-plugin-vibration",
-            "merges": [
-                "navigator.notification",
-                "navigator"
-            ]
+            "file": "plugins/cordova-plugin-calendar/test/tests.js",
+            "id": "cordova-plugin-calendar.tests",
+            "pluginId": "cordova-plugin-calendar"
         },
         {
             "file": "plugins/cordova-plugin-flashlight/www/Flashlight.js",
@@ -98,27 +104,26 @@
             ]
         },
         {
-            "file": "plugins/cordova-plugin-dialogs/www/notification.js",
-            "id": "cordova-plugin-dialogs.notification",
-            "pluginId": "cordova-plugin-dialogs",
+            "file": "plugins/cordova-plugin-vibration/www/vibration.js",
+            "id": "cordova-plugin-vibration.notification",
+            "pluginId": "cordova-plugin-vibration",
             "merges": [
-                "navigator.notification"
+                "navigator.notification",
+                "navigator"
             ]
         },
         {
-            "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
-            "id": "cordova-plugin-dialogs.notification_android",
-            "pluginId": "cordova-plugin-dialogs",
-            "merges": [
-                "navigator.notification"
-            ]
+            "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+            "id": "cordova-plugin-whitelist.whitelist",
+            "pluginId": "cordova-plugin-whitelist",
+            "runs": true
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-whitelist": "1.2.1",
-        "cordova-plugin-vibration": "2.1.0",
+        "cordova-plugin-calendar": "4.4.7",
         "cordova-plugin-flashlight": "3.0.0",
         "cordova-plugin-spinner": "1.0.0",
-        "cordova-plugin-dialogs": "1.2.0"
+        "cordova-plugin-vibration": "2.1.0",
+        "cordova-plugin-whitelist": "1.2.1"
     }
 }
