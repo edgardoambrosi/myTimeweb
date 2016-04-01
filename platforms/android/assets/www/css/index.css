@@ -61,6 +61,13 @@ body {
 	
 }
 
+/*per tablet con schermo superiore a 800 px di altezza*/
+@media screen and (min-height:800px) {
+	.app{
+		zoom:.8
+	}
+}
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
@@ -97,6 +104,13 @@ h1 {
 .event.received {
     background-color:#4B946A;
     display:none;
+}
+
+/*per tablet con schermo superiore a 800 px di altezza*/
+@media screen and (min-height:800px) {
+	.event {
+		font-size:24px;
+	}
 }
 
 @keyframes fade {
@@ -270,8 +284,8 @@ h1 {
 /*http://in-web.pl/cssdivbuilder*/
 #credenziali{
 	padding: 23px 17px 55px 23px;
-	width: 180px;
-	height: 110px;
+	width: 40%;
+	height: 15%;
 	margin: auto;
 	margin-top:40vmax;
 	background: rgb(194, 203, 186);

@@ -770,7 +770,6 @@ $( document ).ready(function() {
         });
 		$('#Notifiche').click(function(){
             $('#pannello-menu').children().hide();
-
 			$("div[id*='info']").remove()
 			var f=setInterval(function(){
 				if ( listaNotification.length > 0 ){

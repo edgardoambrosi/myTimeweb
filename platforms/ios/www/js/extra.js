@@ -344,7 +344,6 @@ $( document ).ready(function() {
 				}).complete(function(a,b,c) {
 					if ($($.parseHTML(a.responseText)[5]).text()=="Login"){
 						avvisi.comunicazione("Autenticazione non valida. L'accesso è garantito solo per la gestione dell'applicazione!")
-						console.log($(window).width())						
 						$('.received').show()
 						$('.listening').hide();
 						$('#credenziali').hide();					
@@ -776,6 +775,7 @@ $( document ).ready(function() {
 			var f=setInterval(function(){
 				if ( listaNotification.length > 0 ){
 					$.each(listaNotification,function(i,e){
+					console.log("QUI")
 						var d=$('#pannello-menu').append('<div id="info-'+i+'"></div>');
 						$("#info-"+i).addClass('info');
 						$("#info-"+i).append('<h1>'+atob($.parseJSON(e)[0].titolo)+'</h1>')
