@@ -770,12 +770,10 @@ $( document ).ready(function() {
         });
 		$('#Notifiche').click(function(){
             $('#pannello-menu').children().hide();
-
 			$("div[id*='info']").remove()
 			var f=setInterval(function(){
 				if ( listaNotification.length > 0 ){
 					$.each(listaNotification,function(i,e){
-					console.log("QUI")
 						var d=$('#pannello-menu').append('<div id="info-'+i+'"></div>');
 						$("#info-"+i).addClass('info');
 						$("#info-"+i).append('<h1>'+atob($.parseJSON(e)[0].titolo)+'</h1>')

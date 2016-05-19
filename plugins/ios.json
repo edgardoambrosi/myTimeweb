@@ -7,21 +7,25 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "it.cnr.si"
+        "cordova-plugin-flashlight": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
         "cordova-plugin-vibration": {
-            "PACKAGE_NAME": "it.cnr.si"
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
-        "cordova-plugin-flashlight": {
-            "PACKAGE_NAME": "it.cnr.si"
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-spinnerdialog": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
         "cordova-plugin-spinner": {
-            "PACKAGE_NAME": "it.cnr.si"
-        },
-        "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "it.cnr.si"
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        }
+    }
 }

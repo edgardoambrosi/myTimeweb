@@ -18,16 +18,15 @@
     "cordova-plugin-flashlight": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-flashlight"
+            "id": "cordova-plugin-flashlight@2.0.1"
         },
         "is_top_level": true,
         "variables": {}
     },
     "cordova-plugin-spinner": {
         "source": {
-            "type": "git",
-            "url": "https://github.com/Justin-Credible/cordova-plugin-spinner",
-            "subdir": "."
+            "type": "registry",
+            "id": "cordova-plugin-spinner"
         },
         "is_top_level": true,
         "variables": {}
@@ -36,6 +35,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-dialogs"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-spinnerdialog": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-spinnerdialog"
         },
         "is_top_level": true,
         "variables": {}

@@ -47,7 +47,6 @@
     <gap:plugin name="cordova-plugin-spinnerdialog" source="npm" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <plugin name="nl.x-services.plugins.flashlight" source="pgb" spec="2.0.1" />
-    <icon src="www/img/mySplash.png" />
     <splash src="www/img/mySplash.png" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -58,4 +57,5 @@
     <allow-intent href="geo:*" />
     <engine name="wp8" spec="~3.8.2" />
     <engine name="android" spec="~4.1.1" />
+    <engine name="ios" spec="~4.1.1" />
 </widget>

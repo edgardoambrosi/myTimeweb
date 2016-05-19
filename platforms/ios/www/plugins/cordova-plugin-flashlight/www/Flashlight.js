@@ -1,4 +1,5 @@
-cordova.define("cordova-plugin-flashlight.Flashlight", function(require, exports, module) { function Flashlight() {
+cordova.define("cordova-plugin-flashlight.Flashlight", function(require, exports, module) {
+function Flashlight() {
   // track flashlight state
   this._isSwitchedOn = false;
 }
