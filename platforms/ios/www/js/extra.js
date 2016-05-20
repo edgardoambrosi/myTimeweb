@@ -26,6 +26,7 @@ $( document ).ready(function() {
 		var CAUSALE=0;
 		var CAUSALE_SEL="";
 		var CONNESSO=false;
+		var COMUNICAZIONI="";
 
 		var app = {
 			//SERVER DISPONIBILE
@@ -560,14 +561,21 @@ $( document ).ready(function() {
 					console.log("Recupero Libreria Notifiche Effettuata");
 					var t=setInterval(function(){
 					 if ( typeof recuperaNotifiche === "function"){
-                        recuperaNotifiche(true);
 						clearInterval(t);
+                        recuperaNotifiche(true);
 						var f=setInterval(function(){
 							if ( listaNotification.length > 0 ){
 								$('#Notifiche').attr('data-badge',listaNotification.length)
-								//clearInterval(f);
+								
+								/*TODO:DA QUI*/
+								COMUNICAZIONI=listaNotification;
+								/*TODO:*/
 							}
 						},1000)
+						var g=setTimeout(function(){
+								clearInterval(f);
+								clearTimeout(g);
+						},30000)
 					 }	
 					},5000);
                     var v=setInterval(function(){
@@ -771,6 +779,7 @@ $( document ).ready(function() {
 		$('#Notifiche').click(function(){
             $('#pannello-menu').children().hide();
 			$("div[id*='info']").remove()
+			console.log(COMUNICAZIONI)
 			var f=setInterval(function(){
 				if ( listaNotification.length > 0 ){
 					$.each(listaNotification,function(i,e){

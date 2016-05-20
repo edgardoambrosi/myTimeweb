@@ -26,6 +26,7 @@ $( document ).ready(function() {
 		var CAUSALE=0;
 		var CAUSALE_SEL="";
 		var CONNESSO=false;
+		var COMUNICAZIONI="";
 
 		var app = {
 			//SERVER DISPONIBILE
@@ -468,16 +469,22 @@ $( document ).ready(function() {
 											clockFace: 'Counter'
 									  });
 									  $('#quantita1').show();
+  									  $('#separatore').show();
 									  $('#quantita2').FlipClock(__CAUSALE.split('.')[1], {
 											clockFace: 'Counter'
 									  });
+									  /*TODO: quando un saldo in ore e minuti si presenta nel formato 3.3 ossia 3 ore e 30 min, il counter i minuti li interpreta 
+									  non come trenta ma come tre e quindi visualmente diventa 03. DA SISTEMARE*/
+									  $('#quantita2').show();
 								}else {
 									if (Number(n) === n && n % 1 === 0){
 										CAUSALE=CAUSALE+n;
 										  $('#quantita1').FlipClock(CAUSALE, {
 												clockFace: 'Counter'
 										  });
-										  $('#quantita1').hide();
+  										  $('#quantita1').show();
+  									      $('#separatore').hide();
+										  $('#quantita2').hide();
 									}								
 								}
 							  }													
@@ -560,14 +567,21 @@ $( document ).ready(function() {
 					console.log("Recupero Libreria Notifiche Effettuata");
 					var t=setInterval(function(){
 					 if ( typeof recuperaNotifiche === "function"){
-                        recuperaNotifiche(true);
 						clearInterval(t);
+                        recuperaNotifiche(true);
 						var f=setInterval(function(){
 							if ( listaNotification.length > 0 ){
 								$('#Notifiche').attr('data-badge',listaNotification.length)
-								//clearInterval(f);
+								
+								/*TODO:DA QUI*/
+								COMUNICAZIONI=listaNotification;
+								/*TODO:*/
 							}
 						},1000)
+						var g=setTimeout(function(){
+								clearInterval(f);
+								clearTimeout(g);
+						},30000)
 					 }	
 					},5000);
                     var v=setInterval(function(){
