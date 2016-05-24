@@ -69,7 +69,7 @@
 
 
 		<div id="pannello-menu" class="block-level embossed-heavy pannello-embossed-heavy" style="display:none">
-			<form class="block-level embossed-heavy pannello-embossed-heavy settings" style="display:none">
+			  <form class="block-level embossed-heavy pannello-embossed-heavy settings" style="display:none">
 				<label for="TOTALE">Totale ore da lavorare:</label><br>
 				<input type="text" name="TOTALE" ><br>
 				<label for="PAUSAPRANZO">Pausa pranzo:</label><br>
@@ -82,29 +82,49 @@
 				<input type="url" name="notifiche_url" size="55" ><br>
 				<button type="button" id="salva_set">Salva</button><br>
 				<button type="button" id="reset_set">Ripristina Impostazioni</button>
-			</form> 
+			  </form> 
 
+			  <div id="perConteggio" style="display:none">
+				<h1>Rapporto Conteggio</h1>
+				<table>
+					<tbody>
+						<tr>		    
+							<td><div id="giorno_inizio">
+								<label for="GiornoLavoro_inizio">Giorno Inizio:</label>
+								<input type="date" id="GiornoLavoro_inizio" name="GiornoLavoroInizio"/>
+							</div></td>
+							<td><div id="giorno_fine">
+								<label for="GiornoLavoro_fine">Giorno Fine:</label>
+								<input type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/> 
+							</div></td>
+						</tr>
+						<tr><div id="causale_sel"><p>Seleziona la Causale:</p></div></tr>
+					</tbody>
+				</table>
+				<table>
+					<tbody>
+						<tr>
+							<td><button id="calcola">Calcola</button></td>
+							<td><div>
+								<table>
+									<tbody>
+										<tr>
+											<td><div id="quantita1" class="your-clock" style='display:none'></div></td>
+											<td><div id="separatore" style='display:none'>:</div></td>
+											<td><div id="quantita2" class="your-clock" style='display:none'></div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
 
-		  <div id="perConteggio" style="display:none">
-		    <h1>Rapporto Conteggio</h1>
-		    <div id="giorno_inizio" class="generale-imbottitura">
-		        <label for="GiornoLavoro_inizio">Giorno Inizio:</label>
-		        <input class="generale-quasi-centrato" type="date" id="GiornoLavoro_inizio" name="GiornoLavoroInizio"/>
-		    </div>
-		    <div id="giorno_fine" class="generale-imbottitura">
-		        <label for="GiornoLavoro_fine">Giorno Fine:</label>
-		        <input class="generale-quasi-centrato" type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/> 
-		    </div>
-		    <div id="causale_sel"><p class="generale-imbottitura">Seleziona la Causale:</p></div>
-			<button id="calcola">Calcola</button>
-		    <div>
-		        <div id="quantita1" class="your-clock"></div>
-				<div id="quantita2" class="your-clock"></div>
-		    </div>
-		  </div>
+			  </div>
+		      
+		      <div id="saldi" style="display:none"><h1>Mese Corrente</h1></div>
           
-          <div id="saldi" style="display:none"><h1>Mese Corrente</h1>
-          </div>
+          	  <div id="giustificativo_sel" style="display:none"><p>Seleziona il Giustificativo:</p></div>
           
 		</div>
         
@@ -112,7 +132,7 @@
 			<table class="menu" style='display:none'>
 				<tbody>
 					<tr>
-						<td><div id="Causale" class="block-level embossed-heavy menu-embossed-heavy">Selezione</div></td>
+						<td><div id="Causale" class="block-level embossed-heavy menu-embossed-heavy">Anomalie</div></td>
 						<td><div id="Saldi" class="block-level embossed-heavy menu-embossed-heavy">Saldi</div></td>
 						<td><div id="Notifiche" class="block-level embossed-heavy menu-embossed-heavy badge" data-badge="0">Notifiche</div></td>
 					</tr>

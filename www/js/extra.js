@@ -25,9 +25,13 @@ $( document ).ready(function() {
         var CAUSALI=new Object();
 		var CAUSALE=0;
 		var CAUSALE_SEL="";
+        var GIUSTIFICATIVI=new Object();
+		var GIUSTIFICATIVO=0;
+		var GIUSTIFICATIVO_SEL="";
 		var CONNESSO=false;
 		var COMUNICAZIONI="";
-
+		var IDIDP="";
+		
 		var app = {
 			//SERVER DISPONIBILE
 			isAvailable:false,
@@ -81,7 +85,11 @@ $( document ).ready(function() {
                 CAUSALI=new Object();
 				CAUSALE=0;
 				CAUSALE_SEL="";
+                GIUSTIFICATIVI=new Object();
+				GIUSTIFICATIVO=0;
+				GIUSTIFICATIVO_SEL="";
 				TICKET="";
+				IDIDP="";
 				//$('#tempo-restante').setTime(LAVORATO);
 				//$('#tempo-trascorso').setTime(DALAVORARE);
 				$('#strisciata').text("");
@@ -107,7 +115,8 @@ $( document ).ready(function() {
 				}
 				
 				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
-
+				GIUSTIFICATIVO_SEL=$('select[name="VOCISELEZIONATE"]').val();
+console.log(GIUSTIFICATIVO_SEL)
 				//salvataggio impostazioni 
 				main.salva_impostazioni();
 
@@ -351,6 +360,11 @@ $( document ).ready(function() {
 		            	$('.menu-act').show();
 					}else{
 						console.log("Autenticazione Effettuata");
+						/*ESTRAGGO DALLA RISPOSTA l'ID DEL DIPENDENTE*/
+						var resp=$.parseHTML(a.responseText);
+						var t=$(resp).find('.linkcomandi').attr('href')
+						IDIDP=t.replace(/.*iddipselected=/g, "")
+   													
 						timeweb.cartellino(d);
 						$('.received').show()
 						$('.listening').hide();
@@ -528,6 +542,43 @@ $( document ).ready(function() {
 					$(CAUSALI).css("position","relative")
 					$(CAUSALI).css("top","-30px")
                 });
+            },
+            giustificativi:function(){
+		        $.ajax({
+		            dataType:"html",
+		            dataFilter:function(d,t){
+		               return $(d);
+		            },
+		            url: server_url,
+		            data:"AZIONE=PROSPETTIGIUSTIFICATIVI",
+		            method: 'GET'
+		            }).success(function(a,b,c) {
+		                console.log("Recupero Giustificativi: ");
+		                GIUSTIFICATIVI=$(a).find('select[name="VOCISELEZIONATE"]');
+						$(GIUSTIFICATIVI).removeAttr('multiple');
+						$('select[name="VOCISELEZIONATE"]').remove();
+		                $('#giustificativo_sel').append(GIUSTIFICATIVI);
+						$(GIUSTIFICATIVI).css("position","relative")
+						$(GIUSTIFICATIVI).css("top","-30px")
+	            });
+            },
+			giustificativo:function(da,a,oraI,oraF,desc,tipodivoce,iddip){
+				var DA=da;
+				var A=a
+				var ORAI=oraI;
+				var ORAF=oraF;
+				var DESC=desc;
+				var TIPODIVOCE=tipodivoce;
+				var IDDIP=iddip;
+				$.ajax({
+				  url: server_url,
+                  async:false,
+                  data:"fmv_tipogidvoce="+TIPODIVOCE+"&fmv_datainizio="+DA+"&fmv_datafine="+A+"&fmv_orainizio="+ORAI+"&fmv_orafine="+ORAF+"&fmv_durata=&fmv_note="+DESC+"&azione=AZIONESUGIUST&dettaglioazione=INS&LD=&provenienza=GESTIONEGIUSTIFICATIVI&fmv_idgiust=&fmv_iddip="+IDDIP+"&DATAINIZIO="+DA+"&DATAFINE="+A,
+				  method: 'POST'	
+				}).complete(function(a,b,c) {
+					console.log(a)
+					avvisi.comunicazione("Inserimento Effettuato!")
+				});
             }
         };
 
@@ -760,24 +811,33 @@ $( document ).ready(function() {
 
         $('#Saldi').click(function(){
             $('#pannello-menu').children().hide();
+            
             $('#saldi').find('table').remove();
             var t=data.iniziofinemese(new Date())
-            //timeweb.saldi("01-03-2016","18-03-2016");
             timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
-        })
-						
-		$('#Causale').click(function(){
-            $('#pannello-menu').children().hide();
+            
             $('#quantita1').FlipClock(0, {
-                    clockFace: 'Counter'
+            	clockFace: 'Counter'
             });
             $('#quantita2').FlipClock(0, {
-                    clockFace: 'Counter'
+            	clockFace: 'Counter'
             });
 			env.reset();
             timeweb.causali();
             $('#perConteggio').show();
+            
+        })
+						
+		$('#Causale').click(function(){
+		    $('#pannello-menu').children().hide();
+		    
+			env.reset();
+            timeweb.giustificativi();
+            
+            $('#giustificativo_sel').show();
+			//timeweb.giustificativo("24/05/2016","24/05/2016","7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
         });
+
 		$('#calcola').click(function(){
 			env.reset();
 			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE,CAUSALE_SEL);
