@@ -455,6 +455,30 @@ console.log(GIUSTIFICATIVO_SEL)
 
 				});
 			},
+			anomalie:function(i,f){
+				var DA=i;
+				var A=f;
+				$.ajax({
+				  url: server_url, 
+				  data:"AZIONE=CARTELLINO&DATAINIZIO="+DA+"&DATAFINE="+A,
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					console.log("Anomalie");
+					$('#anomalieTable').remove();
+					var anomalieTable="<table style='transform:scale(.9);border: 1px solid black;' id='anomalieTable'/>"
+					$('#pannello-menu').append(anomalieTable);            
+					$('#anomalieTable').append('<th style="transform:scale(.9);border: 1px solid black;">GIORNO</th><th style="transform:scale(.9);border: 1px solid black;">TIMBRATURE</th><th style="transform:scale(.9);border: 1px solid black;">SELEZ</th>');
+					var t=$(a).find('table[id="divDatiTB"]').find('tr');
+					console.log(anomalieTable)
+					$.each(t,function(i,e){
+						if ($(e).attr('vis')!="no"){
+							var d=$(e).find('td').eq(0).text();
+							var h=$(e).find('td').eq(2).text();
+							$('#anomalieTable').append('<tr><td style="transform:scale(.9);border: 1px solid black;">'+d+'</td><td style="transform:scale(.9);border: 1px solid black;">'+h+'</td><td style="transform:scale(.9);border: 1px solid black;"><input type="checkbox"></td></tr>');
+						}
+					})
+				});
+			},
             contatori:function(da,a,cs){
             var DA=da;
             var A=a;
@@ -833,7 +857,8 @@ console.log(GIUSTIFICATIVO_SEL)
 		    
 			env.reset();
             timeweb.giustificativi();
-            
+			timeweb.anomalie("01/05/2016","25/05/2016");
+
             $('#giustificativo_sel').show();
 			//timeweb.giustificativo("24/05/2016","24/05/2016","7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
         });
