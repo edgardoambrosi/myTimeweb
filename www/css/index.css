@@ -251,6 +251,13 @@ h1 {
     height:5vmax;
 }
 
+
+.giustifica{
+	background-color: #f44336;
+	border-radius:5px;
+	z-index: -1; position:absolute;
+}
+
 /***********************/
 
 /***********************/
@@ -260,7 +267,7 @@ h1 {
 	background-color: rgb(206, 187, 22);
 
     margin: auto;
-    height: 10vmax;
+    height: 5vmax;
     width: 60%;
     padding: 10px;
 }
@@ -276,6 +283,35 @@ h1 {
     width:90%;
 }
 
+#anomalieTable {
+    zoomX:0.8;
+    width:90%;
+}
+
+#anomalieTable th {
+    border: 1px solid black;
+    background-color:#A0A0A0;
+    color:white;
+}
+#anomalieTable td{
+    border: 1px solid black;
+    background-color:#EEEEEE;
+    width:10%;
+}
+
+#anomalieTable td:nth-child(3) {  
+    border: none;
+    background-color: transparent;
+    width:10%;
+}
+
+#anomalieTable td input
+{
+   display: inline-block;
+   width: 100%;       /* set to 100% */
+   height: 100%;      /* set to 100% */
+   border-radius: 2px;
+}
 
 /***********************/
 

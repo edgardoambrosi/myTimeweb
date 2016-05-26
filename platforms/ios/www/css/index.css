@@ -276,6 +276,37 @@ h1 {
     width:90%;
 }
 
+#anomalieTable {
+    zoomX:0.8;
+    width:90%;
+}
+
+#anomalieTable th {
+    border: 1px solid black;
+    background-color:#A0A0A0;
+    color:white;
+}
+#anomalieTable td{
+    border: 1px solid black;
+    background-color:#EEEEEE;
+    width:10%;
+}
+
+#anomalieTable td:nth-child(3) {  
+    border: none;
+    background-color: transparent;
+    width:10%;
+}
+
+#anomalieTable td input
+{
+   display: inline-block;
+   width: 100%;       /* set to 100% */
+   height: 100%;      /* set to 100% */
+   border-radius: 2px;
+}
+
+
 
 /***********************/
 

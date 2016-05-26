@@ -116,7 +116,7 @@ $( document ).ready(function() {
 				
 				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
 				GIUSTIFICATIVO_SEL=$('select[name="VOCISELEZIONATE"]').val();
-console.log(GIUSTIFICATIVO_SEL)
+
 				//salvataggio impostazioni 
 				main.salva_impostazioni();
 
@@ -457,7 +457,7 @@ console.log(GIUSTIFICATIVO_SEL)
 			},
 			anomalie:function(i,f){
 				var DA=i;
-				var A=f;
+				var A=f; 
 				$.ajax({
 				  url: server_url, 
 				  data:"AZIONE=CARTELLINO&DATAINIZIO="+DA+"&DATAFINE="+A,
@@ -465,18 +465,30 @@ console.log(GIUSTIFICATIVO_SEL)
 				}).success(function(a,b,c) {
 					console.log("Anomalie");
 					$('#anomalieTable').remove();
-					var anomalieTable="<table style='transform:scale(.9);border: 1px solid black;' id='anomalieTable'/>"
+					var anomalieTable="<table id='anomalieTable'/>"
 					$('#pannello-menu').append(anomalieTable);            
-					$('#anomalieTable').append('<th style="transform:scale(.9);border: 1px solid black;">GIORNO</th><th style="transform:scale(.9);border: 1px solid black;">TIMBRATURE</th><th style="transform:scale(.9);border: 1px solid black;">SELEZ</th>');
+					$('#anomalieTable').append('<caption>ANOMALIE MESE CORRENTE</caption>');
+					$('#anomalieTable').append('<th>GIORNO</th><th>TIMBRATURE</th>');
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
-					console.log(anomalieTable)
 					$.each(t,function(i,e){
-						if ($(e).attr('vis')!="no"){
+						if ( i>0 && $(e).attr('vis')!="no"){
 							var d=$(e).find('td').eq(0).text();
 							var h=$(e).find('td').eq(2).text();
-							$('#anomalieTable').append('<tr><td style="transform:scale(.9);border: 1px solid black;">'+d+'</td><td style="transform:scale(.9);border: 1px solid black;">'+h+'</td><td style="transform:scale(.9);border: 1px solid black;"><input type="checkbox"></td></tr>');
+							var id_btn=(d.split(" ")[0]).replace(/\//g,"-")
+							$('#anomalieTable').append('<tr><td>'+d+'</td><td>'+h+'</td><td><input id="'+id_btn+'" type="button"></td></tr>');
+							$("#"+id_btn).click(function(){
+								var GIORNODA=($(this).attr('id')).replace(/-/g,"/");
+								var GIORNOA=($(this).attr('id')).replace(/-/g,"/");
+								var t=GIORNODA;
+								var GIORNODA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
+								var t=GIORNOA;
+								var GIORNOA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
+
+ 							    timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
+							})
 						}
 					})
+
 				});
 			},
             contatori:function(da,a,cs){
@@ -857,10 +869,12 @@ console.log(GIUSTIFICATIVO_SEL)
 		    
 			env.reset();
             timeweb.giustificativi();
-			timeweb.anomalie("01/05/2016","25/05/2016");
+            
+            var t=data.iniziofinemese(new Date())
+			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
 
             $('#giustificativo_sel').show();
-			//timeweb.giustificativo("24/05/2016","24/05/2016","7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
+            
         });
 
 		$('#calcola').click(function(){
