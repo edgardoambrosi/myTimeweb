@@ -484,7 +484,6 @@ $( document ).ready(function() {
 								var t=GIORNOA;
 								var GIORNOA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
 
-								console.log(GIORNODA+" "+GIORNOA);
  							    timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
 							})
 						}

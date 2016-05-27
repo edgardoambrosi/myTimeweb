@@ -251,6 +251,13 @@ h1 {
     height:5vmax;
 }
 
+
+.giustifica{
+	background-color: #f44336;
+	border-radius:5px;
+	z-index: -1; position:absolute;
+}
+
 /***********************/
 
 /***********************/
@@ -260,7 +267,7 @@ h1 {
 	background-color: rgb(206, 187, 22);
 
     margin: auto;
-    height: 10vmax;
+    height: 5vmax;
     width: 60%;
     padding: 10px;
 }
@@ -305,8 +312,6 @@ h1 {
    height: 100%;      /* set to 100% */
    border-radius: 2px;
 }
-
-
 
 /***********************/
 
