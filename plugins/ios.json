@@ -10,16 +10,13 @@
         "cordova-plugin-flashlight": {
             "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
+        "cordova-plugin-spinner": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
-        },
-        "cordova-plugin-spinnerdialog": {
-            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
-        },
-        "cordova-plugin-spinner": {
             "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         }
     },

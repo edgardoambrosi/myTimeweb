@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -19,22 +21,151 @@
 -->
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com/accessibility/javascript/android/; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" href="css/flipclock.css">
+
+        <title>Timeweb Monitor</title>
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
+            <h1>Orario Lavoro</h1>
             <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+                <p class="event listening">Connetti TimeWeb</p>
+                <p class="event received">Disconnetti Timeweb</p>
             </div>
+            <table>
+            	<tr>
+					<td><div id="giorno" class="generale-centrato generale-imbottitura">
+						<label for="GiornoLavoro">Scegliere un giorno</label>
+						<input type="date" id="GiornoLavoro" name="GiornoLavoro"/>
+					</div></td>
+					<td><button id="giustifica" class="block-level embossed-heavy giustifica" style="display:none" >INSERIRE CAUSALE</button></td>
+				 </tr>
+            </table>
         </div>
+
+
+		<div id="monitor" style="display:none">
+			<table class="cartellino">
+				<tbody>
+					<tr>
+						<td><div id="strisciata" class="block-level embossed-heavy"></div></td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="tempo-restante" class="your-clock"></div>
+			<div id="tempo-trascorso" class="your-clock"></div>
+			<div id="saldo" class="saldo">
+				<h1>Saldo Giornata</h1>		
+			</div>
+			
+		</div>
+		
+
+		<div id="credenziali" style="display:none">
+			<label for="NomeUtente">Nome Utente</label><input type="text" id="NomeUtente" name="NomeUtente" value=""/></br>
+			<label for="Password">Password</label><input type="password" id="Password" name="Password" value=""/></br>
+			<input type="checkbox" name="SaveCred" value="false" />Ricordami su questo dispositivo</br>
+			<button id="credset" type="submit" >Autorizza</button>
+		</div>
+
+
+		<div id="pannello-menu" class="block-level embossed-heavy pannello-embossed-heavy" style="display:none">
+			  <form class="block-level embossed-heavy pannello-embossed-heavy settings" style="display:none">
+				<label for="TOTALE">Totale ore da lavorare:</label><br>
+				<input type="text" name="TOTALE" ><br>
+				<label for="PAUSAPRANZO">Pausa pranzo:</label><br>
+				<input type="text" name="PAUSAPRANZO" ><br>
+				<label for="server_url">Server URL:</label><br>	
+				<input type="url" name="server_url" size="55" ><br>
+				<label for="notifiche_aut_url">Servizio Notifiche Login URL:</label><br>	
+				<input type="url" name="notifiche_aut_url" size="55" ><br>
+				<label for="notifiche_url">Servizio Notifiche URL:</label><br>	
+				<input type="url" name="notifiche_url" size="55" ><br>
+				<button type="button" id="salva_set">Salva</button><br>
+				<button type="button" id="reset_set">Ripristina Impostazioni</button>
+			  </form> 
+
+			  <div id="perConteggio" style="display:none">
+				<h1>Rapporto Conteggio</h1>
+				<table>
+					<tbody>
+						<tr>		    
+							<td><div id="giorno_inizio">
+								<label for="GiornoLavoro_inizio">Giorno Inizio:</label>
+								<input type="date" id="GiornoLavoro_inizio" name="GiornoLavoroInizio"/>
+							</div></td>
+							<td><div id="giorno_fine">
+								<label for="GiornoLavoro_fine">Giorno Fine:</label>
+								<input type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/> 
+							</div></td>
+						</tr>
+						<tr><div id="causale_sel"><p>Seleziona la Causale:</p></div></tr>
+					</tbody>
+				</table>
+				<table>
+					<tbody>
+						<tr>
+							<td><button id="calcola">Calcola</button></td>
+							<td><div>
+								<table>
+									<tbody>
+										<tr>
+											<td><div id="quantita1" class="your-clock" style='display:none'></div></td>
+											<td><div id="separatore" style='display:none'>:</div></td>
+											<td><div id="quantita2" class="your-clock" style='display:none'></div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
+
+			  </div>
+		      
+		      <div id="saldi" style="display:none"><h1>Mese Corrente</h1></div>
+          
+          	  <div id="giustificativo_sel" style="display:none"><p>Seleziona il Giustificativo:</p></div>
+          
+		</div>
+        
+        <div>
+			<table class="menu" style='display:none'>
+				<tbody>
+					<tr>
+						<td><div id="Causale" class="block-level embossed-heavy menu-embossed-heavy">Anomalie</div></td>
+						<td><div id="Saldi" class="block-level embossed-heavy menu-embossed-heavy">Saldi</div></td>
+						<td><div id="Notifiche" class="block-level embossed-heavy menu-embossed-heavy badge" data-badge="0">Notifiche</div></td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="menu-act" style='display:none'>
+				<tbody>
+					<tr>
+						<td><div id="imgmenu" style="zoom:2.3;">
+                                <img src="img/menu.svg"/>
+                            </div>
+                        </td>
+						<td><div id="imgset" style="zoom:0.07; display:none">
+                                <img src="img/settings.svg"/>
+                            </div>
+                        </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery.xpath.min.js"></script>
+		<script src="js/flipclock.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        
+        <script type="text/javascript" src="js/extra.js"></script>
     </body>
 </html>

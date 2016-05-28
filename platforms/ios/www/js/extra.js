@@ -30,7 +30,7 @@ $( document ).ready(function() {
 		var GIUSTIFICATIVO_SEL="";
 		var CONNESSO=false;
 		var COMUNICAZIONI="";
-		var IDIDP="";
+		var IDDIP="";
 		
 		var app = {
 			//SERVER DISPONIBILE
@@ -89,7 +89,7 @@ $( document ).ready(function() {
 				GIUSTIFICATIVO=0;
 				GIUSTIFICATIVO_SEL="";
 				TICKET="";
-				IDIDP="";
+				IDDIP="";
 				//$('#tempo-restante').setTime(LAVORATO);
 				//$('#tempo-trascorso').setTime(DALAVORARE);
 				$('#strisciata').text("");
@@ -363,13 +363,14 @@ $( document ).ready(function() {
 						/*ESTRAGGO DALLA RISPOSTA l'ID DEL DIPENDENTE*/
 						var resp=$.parseHTML(a.responseText);
 						var t=$(resp).find('.linkcomandi').attr('href')
-						IDIDP=t.replace(/.*iddipselected=/g, "")
+						IDDIP=t.replace(/.*iddipselected=/g, "")
    													
 						timeweb.cartellino(d);
 						$('.received').show()
 						$('.listening').hide();
 						$('#credenziali').hide();					
 						$('#monitor').show();
+						$('#giustifica').show();
 		            	$('.menu-act').show();
 						CONNESSO=true;
 					}
@@ -475,7 +476,7 @@ $( document ).ready(function() {
 							var d=$(e).find('td').eq(0).text();
 							var h=$(e).find('td').eq(2).text();
 							var id_btn=(d.split(" ")[0]).replace(/\//g,"-")
-							$('#anomalieTable').append('<tr><td>'+d+'</td><td>'+h+'</td><td><input id="'+id_btn+'" type="button"></td></tr>');
+							$('#anomalieTable').append('<tr><td>'+d+'</td><td>'+h+'</td><td><input type="button" id="'+id_btn+'" value="CAUSALE"></input></td></tr>');
 							$("#"+id_btn).click(function(){
 								var GIORNODA=($(this).attr('id')).replace(/-/g,"/");
 								var GIORNOA=($(this).attr('id')).replace(/-/g,"/");
@@ -483,7 +484,7 @@ $( document ).ready(function() {
 								var GIORNODA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
 								var t=GIORNOA;
 								var GIORNOA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
-
+								//console.log(GIORNODA+" "+GIORNOA+" "+"7:50"+" "+"9:38"+" "+"ADITERM RISONANZA MAGNETICA"+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
  							    timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
 							})
 						}
@@ -611,10 +612,9 @@ $( document ).ready(function() {
                   async:false,
                   data:"fmv_tipogidvoce="+TIPODIVOCE+"&fmv_datainizio="+DA+"&fmv_datafine="+A+"&fmv_orainizio="+ORAI+"&fmv_orafine="+ORAF+"&fmv_durata=&fmv_note="+DESC+"&azione=AZIONESUGIUST&dettaglioazione=INS&LD=&provenienza=GESTIONEGIUSTIFICATIVI&fmv_idgiust=&fmv_iddip="+IDDIP+"&DATAINIZIO="+DA+"&DATAFINE="+A,
 				  method: 'POST'	
-				}).complete(function(a,b,c) {
-					console.log(a)
+				}).success(function(a,b,c) {
 					avvisi.comunicazione("Inserimento Effettuato!")
-				});
+				}).error(function(a){console.log(a)});
             }
         };
 
@@ -698,10 +698,16 @@ $( document ).ready(function() {
 			timeweb.cartellino();
 		});
 
+		$('#giustifica').click(function(){
+			alert(DATA_GIORNO_LAVORATO+" "+DATA_GIORNO_LAVORATO+" "+"7:50"+" "+"9:38"+" "+"ADITERM RISONANZA MAGNETICA"+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
+		    timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
+		})
+
 		$('.received').click(function(){
 			console.log("...tento la disconnessione...");
 			timeweb.disconnetti();
 			$('#monitor').hide();
+			$('#giustifica').hide();			
             $('.menu-act').hide();
 			app.receivedEvent('deviceready');
 			env.reset();
@@ -809,6 +815,7 @@ $( document ).ready(function() {
 			//IN CASO DI FALLIMENTO DI LOGIN, MI ASPETTO CHE IL MONITOR SIA SPENTO E QUINDI NON DEVE ESSERE RISPENTO.
 			if ($('#monitor').is(":visible")){
 				$('#monitor').hide();
+				$('#giustifica').hide();				
 			}
 			//SPENGO IL CONTROLLO DI AVVIO
             $('.app').hide();
@@ -825,8 +832,10 @@ $( document ).ready(function() {
 			//IN CASO DI FALLIMENTO DI LOGIN, MI ASPETTO CHE IL MONITOR SIA SPENTO E QUINDI NON DEVE ESSERE RIACCESO.
 			if ( CONNESSO ){
 				$('#monitor').show();
+				$('#giustifica').show();				
 			}else{
 				$('#monitor').hide();
+				$('#giustifica').hide();				
 			}
 			//ACCENDO IL CONTROLLO DI AVVIO
             $('.app').show();

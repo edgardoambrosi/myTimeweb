@@ -177,7 +177,7 @@ h1 {
 /*http://tympanus.net/Tutorials/BasicReadyToUseCSSStyles/*/
 .block-level {
 	width: 100%;
-    height: 25px;
+    height: auto;
     position: relative;
     float: left;
     color: #fff;
@@ -253,9 +253,19 @@ h1 {
 
 
 .giustifica{
-	background-color: #f44336;
-	border-radius:5px;
-	z-index: -1; position:absolute;
+	background-color: #F4AC36;
+	border-radius:75px;
+	border:5px;
+	position:absolute;
+	z-index: 10; 
+	
+	width: 70%;
+    height: 70%;
+    margin-left: -25vmax;
+    font-size: smaller;
+    top: 125vmax;
+    left: 70vmax;
+    
 }
 
 /***********************/
@@ -267,7 +277,7 @@ h1 {
 	background-color: rgb(206, 187, 22);
 
     margin: auto;
-    height: 5vmax;
+    height: 10vmax;
     width: 60%;
     padding: 10px;
 }
@@ -308,9 +318,11 @@ h1 {
 #anomalieTable td input
 {
    display: inline-block;
-   width: 100%;       /* set to 100% */
-   height: 100%;      /* set to 100% */
-   border-radius: 2px;
+   width:13vmax;
+   height:5vmax;
+   border-radius:75px;
+   border:5px;
+   font-size: xx-small;   
 }
 
 /***********************/
