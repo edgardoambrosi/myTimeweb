@@ -382,6 +382,36 @@ h1 {
 /*************************/
 
 /*************************/
+#form_giustificativi{
+	position:absolute;
+	top:3%;
+	left:3%;
+	width: 95%;
+	height:95%;
+	background: black;
+	opacity:0.9;
+	z-index:10;
+}
+
+#form_giustificativi div{
+	/*border:1px solid red;*/
+	position: relative;
+    top: 30%;
+    left: 15%;
+    width: 70%;
+
+}
+
+#form_giustificativi form{
+	/*border:1px solid red;*/
+	background-color:rgb(194, 203, 186);
+	padding: 7%;
+}
+
+/*************************/
+
+
+/*************************/
 .generale-quasi-centrato{
 	position:absolute;
 	right: 0;

@@ -484,8 +484,7 @@ $( document ).ready(function() {
 								var GIORNODA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
 								var t=GIORNOA;
 								var GIORNOA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
-								//console.log(GIORNODA+" "+GIORNOA+" "+"7:50"+" "+"9:38"+" "+"ADITERM RISONANZA MAGNETICA"+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
- 							    timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
+								$('#giustifica').trigger("click", [ GIORNODA, GIORNOA ]);								
 							})
 						}
 					})
@@ -596,7 +595,7 @@ $( document ).ready(function() {
 						$('select[name="VOCISELEZIONATE"]').remove();
 		                $('#giustificativo_sel').append(GIUSTIFICATIVI);
 						$(GIUSTIFICATIVI).css("position","relative")
-						$(GIUSTIFICATIVI).css("top","-30px")
+						$(GIUSTIFICATIVI).css("top","1spx")
 	            });
             },
 			giustificativo:function(da,a,oraI,oraF,desc,tipodivoce,iddip){
@@ -698,9 +697,31 @@ $( document ).ready(function() {
 			timeweb.cartellino();
 		});
 
-		$('#giustifica').click(function(){
-			alert(DATA_GIORNO_LAVORATO+" "+DATA_GIORNO_LAVORATO+" "+"7:50"+" "+"9:38"+" "+"ADITERM RISONANZA MAGNETICA"+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
-		    timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);
+		$('#giustifica').on("click",function(a,b,c){
+			var GIORNODA=b;
+			var GIORNOA=c;
+			if (typeof b == "undefined" || typeof a == "undefined" ){
+				GIORNODA=DATA_GIORNO_LAVORATO
+				GIORNOA=DATA_GIORNO_LAVORATO
+			}
+			$('#form_giustificativi').data("DA",GIORNODA);
+			$('#form_giustificativi').data("A",GIORNOA);
+            timeweb.giustificativi();
+			$('#form_giustificativi').show()
+            $('#giustificativo_sel').show();		
+		})
+		$('#form_giustificativi-conferma').click(function(){
+			$('#form_giustificativi').hide()	
+			var GIORNODA=$('#form_giustificativi').data("DA");
+			var GIORNOA=$('#form_giustificativi').data("A");
+			var DA=$('#form_giustificativi input[name="DA"]').val();
+			var A=$('#form_giustificativi input[name="A"]').val();
+			var DESC=$('#form_giustificativi textarea').val();
+			alert(GIORNODA+" "+GIORNOA+" "+DA+" "+A+" "+DESC+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
+		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);			
+		})
+		$('#form_giustificativi-annulla').click(function(){
+			$('#form_giustificativi').hide()	
 		})
 
 		$('.received').click(function(){
