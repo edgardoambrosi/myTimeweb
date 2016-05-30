@@ -75,6 +75,23 @@
 		</div>
 
 
+		<div id="form_giustificativi" style="display:none">
+			<div>
+				<form>
+					<label for="DA">Da che ora:</label><br>
+					<input type="time" name="DA" ><br>
+					<label for="A">A che ora:</label><br>
+					<input type="time" name="A" ><br>
+					<label for="DESC">Inserire una descrizione:</label><br>
+					<textarea cols="30" name="DESC" rows="5"></textarea><br>
+ 	          	    <div id="giustificativo_sel" style='left:2px' name='GIUS'><label style="margin-bottom:10%" for="GIUS">Giustificativo:</label><br></div><br>
+					<button type="button" id="form_giustificativi-conferma">Conferma</button><br>
+					<button type="button" id="form_giustificativi-annulla">Annulla</button>
+				</form> 
+			</div>
+		</div>	
+
+
 		<div id="pannello-menu" class="block-level embossed-heavy pannello-embossed-heavy" style="display:none">
 			  <form class="block-level embossed-heavy pannello-embossed-heavy settings" style="display:none">
 				<label for="TOTALE">Totale ore da lavorare:</label><br>
@@ -90,6 +107,7 @@
 				<button type="button" id="salva_set">Salva</button><br>
 				<button type="button" id="reset_set">Ripristina Impostazioni</button>
 			  </form> 
+
 
 			  <div id="perConteggio" style="display:none">
 				<h1>Rapporto Conteggio</h1>
@@ -130,8 +148,6 @@
 			  </div>
 		      
 		      <div id="saldi" style="display:none"><h1>Mese Corrente</h1></div>
-          
-          	  <div id="giustificativo_sel" style="display:none"><p>Seleziona il Giustificativo:</p></div>
           
 		</div>
         

@@ -698,20 +698,26 @@ $( document ).ready(function() {
 		});
 
 		$('#giustifica').on("click",function(a,b,c){
-			console.log(a);
-			console.log(b);	
-			console.log(c);			
-/*            timeweb.giustificativi();
+			var GIORNODA=b;
+			var GIORNOA=c;
+			if (typeof b == "undefined" || typeof a == "undefined" ){
+				GIORNODA=DATA_GIORNO_LAVORATO
+				GIORNOA=DATA_GIORNO_LAVORATO
+			}
+			$('#form_giustificativi').data("DA",GIORNODA);
+			$('#form_giustificativi').data("A",GIORNOA);
+            timeweb.giustificativi();
 			$('#form_giustificativi').show()
             $('#giustificativo_sel').show();		
-            */
 		})
 		$('#form_giustificativi-conferma').click(function(){
 			$('#form_giustificativi').hide()	
-			var DA=$('#form_giustificativi input[name="DA"]').val()
-			var A=$('#form_giustificativi input[name="A"]').val()
-			var DESC=$('#form_giustificativi textarea').val()
-			alert(DATA_GIORNO_LAVORATO+" "+DATA_GIORNO_LAVORATO+" "+DA+" "+A+" "+DESC+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
+			var GIORNODA=$('#form_giustificativi').data("DA");
+			var GIORNOA=$('#form_giustificativi').data("A");
+			var DA=$('#form_giustificativi input[name="DA"]').val();
+			var A=$('#form_giustificativi input[name="A"]').val();
+			var DESC=$('#form_giustificativi textarea').val();
+			alert(GIORNODA+" "+GIORNOA+" "+DA+" "+A+" "+DESC+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
 		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);			
 		})
 		$('#form_giustificativi-annulla').click(function(){
