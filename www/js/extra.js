@@ -708,10 +708,12 @@ $( document ).ready(function() {
 			$('#form_giustificativi').data("A",GIORNOA);
             timeweb.giustificativi();
 			$('#form_giustificativi').show()
+			$('#form_giustificativi').css("top","0%")
             $('#giustificativo_sel').show();		
 		})
 		$('#form_giustificativi-conferma').click(function(){
-			$('#form_giustificativi').hide()	
+			$('#form_giustificativi').css("top","-100%");
+			//$('#form_giustificativi').hide();	
 			var GIORNODA=$('#form_giustificativi').data("DA");
 			var GIORNOA=$('#form_giustificativi').data("A");
 			var DA=$('#form_giustificativi input[name="DA"]').val();
@@ -721,7 +723,8 @@ $( document ).ready(function() {
 		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);			
 		})
 		$('#form_giustificativi-annulla').click(function(){
-			$('#form_giustificativi').hide()	
+			$('#form_giustificativi').css("top","-100%")
+			//$('#form_giustificativi').hide()	
 		})
 
 		$('.received').click(function(){
