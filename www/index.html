@@ -71,26 +71,34 @@
 			<label for="NomeUtente">Nome Utente</label><input type="text" id="NomeUtente" name="NomeUtente" value=""/></br>
 			<label for="Password">Password</label><input type="password" id="Password" name="Password" value=""/></br>
 			<input type="checkbox" name="SaveCred" value="false" />Ricordami su questo dispositivo</br>
-			<button id="credset" type="submit" >Autorizza</button>
+			<button id="credset" class="conferma" type="submit" >Autorizza</button>
 		</div>
 
 
 		<div id="form_giustificativi" style="display:none">
-			<div>
 				<form>
-					<label for="DA">Da che ora:</label><br>
-					<input type="time" name="DA" ><br>
-					<label for="A">A che ora:</label><br>
-					<input type="time" name="A" ><br>
+					<h1>Inserimento del Giustificativo</h1>
+ 	          	    <div id="giustificativo_sel" style='left:2px' name='GIUS'><label style="margin-bottom:10%" for="GIUS">Giustificativo:</label><br></div><br>
 					<label for="DESC">Inserire una descrizione:</label><br>
 					<textarea cols="30" name="DESC" rows="5"></textarea><br>
- 	          	    <div id="giustificativo_sel" style='left:2px' name='GIUS'><label style="margin-bottom:10%" for="GIUS">Giustificativo:</label><br></div><br>
-					<button type="button" id="form_giustificativi-conferma">Conferma</button><br>
-					<button type="button" id="form_giustificativi-annulla">Annulla</button>
+					<table>
+						<tr>
+							<td><label for="DA">Da che ora:</label></td>
+							<td><input type="time" name="DA" ></td>
+						</tr>	
+						<tr>
+							<td><label for="A">A che ora:</label></td>
+							<td><input type="time" name="A" ></td>
+						</tr>						
+						<tr>
+							<td><button class="conferma" type="button" id="form_giustificativi-conferma">Conferma</button><br></td>
+						</tr>	
+						<tr>
+							<td><button  class="conferma annulla" type="button" id="form_giustificativi-annulla">Annulla</button></td>
+						</tr>
+					</table>
 				</form> 
-			</div>
-		</div>	
-
+		</div>
 
 		<div id="pannello-menu" class="block-level embossed-heavy pannello-embossed-heavy" style="display:none">
 			  <form class="block-level embossed-heavy pannello-embossed-heavy settings" style="display:none">
@@ -104,15 +112,20 @@
 				<input type="url" name="notifiche_aut_url" size="55" ><br>
 				<label for="notifiche_url">Servizio Notifiche URL:</label><br>	
 				<input type="url" name="notifiche_url" size="55" ><br>
-				<button type="button" id="salva_set">Salva</button><br>
-				<button type="button" id="reset_set">Ripristina Impostazioni</button>
+				<table>
+					<tr>
+						<td><button class="conferma" type="button" id="salva_set">Salva</button></td>
+						<td><button class="conferma annulla" style="zoom:1" type="button" id="reset_set">Ripristina Impostazioni</button></td>
+					</tr>
+				</table>	
 			  </form> 
 
 
-			  <div id="perConteggio" style="display:none">
+			  <div id="perConteggio" style="display:none;">
 				<h1>Rapporto Conteggio</h1>
 				<table>
 					<tbody>
+						<tr><div id="causale_sel"><p>Seleziona la Causale:</p></div></tr>
 						<tr>		    
 							<td><div id="giorno_inizio">
 								<label for="GiornoLavoro_inizio">Giorno Inizio:</label>
@@ -123,13 +136,8 @@
 								<input type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/> 
 							</div></td>
 						</tr>
-						<tr><div id="causale_sel"><p>Seleziona la Causale:</p></div></tr>
-					</tbody>
-				</table>
-				<table>
-					<tbody>
 						<tr>
-							<td><button id="calcola">Calcola</button></td>
+							<td><button class="conferma" id="calcola">Calcola</button></td>
 							<td><div>
 								<table>
 									<tbody>
@@ -144,12 +152,36 @@
 						</tr>
 					</tbody>
 				</table>
-
 			  </div>
-		      
-		      <div id="saldi" style="display:none"><h1>Mese Corrente</h1></div>
+			  
+			  
+		      <div id="saldi" style="display:none;">
+			  <hr style="93%">		      
+		      	<table>
+		      		<tr>	
+			      		<td><h1>Totali Mese </h1></td>
+			      		<td><input type="date" id="mese_corrente"/></td>
+			      		<td><button class="conferma" id="totali" style="zoom:1.3">Totalizza</button></td>
+		      		</tr>
+		      	</table>	
+		      </div>
           
+			  <div id="anomalie" style="display:none">        
+				<table>
+					<tr>
+						<td><h1>Anomalie Mese</h1></td>
+						<td><input type="date" id="anomalie_mese_corrente"/></td>
+						<td><button class="conferma" id="anomali" style="zoom:1.1">Totalizza</button></td>
+					</tr>
+				</table>
+				<table id='anomalieTable'>
+					<th>GIORNO</th><th>TIMBRATURE</th>
+				</table>
+			  </div>
+		    	
 		</div>
+
+        
         
         <div>
 			<table class="menu" style='display:none'>

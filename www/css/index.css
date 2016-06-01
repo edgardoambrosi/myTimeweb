@@ -347,7 +347,7 @@ h1 {
 	-webkit-transform:scale(1);
 	-o-transform:scale(1);
 }
-#credset{
+.conferma{
   margin: 0 0 5px;
   padding: 0 12px;
   height: 28px;
@@ -379,33 +379,35 @@ h1 {
   box-shadow: inset 0 1px #d9f3b5, inset 0 0 0 1px #b1e095, 0 1px #5e903f, 0 3px #6da445, 0 4px #5e903f, 0 5px 2px rgba(0, 0, 0, 0.4);
 }
 
+.annulla{
+	background: #ff6600;
+	border-color: #ffc299 #e65c00 #803300;
+	box-shadow: inset 0 1px #4d1f00, inset 0 0 0 1px #4d1f00, 0 1px #4d1f00, 0 3px #4d1f00, 0 4px #4d1f00, 0 5px 2px rgba(0, 0, 0, 0.4);
+	text-shadow: 0 1px #4d1f00;
+	zoom:1.2;
+}
 /*************************/
 
 /*************************/
 #form_giustificativi{
 	position:absolute;
-	top:3%;
-	left:3%;
-	width: 95%;
-	height:95%;
-	background: black;
-	opacity:0.9;
+	top:-5%;
+	left:7%;
+	width: 75%;
+	height:65%;
+	padding: 7%;
+	background-color:rgb(194, 203, 186);
+	transition:top 2s;
 	z-index:10;
 }
 
-#form_giustificativi div{
-	/*border:1px solid red;*/
-	position: relative;
-    top: 30%;
-    left: 15%;
-    width: 70%;
-
+#form_giustificativi input{
+	width: 10vmax;
+	zoom:1.2;
 }
 
-#form_giustificativi form{
-	/*border:1px solid red;*/
-	background-color:rgb(194, 203, 186);
-	padding: 7%;
+#form_giustificativi select{
+	zoom:1.2;
 }
 
 /*************************/
