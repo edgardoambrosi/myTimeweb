@@ -75,8 +75,7 @@
 		</div>
 
 
-		<!--<div id="form_giustificativi" style="display:none">-->
-			<div id="form_giustificativi" style="display:none">
+		<div id="form_giustificativi" style="display:none">
 				<form>
 					<h1>Inserimento del Giustificativo</h1>
  	          	    <div id="giustificativo_sel" style='left:2px' name='GIUS'><label style="margin-bottom:10%" for="GIUS">Giustificativo:</label><br></div><br>
@@ -84,9 +83,13 @@
 					<textarea cols="30" name="DESC" rows="5"></textarea><br>
 					<table>
 						<tr>
-						<td><label for="DA">Da che ora:</label><input type="time" name="DA" ></td>
-						<td><label for="A">A che ora:</label><input type="time" name="A" ></td>
+							<td><label for="DA">Da che ora:</label></td>
+							<td><input type="time" name="DA" ></td>
 						</tr>	
+						<tr>
+							<td><label for="A">A che ora:</label></td>
+							<td><input type="time" name="A" ></td>
+						</tr>						
 						<tr>
 							<td><button class="conferma" type="button" id="form_giustificativi-conferma">Conferma</button><br></td>
 						</tr>	
@@ -95,9 +98,7 @@
 						</tr>
 					</table>
 				</form> 
-			</div>
-		<!--</div>	-->
-
+		</div>
 
 		<div id="pannello-menu" class="block-level embossed-heavy pannello-embossed-heavy" style="display:none">
 			  <form class="block-level embossed-heavy pannello-embossed-heavy settings" style="display:none">
@@ -154,7 +155,13 @@
 
 			  </div>
 		      
-		      <div id="saldi" style="display:none"><h1>Mese Corrente</h1></div>
+		      <div id="saldi" style="display:none">
+		      	<table>
+		      		<tr>	
+			      		<td><h1>Totali Mese </h1></td><td><input type="date" id="mese_corrente" name="mese_corrente"/></td><td><button class="conferma" id="totali">Totalizza</button></td>
+		      		</tr>
+		      	</table>	
+		      </div>
           
 		</div>
         

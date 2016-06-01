@@ -389,32 +389,16 @@ h1 {
 /*************************/
 
 /*************************/
-/*
 #form_giustificativi{
 	position:absolute;
-	top:3%;
-	left:3%;
-	width: 95%;
-	height:95%;
-	background: black;
-	opacity:0.9;
-	z-index:10;
-}
-
-#form_giustificativi div{
-
-	position: relative;
-    top: 30%;
-    left: 15%;
-    width: 70%;
-
-}
-
-*/
-#form_giustificativi{
-	background-color:rgb(194, 203, 186);
+	top:-5%;
+	left:7%;
+	width: 75%;
+	height:65%;
 	padding: 7%;
+	background-color:rgb(194, 203, 186);
 	transition:top 2s;
+	z-index:10;
 }
 
 /*************************/

@@ -292,7 +292,7 @@ $( document ).ready(function() {
 		var data={
 			//compone una data dal formato ISO al semplice formato dd-mm-yyyy
 			composizione:function(d){
-				var mesi=["Jan","Feb","Mar", "Apr", "May", "Giu", "Jul", "Aug", "Sep","Oct","Nov","Dec"];
+				var mesi=["Jan","Feb","Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct","Nov","Dec"];
 				var nmesi=["01","02","03", "04", "05", "06", "07", "08", "09","10","11","12"];
 				if (typeof d=="undefined"){
 					var oggi=(new Date()).toString().split(" ");
@@ -319,8 +319,11 @@ $( document ).ready(function() {
 				}
 			},
 			//calcola il range del mese corrente dal primo giorno al secondo giorno
-            iniziofinemese:function(){
-                var date = new Date();
+            iniziofinemese:function(d){
+                var date = new Date(d);
+	            if ( date == "Invalid Date"){
+	            	date = new Date();
+	            }    
                 var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 return [ firstDay,lastDay];
@@ -407,7 +410,6 @@ $( document ).ready(function() {
 					console.log("Orari Cartellino");
 					//alert("Orari Cartellino")
 					_TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(1).text();
-
 					/*TEST EFFETTUATI*/
 					//valide				
 					//_TIMBRATURE='E10:56 U11:00'
@@ -465,11 +467,7 @@ $( document ).ready(function() {
 				  method: 'GET'	
 				}).success(function(a,b,c) {
 					console.log("Anomalie");
-					$('#anomalieTable').remove();
-					var anomalieTable="<table id='anomalieTable'/>"
-					$('#pannello-menu').append(anomalieTable);            
-					$('#anomalieTable').append('<caption>ANOMALIE MESE CORRENTE</caption>');
-					$('#anomalieTable').append('<th>GIORNO</th><th>TIMBRATURE</th>');
+					$('#anomalieTable').find("tr:gt(0)").remove();
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
 					$.each(t,function(i,e){
 						if ( i>0 && $(e).attr('vis')!="no"){
@@ -878,35 +876,52 @@ $( document ).ready(function() {
 				
 		});		
 
+		$('#totali').click(function(){
+			$('#Saldi').trigger("click");
+		
+		})
+
         $('#Saldi').click(function(){
             $('#pannello-menu').children().hide();
-            
-            $('#saldi').find('table').remove();
-            var t=data.iniziofinemese(new Date())
-            timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
-            
+            $('#saldi').find('table[class="responstable"]').remove();
             $('#quantita1').FlipClock(0, {
             	clockFace: 'Counter'
             });
             $('#quantita2').FlipClock(0, {
             	clockFace: 'Counter'
             });
+
 			env.reset();
             timeweb.causali();
             $('#perConteggio').show();
+
+            var _t=$('#mese_corrente').val();
+
+	        var t=data.iniziofinemese(new Date(_t));
+
+            timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
             
         })
-						
+        
+		$('#anomali').click(function(){
+			$('#Causale').trigger("click");
+		})					
+		
 		$('#Causale').click(function(){
 		    $('#pannello-menu').children().hide();
-		    
+
+			$('#anomalie').show()
+
 			env.reset();
             timeweb.giustificativi();
             
-            var t=data.iniziofinemese(new Date())
+            var _t=$('#anomalie_mese_corrente').val();
+            
+            var t=data.iniziofinemese(new Date(_t))
+            console.log("1: "+t)
 			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
 
-            $('#giustificativo_sel').show();
+            //$('#giustificativo_sel').show();
             
         });
 

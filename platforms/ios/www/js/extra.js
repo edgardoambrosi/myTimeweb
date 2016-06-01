@@ -292,7 +292,7 @@ $( document ).ready(function() {
 		var data={
 			//compone una data dal formato ISO al semplice formato dd-mm-yyyy
 			composizione:function(d){
-				var mesi=["Jan","Feb","Mar", "Apr", "May", "Giu", "Jul", "Aug", "Sep","Oct","Nov","Dec"];
+				var mesi=["Jan","Feb","Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct","Nov","Dec"];
 				var nmesi=["01","02","03", "04", "05", "06", "07", "08", "09","10","11","12"];
 				if (typeof d=="undefined"){
 					var oggi=(new Date()).toString().split(" ");
@@ -319,8 +319,13 @@ $( document ).ready(function() {
 				}
 			},
 			//calcola il range del mese corrente dal primo giorno al secondo giorno
-            iniziofinemese:function(){
-                var date = new Date();
+            iniziofinemese:function(d){
+    			var date="";
+            	if ( typeof d == "undefined" ){
+	                date = new Date();
+	            }else{
+	            	date = new Date(d);
+	            }    
                 var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 return [ firstDay,lastDay];
@@ -407,7 +412,6 @@ $( document ).ready(function() {
 					console.log("Orari Cartellino");
 					//alert("Orari Cartellino")
 					_TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(1).text();
-
 					/*TEST EFFETTUATI*/
 					//valide				
 					//_TIMBRATURE='E10:56 U11:00'
@@ -708,11 +712,12 @@ $( document ).ready(function() {
 			$('#form_giustificativi').data("A",GIORNOA);
             timeweb.giustificativi();
 			$('#form_giustificativi').show()
-			$('#form_giustificativi').css("top","-30%")
+			$('#form_giustificativi').css("top","0%")
             $('#giustificativo_sel').show();		
 		})
 		$('#form_giustificativi-conferma').click(function(){
-			$('#form_giustificativi').hide()	
+			$('#form_giustificativi').css("top","-100%");
+			//$('#form_giustificativi').hide();	
 			var GIORNODA=$('#form_giustificativi').data("DA");
 			var GIORNOA=$('#form_giustificativi').data("A");
 			var DA=$('#form_giustificativi input[name="DA"]').val();
@@ -722,7 +727,8 @@ $( document ).ready(function() {
 		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);			
 		})
 		$('#form_giustificativi-annulla').click(function(){
-			$('#form_giustificativi').hide()	
+			$('#form_giustificativi').css("top","-100%")
+			//$('#form_giustificativi').hide()	
 		})
 
 		$('.received').click(function(){
@@ -876,24 +882,37 @@ $( document ).ready(function() {
 				
 		});		
 
+		$('#totali').click(function(){
+			$('#Saldi').trigger("click");
+		
+		})
+
         $('#Saldi').click(function(){
             $('#pannello-menu').children().hide();
-            
-            $('#saldi').find('table').remove();
-            var t=data.iniziofinemese(new Date())
-            timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
-            
+            $('#saldi').find('table[class="responstable"]').remove();
             $('#quantita1').FlipClock(0, {
             	clockFace: 'Counter'
             });
             $('#quantita2').FlipClock(0, {
             	clockFace: 'Counter'
             });
+
 			env.reset();
             timeweb.causali();
             $('#perConteggio').show();
+
+            var t="";
+            var _t=$('#mese_corrente').val();
+            if( typeof _t == "" ){
+	            t=data.iniziofinemese(new Date());
+	        }else{
+		        t=data.iniziofinemese(new Date(_t));
+	        }    
+            timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
             
         })
+        
+        
 						
 		$('#Causale').click(function(){
 		    $('#pannello-menu').children().hide();
