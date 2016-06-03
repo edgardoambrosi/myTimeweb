@@ -401,6 +401,15 @@ h1 {
 	z-index:10;
 }
 
+#form_giustificativi input{
+	width: 10vmax;
+	zoom:1.2;
+}
+
+#form_giustificativi select{
+	zoom:1.2;
+}
+
 /*************************/
 
 

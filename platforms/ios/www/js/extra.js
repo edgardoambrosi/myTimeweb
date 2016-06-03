@@ -320,11 +320,9 @@ $( document ).ready(function() {
 			},
 			//calcola il range del mese corrente dal primo giorno al secondo giorno
             iniziofinemese:function(d){
-    			var date="";
-            	if ( typeof d == "undefined" ){
-	                date = new Date();
-	            }else{
-	            	date = new Date(d);
+                var date = new Date(d);
+	            if ( date == "Invalid Date"){
+	            	date = new Date();
 	            }    
                 var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -469,11 +467,7 @@ $( document ).ready(function() {
 				  method: 'GET'	
 				}).success(function(a,b,c) {
 					console.log("Anomalie");
-					$('#anomalieTable').remove();
-					var anomalieTable="<table id='anomalieTable'/>"
-					$('#pannello-menu').append(anomalieTable);            
-					$('#anomalieTable').append('<caption>ANOMALIE MESE CORRENTE</caption>');
-					$('#anomalieTable').append('<th>GIORNO</th><th>TIMBRATURE</th>');
+					$('#anomalieTable').find("tr:gt(0)").remove();
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
 					$.each(t,function(i,e){
 						if ( i>0 && $(e).attr('vis')!="no"){
@@ -901,29 +895,33 @@ $( document ).ready(function() {
             timeweb.causali();
             $('#perConteggio').show();
 
-            var t="";
             var _t=$('#mese_corrente').val();
-            if( typeof _t == "" ){
-	            t=data.iniziofinemese(new Date());
-	        }else{
-		        t=data.iniziofinemese(new Date(_t));
-	        }    
+
+	        var t=data.iniziofinemese(new Date(_t));
+
             timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
             
         })
         
-        
-						
+		$('#anomali').click(function(){
+			$('#Causale').trigger("click");
+		})					
+		
 		$('#Causale').click(function(){
 		    $('#pannello-menu').children().hide();
-		    
+
+			$('#anomalie').show()
+
 			env.reset();
             timeweb.giustificativi();
             
-            var t=data.iniziofinemese(new Date())
+            var _t=$('#anomalie_mese_corrente').val();
+            
+            var t=data.iniziofinemese(new Date(_t))
+            console.log("1: "+t)
 			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
 
-            $('#giustificativo_sel').show();
+            //$('#giustificativo_sel').show();
             
         });
 
