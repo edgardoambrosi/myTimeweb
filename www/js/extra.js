@@ -486,7 +486,51 @@ $( document ).ready(function() {
 							})
 						}
 					})
-
+					if ( $('#anomalieTable').find("tr:gt(0)").length > 0 )	$('#anomalieTable').show();
+				});
+			},
+			giustificativi_manuali:function(i,f){
+				var DA=i;
+				var A=f; 
+				$.ajax({
+				  url: server_url, 
+				  data:"AZIONE=GESTIONEGIUSTIFICATIVI&DATAINIZIO="+DA+"&DATAFINE="+A,
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					console.log("Giustificativi");
+					$('#giusTable').find("tr:gt(0)").remove();
+					var t=$(a).find('table[id="divDatiTB"]').find('tr');
+					$.each(t,function(i,e){
+						if ( i>0 && $(e).attr('vis')!="no"){
+							var d=$(e).find('td').eq(0).text();
+							var h=$(e).find('td').eq(2).text();
+							var g=$(e).find('td').eq(4).text();
+							$('#giusTable').append('<tr><td>'+d+'</td><td>'+h+'</td><td>'+g+'</td></tr>');
+						}
+					})
+					if ( $('#giusTable').find("tr:gt(0)").length > 0 )	$('#giusTable').show();
+				});
+			},
+			timbrature_manuali:function(i,f){
+				var DA=i;
+				var A=f; 
+				$.ajax({
+				  url: server_url, 
+				  data:"AZIONE=GESTIONETIMBRATURE&DATAINIZIO="+DA+"&DATAFINE="+A,
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					console.log("Timbrature");
+					$('#timbTable').find("tr:gt(0)").remove();
+					var t=$(a).find('table[id="divDatiTB"]').find('tr');
+					$.each(t,function(i,e){
+						if ( i>0 && $(e).attr('vis')!="no"){
+							var d=$(e).find('td').eq(0).text();
+							var h=$(e).find('td').eq(2).text();
+							var g=$(e).find('td').eq(4).text();
+						}
+					$('#timbTable').append('<tr><td>'+d+'</td><td>'+h+'</td><td>'+g+'</td></tr>');						
+					})
+					if ( $('#timbTable').find("tr:gt(0)").length > 0 )	$('#timbTable').show();
 				});
 			},
             contatori:function(da,a,cs){
@@ -911,17 +955,22 @@ $( document ).ready(function() {
 		    $('#pannello-menu').children().hide();
 
 			$('#anomalie').show()
-
+			$('#timbrature_manuali').show()
+			$('#giustifica_manuale').show()
+			
 			env.reset();
             timeweb.giustificativi();
             
             var _t=$('#anomalie_mese_corrente').val();
             
             var t=data.iniziofinemese(new Date(_t))
-            console.log("1: "+t)
-			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
 
-            //$('#giustificativo_sel').show();
+			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
+			
+			timeweb.giustificativi_manuali(data.composizione(t[0]),data.composizione(t[1]));
+			
+			timeweb.timbrature_manuali(data.composizione(t[0]),data.composizione(t[1]));
+
             
         });
 
