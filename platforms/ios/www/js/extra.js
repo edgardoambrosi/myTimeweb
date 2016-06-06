@@ -320,11 +320,9 @@ $( document ).ready(function() {
 			},
 			//calcola il range del mese corrente dal primo giorno al secondo giorno
             iniziofinemese:function(d){
-    			var date="";
-            	if ( typeof d == "undefined" ){
-	                date = new Date();
-	            }else{
-	            	date = new Date(d);
+                var date = new Date(d);
+	            if ( date == "Invalid Date"){
+	            	date = new Date();
 	            }    
                 var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -469,11 +467,7 @@ $( document ).ready(function() {
 				  method: 'GET'	
 				}).success(function(a,b,c) {
 					console.log("Anomalie");
-					$('#anomalieTable').remove();
-					var anomalieTable="<table id='anomalieTable'/>"
-					$('#pannello-menu').append(anomalieTable);            
-					$('#anomalieTable').append('<caption>ANOMALIE MESE CORRENTE</caption>');
-					$('#anomalieTable').append('<th>GIORNO</th><th>TIMBRATURE</th>');
+					$('#anomalieTable').find("tr:gt(0)").remove();
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
 					$.each(t,function(i,e){
 						if ( i>0 && $(e).attr('vis')!="no"){
@@ -492,7 +486,57 @@ $( document ).ready(function() {
 							})
 						}
 					})
-
+					if ( $('#anomalieTable').find("tr:gt(0)").length > 0 )	$('#anomalieTable').show();
+				});
+			},
+			giustificativi_manuali:function(i,f){
+				var DA=i;
+				var A=f; 
+				$.ajax({
+				  url: server_url, 
+				  data:"AZIONE=GESTIONEGIUSTIFICATIVI&DATAINIZIO="+DA+"&DATAFINE="+A,
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					console.log("Giustificativi");
+					$('#giusTable').find("tr:gt(0)").remove();
+					var t=$(a).find('table[id="divDatiTB"]').find('tr');
+					$.each(t,function(i,e){
+						if ( i>0 && $(e).attr('vis')!="no"){
+							var d=$(e).find('td').eq(3).text();
+							var h=$(e).find('td').eq(4).text();
+							var g=$(e).find('td').eq(2).text();
+							var l=$(e).find('td').eq(10).text();
+							var m=$(e).find('td').eq(9).text();
+							$('#giusTable').append('<tr><td>'+d+" "+h+'</td><td>'+g+'</td><td>'+l+'</td><td>'+m+'</td></tr>');
+						}
+					})
+					if ( $('#giusTable').find("tr:gt(0)").length > 0 )	$('#giusTable').show();
+				});
+			},
+			timbrature_manuali:function(i,f){
+				var DA=i;
+				var A=f; 
+				$.ajax({
+				  url: server_url, 
+				  data:"AZIONE=GESTIONETIMBRATURE&DATAINIZIO="+DA+"&DATAFINE="+A,
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					console.log("Timbrature");
+					$('#timbTable').find("tr:gt(0)").remove();
+					var t=$(a).find('table[id="divDatiTB"]').find('tr');
+					$.each(t,function(i,e){
+						if ( i>0 && $(e).attr('vis')!="no"){
+							var d=$(e).find('td').eq(2).text();
+							var h=$(e).find('td').eq(3).text();
+							var g=$(e).find('td').eq(4).text();
+							var l=$(e).find('td').eq(5).text();
+							var m=$(e).find('td').eq(8).text();							
+							var n=$(e).find('td').eq(9).text();						
+							var raw='<tr><td>'+d+" "+h+" "+g+'</td><td>'+l+'</td><td>'+m+'</td><td>'+n+'</td></tr>'
+						 	$('#timbTable').append(raw);						
+						}
+					})
+					if ( $('#timbTable').find("tr:gt(0)").length > 0 )	$('#timbTable').show();
 				});
 			},
             contatori:function(da,a,cs){
@@ -900,29 +944,38 @@ $( document ).ready(function() {
             timeweb.causali();
             $('#perConteggio').show();
 
-            var t="";
             var _t=$('#mese_corrente').val();
-            if( typeof _t == "" ){
-	            t=data.iniziofinemese(new Date());
-	        }else{
-		        t=data.iniziofinemese(new Date(_t));
-	        }    
+
+	        var t=data.iniziofinemese(new Date(_t));
+
             timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
             
         })
         
-        
-						
+		$('#anomali').click(function(){
+			$('#Causale').trigger("click");
+		})					
+		
 		$('#Causale').click(function(){
 		    $('#pannello-menu').children().hide();
-		    
+
+			$('#anomalie').show()
+			$('#timbrature_manuali').show()
+			$('#giustifica_manuale').show()
+			
 			env.reset();
             timeweb.giustificativi();
             
-            var t=data.iniziofinemese(new Date())
-			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
+            var _t=$('#anomalie_mese_corrente').val();
+            
+            var t=data.iniziofinemese(new Date(_t))
 
-            $('#giustificativo_sel').show();
+			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
+			
+			timeweb.giustificativi_manuali(data.composizione(t[0]),data.composizione(t[1]));
+			
+			timeweb.timbrature_manuali(data.composizione(t[0]),data.composizione(t[1]));
+
             
         });
 

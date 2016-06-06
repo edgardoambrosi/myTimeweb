@@ -71,7 +71,7 @@
 			<label for="NomeUtente">Nome Utente</label><input type="text" id="NomeUtente" name="NomeUtente" value=""/></br>
 			<label for="Password">Password</label><input type="password" id="Password" name="Password" value=""/></br>
 			<input type="checkbox" name="SaveCred" value="false" />Ricordami su questo dispositivo</br>
-			<button id="credset" class="conferma" type="submit" >Autorizza</button>
+			<button id="credset" class="generale-centrato conferma"  type="submit" >Autorizza</button>
 		</div>
 
 
@@ -112,15 +112,20 @@
 				<input type="url" name="notifiche_aut_url" size="55" ><br>
 				<label for="notifiche_url">Servizio Notifiche URL:</label><br>	
 				<input type="url" name="notifiche_url" size="55" ><br>
-				<button class="conferma" type="button" id="salva_set">Salva</button><br>
-				<button type="button" id="reset_set">Ripristina Impostazioni</button>
+				<table>
+					<tr>
+						<td><button class="conferma" type="button" id="salva_set">Salva</button></td>
+						<td><button class="conferma annulla" style="zoom:1" type="button" id="reset_set">Ripristina Impostazioni</button></td>
+					</tr>
+				</table>	
 			  </form> 
 
 
-			  <div id="perConteggio" style="display:none">
+			  <div id="perConteggio" style="display:none;">
 				<h1>Rapporto Conteggio</h1>
 				<table>
 					<tbody>
+						<tr><div id="causale_sel"><p>Seleziona la Causale:</p></div></tr>
 						<tr>		    
 							<td><div id="giorno_inizio">
 								<label for="GiornoLavoro_inizio">Giorno Inizio:</label>
@@ -131,18 +136,13 @@
 								<input type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/> 
 							</div></td>
 						</tr>
-						<tr><div id="causale_sel"><p>Seleziona la Causale:</p></div></tr>
-					</tbody>
-				</table>
-				<table>
-					<tbody>
 						<tr>
 							<td><button class="conferma" id="calcola">Calcola</button></td>
 							<td><div>
 								<table>
 									<tbody>
 										<tr>
-											<td><div id="quantita1" class="your-clock" style='display:none'></div></td>
+											<td><div id="quantita1" class="your-clock" ></div></td>
 											<td><div id="separatore" style='display:none'>:</div></td>
 											<td><div id="quantita2" class="your-clock" style='display:none'></div></td>
 										</tr>
@@ -152,20 +152,59 @@
 						</tr>
 					</tbody>
 				</table>
-
 			  </div>
-		      
-		      <div id="saldi" style="display:none">
+			  
+			  
+		      <div id="saldi" style="display:none;">
+			  <hr style="93%">		      
 		      	<table>
 		      		<tr>	
-			      		<td><h1>Totali Mese </h1></td><td><input type="date" id="mese_corrente" name="mese_corrente"/></td><td><button class="conferma" id="totali">Totalizza</button></td>
+			      		<td><h1>Totali Mese </h1></td>
+			      		<td><input type="date" id="mese_corrente"/></td>
+			      		<td><button class="conferma" id="totali" style="zoom:1.2">Totalizza</button></td>
 		      		</tr>
 		      	</table>	
 		      </div>
           
+			  <div id="anomalie" style="display:none">        
+				<table>
+					<tr>
+						<td><h1>Anomalie Mese</h1></td>
+						<td><input type="date" style="zoom:1.1" id="anomalie_mese_corrente"/></td>
+						<td><button class="conferma" id="anomali" style="zoom:1.1">Mostra</button></td>
+					</tr>
+				</table>
+				<table id='anomalieTable' class="reportTable" style="display:none">
+					<th>GIORNO</th><th>TIMBRATURE</th>
+				</table>
+			  </div>
+			  <div id="giustifica_manuale" style="display:none">    
+				<hr style="93%">				      
+				<table>
+					<tr>
+						<td><h1>Stato Giustificativi</h1></td>
+					</tr>
+				</table>
+				<table id='giusTable' class="reportTableBis" style="display:none">
+					<th>GIORNO</th><th>CAUSALE</th><th>STATO</th><th>ESITO</th>
+				</table>
+			  </div>
+			  <div id="timbrature_manuali" style="display:none">    
+			    <hr style="93%">				      
+				<table>
+					<tr>
+						<td><h1>Stato Timbrature</h1></td>
+					</tr>
+				</table>
+				<table id='timbTable' class="reportTableBis" style="display:none">
+					<th>GIORNO</th><th>MOTIVO</th><th>STATO</th><th>ESITO</th>
+				</table>
+			  </div>		    	
 		</div>
+
         
-        <div>
+        
+        <div style="width:50%;overflow:scroll">
 			<table class="menu" style='display:none'>
 				<tbody>
 					<tr>
