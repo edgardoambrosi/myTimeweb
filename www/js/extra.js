@@ -502,10 +502,12 @@ $( document ).ready(function() {
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
 					$.each(t,function(i,e){
 						if ( i>0 && $(e).attr('vis')!="no"){
-							var d=$(e).find('td').eq(0).text();
-							var h=$(e).find('td').eq(2).text();
-							var g=$(e).find('td').eq(4).text();
-							$('#giusTable').append('<tr><td>'+d+'</td><td>'+h+'</td><td>'+g+'</td></tr>');
+							var d=$(e).find('td').eq(3).text();
+							var h=$(e).find('td').eq(4).text();
+							var g=$(e).find('td').eq(2).text();
+							var l=$(e).find('td').eq(10).text();
+							var m=$(e).find('td').eq(9).text();
+							$('#giusTable').append('<tr><td>'+d+" "+h+'</td><td>'+g+'</td><td>'+l+'</td><td>'+m+'</td></tr>');
 						}
 					})
 					if ( $('#giusTable').find("tr:gt(0)").length > 0 )	$('#giusTable').show();
@@ -524,11 +526,15 @@ $( document ).ready(function() {
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
 					$.each(t,function(i,e){
 						if ( i>0 && $(e).attr('vis')!="no"){
-							var d=$(e).find('td').eq(0).text();
-							var h=$(e).find('td').eq(2).text();
+							var d=$(e).find('td').eq(2).text();
+							var h=$(e).find('td').eq(3).text();
 							var g=$(e).find('td').eq(4).text();
+							var l=$(e).find('td').eq(5).text();
+							var m=$(e).find('td').eq(8).text();							
+							var n=$(e).find('td').eq(9).text();						
+							var raw='<tr><td>'+d+" "+h+" "+g+'</td><td>'+l+'</td><td>'+m+'</td><td>'+n+'</td></tr>'
+						 	$('#timbTable').append(raw);						
 						}
-					$('#timbTable').append('<tr><td>'+d+'</td><td>'+h+'</td><td>'+g+'</td></tr>');						
 					})
 					if ( $('#timbTable').find("tr:gt(0)").length > 0 )	$('#timbTable').show();
 				});

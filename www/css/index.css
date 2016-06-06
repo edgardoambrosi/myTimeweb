@@ -241,10 +241,10 @@ h1 {
     opacity: 1;
     top: 7vmax;
     width: 100%;
-    height: 90vmax;
-    position: fixed;
+    height: 1000px;
+    /*position: fixed;*/
     color:black;
-	overflow: scroll;
+	overflow-x: auto;
 }
 #calcola, #salva_set, #reset_set{
     width:13vmax;
@@ -294,7 +294,7 @@ h1 {
 }
 
 .reportTable {
-    zoomX:0.8;
+    zoom:1.1;
     width:90%;
 }
 
@@ -324,6 +324,23 @@ h1 {
    border:5px;
    font-size: xx-small;   
 }
+
+.reportTableBis {
+    zoom:.5;
+    width:90%;
+}
+
+.reportTableBis th {
+    border: 1px solid black;
+    background-color:#A0A0A0;
+    color:white;
+}
+.reportTableBis td{
+    border: 1px solid black;
+    background-color:#EEEEEE;
+    width:10%;
+}
+
 
 /***********************/
 
@@ -397,7 +414,7 @@ h1 {
 	height:65%;
 	padding: 7%;
 	background-color:rgb(194, 203, 186);
-	transition:top 2s;
+	transition:top 0s;
 	z-index:10;
 }
 
