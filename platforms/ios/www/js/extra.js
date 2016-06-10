@@ -129,6 +129,46 @@ $( document ).ready(function() {
 		};
 
 		var esame_timbrature={
+			gestione_causali:function(TIMBRATURE){
+	
+				var TIMBRATURE="E08:32 U13:04(0003) E13:15(0003) U14:00(0001) E14:23(0001) U16:21"
+				var NUOVASTRISCIATA=new Array();
+				var TIMBRATUREARRAY=TIMBRATURE.split(" ")
+				var PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
+
+				TIMBRATUREARRAY.forEach(function(e,i){
+				   //se trovi codice 0003		
+				   if (e.search(/(E|U)[0-9]+:[0-9]+\(0003\)/)==-1 ){
+				   		//...ignori la timbrata		
+						return;
+					//se trovi 0001	vicino ad una ENTRATA
+				   }else if (e.search(/E[0-9]+:[0-9]+\(0001\)/)!==-1){
+				   		//calcoli la pausa pranzo in eccesso
+				   		 ENTRATA=e.replace("(0001)","").replace("E","")
+				   		 USCITA=TIMBRATUREARRAY[i+1].replace("(0001)","").replace("U","");
+                         _ENTRATA=insecondi(ENTRATA+":00")
+                         _USCITA= insecondi(USCITA+":00")
+                         _PAUSAPRANZO=_ENTRATA-_USCITA
+		                 if (PAUSAPRANZOsec > _PAUSAPRANZO ) {
+		                   	    NUOVASTRISCIATA.pop(i-1);
+		                    	return;
+		                 }
+		                 if (PAUSAPRANZOsec <= _PAUSAPRANZO ){
+	                        	NUOVASTRISCIATA.push("U"+esame_timbrature.inorario(_USCITA+(_PAUSAPRANZO-PAUSAPRANZOsec)));
+                                return;
+		                 }
+				   //se trovi 0001	vicino ad una USCITA					   		 
+				   }else if (e.search(/U[0-9]+:[0-9]+\(0001\)/)!==-1){
+				   		//calcoli la pausa pranzo in eccesso
+				   		 console.log(TIMBRATUREARRAY[i-1]+" "+e)
+				   }
+				   NUOVASTRISCIATA.push(e);
+				})
+
+				console.log(NUOVASTRISCIATA.toString().replace(/,/g," "))			
+				
+				return NUOVASTRISCIATA.toString().replace(/,/g," ");
+			},		
 			//IMPOSTO ALCUNE VARIABILI NECESSARIE PER I CONTEGGI
 			individuazione:function(TIMBRATURE){
 				XTIMBRATURE=TIMBRATURE.split(" ");
@@ -409,19 +449,10 @@ $( document ).ready(function() {
 				}).success(function(a,b,c) {
 					console.log("Orari Cartellino");
 					//alert("Orari Cartellino")
-					_TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(1).text();
-					/*TEST EFFETTUATI*/
-					//valide				
-					//_TIMBRATURE='E10:56 U11:00'
-					//_TIMBRATURE='E07:56 U16:24' 
-					//_TIMBRATURE='E07:56 U08:30 E09:45' 
-					//_TIMBRATURE='E07:56 U08:30 E09:45 U10:15' 
-					//_TIMBRATURE='E07:56 U08:30 E09:45 U10:15 E10:23' 
-					//errori
-					//_TIMBRATURE='U07:56'
-					//_TIMBRATURE='E07:56 E12:34'
-					//_TIMBRATURE='E07:56 U12:34 U15:12'    
-					esame_timbrature.individuazione(_TIMBRATURE);
+					_TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(2).text();
+
+					__TIMBRATURE=esame_timbrature.gestione_causali(_TIMBRATURE)
+					esame_timbrature.individuazione(__TIMBRATURE);
 					esame_timbrature.dalavorare_lavorato();
 					$('#strisciata').text(_TIMBRATURE);
 
