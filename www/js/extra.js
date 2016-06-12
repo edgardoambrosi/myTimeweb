@@ -129,6 +129,79 @@ $( document ).ready(function() {
 		};
 
 		var esame_timbrature={
+			/*QUESTA FUNZIONE HA LO SCOPO DI IMPLEMENTARE LA LOGICA PER LE CAUSALI DIGITATE DAL DIPENDENTE AL MOMENTO DELL'USCITA DAI TORNELLI.
+			PER ORA SONO IMPLEMENTATE SOLO LE CAUSALI PAUSAPRANZO COD 0001 E SERVIZIO ESTERNO CAUSALE 0003.
+			LA GESTIONE E LA LOGICA DIPENDE ESCLUSIVAMENTE DALLE REGOLE INTERNE.*/
+			
+			gestione_causali:function(TIMBRATURE){
+				/*se le strisciate originali sono "E08:32 U14:00(0001) E14:53(0001) U16:21"
+				diventano "E08:32 U14:00(0001) E14:53 U16:21" e infine "E08:32 U14:30 E14:53 U16:21".
+				
+				Se originali sono "E08:32 U14:00(0001) E14:23(0001) U16:21" diventano "E08:32 U14:23 E14:23 U16:21"
+				
+				Se originali sono "E08:32 U14:00(0003) E14:23(0003) U16:21" diventano "E08:32 U16:21"
+				
+				*/
+				
+				var NUOVASTRISCIATA=new Array();
+				var TIMBRATUREARRAY=TIMBRATURE.split(" ")
+				var PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
+
+				//SE VICINO AD UNA USCITA TROVO UN 0001 RIMUOVO DALLA TIMBRATURA SUCCESSIVA IL MEDESIMO CODICE 0001 SOLO PER UNA UTILITÀ NEL CICLO SUCCESSIVO. 
+				TIMBRATUREARRAY.forEach(function(e,i){
+				   if (e.search(/U[0-9]+:[0-9]+\(0001\)/)!==-1){
+					   TIMBRATUREARRAY[i+1]=TIMBRATUREARRAY[i+1].replace("(0001)","")
+				   }
+				})
+
+				TIMBRATUREARRAY.forEach(function(e,i){
+				   //se trovi codice 0003, MI ASPETTO CHE LA SUCCESSIVA TIMBRATA RIPORTI LO STESSO CODICE 0003  	
+				   if (e.search(/(E|U)[0-9]+:[0-9]+\(0003\)/)!==-1 ){
+				   		//...ignori la timbrata		
+						return;
+					//se trovi 0001	vicino ad una ENTRATA
+				   }else if (e.search(/E[0-9]+:[0-9]+\(0001\)/)!==-1){
+				   		//calcoli la pausa pranzo in eccesso,
+				   		 ENTRATA=e.replace("(0001)","").replace("E","")
+				   		 USCITA=TIMBRATUREARRAY[i-1].replace("(0001)","").replace("U","");
+						 _ENTRATA=esame_timbrature.insecondi(ENTRATA+":00")
+						 _USCITA= esame_timbrature.insecondi(USCITA+":00")
+						 _PAUSAPRANZO=_ENTRATA-_USCITA
+						 if (PAUSAPRANZOsec > _PAUSAPRANZO ) {
+								NUOVASTRISCIATA.push("E"+TIMBRATUREARRAY[i-1].replace("(0001)","").replace("U",""));
+								return;
+						 }
+						 if (PAUSAPRANZOsec <= _PAUSAPRANZO ){
+								NUOVASTRISCIATA.push("E"+esame_timbrature.inorario(_USCITA+(_PAUSAPRANZO-PAUSAPRANZOsec)));
+								return;
+						 }
+				   //se trovi 0001	vicino ad una USCITA					   		 
+				   }else if (e.search(/U[0-9]+:[0-9]+\(0001\)/)!==-1){
+				   		var INVERTI=false;
+				   		if (TIMBRATUREARRAY[i+1].search(/E[0-9]+:[0-9]+\(0001\)/)!==-1) INVERTI=true
+				   		//calcoli la pausa pranzo in eccesso
+				   		 USCITA=e.replace("(0001)","").replace("U","")
+				   		 ENTRATA=TIMBRATUREARRAY[i+1].replace("(0001)","").replace("E","");
+						 _ENTRATA=esame_timbrature.insecondi(ENTRATA+":00")
+						 _USCITA= esame_timbrature.insecondi(USCITA+":00")
+						 _PAUSAPRANZO=_ENTRATA-_USCITA
+						 if (PAUSAPRANZOsec > _PAUSAPRANZO ) {
+								NUOVASTRISCIATA.push("U"+TIMBRATUREARRAY[i+1].replace("(0001)","").replace("E",""));
+								return;
+						 }
+						 if (PAUSAPRANZOsec <= _PAUSAPRANZO ){
+								NUOVASTRISCIATA.push("U"+esame_timbrature.inorario(_ENTRATA-(_PAUSAPRANZO-PAUSAPRANZOsec)));
+								return;
+						 }
+
+				   }
+				   NUOVASTRISCIATA.push(e);
+				})
+
+				console.log(NUOVASTRISCIATA.toString().replace(/,/g," "))		
+				
+				return NUOVASTRISCIATA.toString().replace(/,/g," ");
+			},		
 			//IMPOSTO ALCUNE VARIABILI NECESSARIE PER I CONTEGGI
 			individuazione:function(TIMBRATURE){
 				XTIMBRATURE=TIMBRATURE.split(" ");
@@ -409,19 +482,10 @@ $( document ).ready(function() {
 				}).success(function(a,b,c) {
 					console.log("Orari Cartellino");
 					//alert("Orari Cartellino")
-					_TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(1).text();
-					/*TEST EFFETTUATI*/
-					//valide				
-					//_TIMBRATURE='E10:56 U11:00'
-					//_TIMBRATURE='E07:56 U16:24' 
-					//_TIMBRATURE='E07:56 U08:30 E09:45' 
-					//_TIMBRATURE='E07:56 U08:30 E09:45 U10:15' 
-					//_TIMBRATURE='E07:56 U08:30 E09:45 U10:15 E10:23' 
-					//errori
-					//_TIMBRATURE='U07:56'
-					//_TIMBRATURE='E07:56 E12:34'
-					//_TIMBRATURE='E07:56 U12:34 U15:12'    
-					esame_timbrature.individuazione(_TIMBRATURE);
+					_TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(2).text();
+
+					__TIMBRATURE=esame_timbrature.gestione_causali(_TIMBRATURE)
+					esame_timbrature.individuazione(__TIMBRATURE);
 					esame_timbrature.dalavorare_lavorato();
 					$('#strisciata').text(_TIMBRATURE);
 

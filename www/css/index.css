@@ -135,7 +135,7 @@ h1 {
 /*http://stackoverflow.com/questions/26099709/make-flipclock-js-responsive*/
 .your-clock{
    zoom: 0.6;
-   -moz-transform: scale(0.5);
+   -moz-transform: scale(0.6);
 }
 /********************/
 #tempo-restante{
@@ -240,11 +240,11 @@ h1 {
     0 1px 1px rgba(255,255,255,0.9);
     opacity: 1;
     top: 7vmax;
-    width: 100%;
+    width: 90%;
     height: 1000px;
     /*position: fixed;*/
     color:black;
-	overflow-x: auto;
+	overflow-y: visible;
 }
 #calcola, #salva_set, #reset_set{
     width:13vmax;
@@ -440,7 +440,7 @@ h1 {
 	margin-left:25vmax
 }
 .generale-centrato{
-	position:absolute;
+	position:inherit;
 	right: 0;
 	left: 0;
 	margin-right: auto;
