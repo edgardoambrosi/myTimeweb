@@ -31,20 +31,37 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-dialogs": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-dialogs"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-spinnerdialog": {
         "source": {
             "type": "registry",
             "id": "cordova-plugin-spinnerdialog"
         },
         "is_top_level": true,
+        "variables": {}
+    },
+    "com.phonegap.plugins.Puship": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Puship/PushPlugin",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-geolocation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-geolocation"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-compat": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-compat"
+        },
+        "is_top_level": false,
         "variables": {}
     }
 }

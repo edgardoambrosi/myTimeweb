@@ -135,7 +135,7 @@ h1 {
 /*http://stackoverflow.com/questions/26099709/make-flipclock-js-responsive*/
 .your-clock{
    zoom: 0.6;
-   -moz-transform: scale(0.5);
+   -moz-transform: scale(0.6);
 }
 /********************/
 #tempo-restante{

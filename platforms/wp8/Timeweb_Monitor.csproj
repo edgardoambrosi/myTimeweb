@@ -223,4 +223,13 @@
     <ItemGroup>
         <Compile Include="Plugins\cordova-plugin-flashlight\Flashlight.cs" />
     </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.Puship\PushPlugin.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>plugins/com.phonegap.plugins.Puship/Newtonsoft.Json.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup />
 </Project>

@@ -23,6 +23,98 @@
 		9E3272DFCA784136A7DA3E2E /* Flashlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11713CCAE488081012C4A /* Flashlight.m */; };
 		D593DFC6CA71409193E8845C /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5CFCA6B0934884A6B39BA9 /* EventKit.framework */; };
 		E655788267954A4591523B25 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0510FC06184FCF9BAE2C1E /* EventKitUI.framework */; };
+		78763F9F1CF644F68A371920 /* AppDelegate+notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED9FF131DEF4974866C4B42 /* AppDelegate+notification.m */; };
+		4F1A8543F20146EEB649BA1D /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 947D1A25579B40FFBCC444D6 /* PushPlugin.m */; };
+		32B120346F044A57B2B2E426 /* abduction.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B19E2F93DFAF4258A0795E76 /* abduction.mp3 */; };
+		3163067E371F413BBE222B6F /* ache.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 029CFB1AF85F437D85277338 /* ache.mp3 */; };
+		037F1EDC629848EB82690933 /* a-ha-moment.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F86EE384926D4C25B768F757 /* a-ha-moment.mp3 */; };
+		D76F53CB9F014F67994031A2 /* all-of-a-sudden.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A773899167244A6885C83203 /* all-of-a-sudden.mp3 */; };
+		8103801D783F47DEB0CBDE3A /* are-you-kidding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9386BDD8A49E41799A9D36CB /* are-you-kidding.mp3 */; };
+		B147EC74CE764B6D9E550FF1 /* argh-my-eyes.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 67262EB29289493A899909D5 /* argh-my-eyes.mp3 */; };
+		21BEEB2CAAFA41A78748D65D /* a-taste-of-the-whip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D003F2FD67F44167B55064BB /* a-taste-of-the-whip.mp3 */; };
+		23ECA3BE25864F77A36664C9 /* attracted.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB479E65FAFB41AF833F22CB /* attracted.mp3 */; };
+		55BD262BBC8A48A39EC15D65 /* awareness.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DF618B570F8649A6BE2236B9 /* awareness.mp3 */; };
+		2AF4E0DFCA8544B4A03D41E3 /* base.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7850B3C7A8B346F58F1626E7 /* base.mp3 */; };
+		E63FD416F3E74681ABAA0CEF /* blocker.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 221FC4CCED0846E4831A486C /* blocker.mp3 */; };
+		739B73F6FDD646A1BD0925C7 /* braking.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6D99A15C20B74423B9E2991B /* braking.mp3 */; };
+		82F536028F704BAF83E88301 /* cable-unplugged.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9CC15752C9934F38AA7C7699 /* cable-unplugged.mp3 */; };
+		767C7E8D873F47EAB6148B8D /* cause-and-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3C96C1A3946C48F98BFAC79A /* cause-and-effect.mp3 */; };
+		6FC8978B7DFB40A0A34841C9 /* chafing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9567A5CA820845B39E79C018 /* chafing.mp3 */; };
+		2E29FB2DD25B4A759984BBE6 /* closed.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8DFED42F9C04EA89C246BF3 /* closed.mp3 */; };
+		BCC5E5D95A8C402DA64FF042 /* code.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C706072CDAD44B2BD16B674 /* code.mp3 */; };
+		B7CD1D6FE68A4C60B4858F5F /* coins.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DD15C5D3716647BE88410F5F /* coins.mp3 */; };
+		480A8F4460B642EEA62EA8C9 /* come-to-daddy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3BB3EF0F6DCF4C1E8F3A2DEB /* come-to-daddy.mp3 */; };
+		C71B172DFD274FBDA04833A8 /* communication-channel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 319CBA2FBDF342FFA9F80E90 /* communication-channel.mp3 */; };
+		CBB9C881BD8D48E8A8CF0028 /* credulous.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C10061690184CAFA97DA492 /* credulous.mp3 */; };
+		E3188E6B5426421BADAC9599 /* croak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0A61BC79927E4DEAA74F0304 /* croak.mp3 */; };
+		CD1E251983694D5C91630338 /* cyberincident.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0697074E04C41B491CBF015 /* cyberincident.mp3 */; };
+		246457D3E7024DEDB8C19BAE /* decay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FD8439B820364A1D9363D184 /* decay.mp3 */; };
+		5BD9C88B70854D9994BAAF9D /* does-not-behave.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B21F0744C3D46B78A48667E /* does-not-behave.mp3 */; };
+		748CB84229B04D35A22AF76F /* dropped-spinner.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75B03E6CDB32405888F54D0F /* dropped-spinner.mp3 */; };
+		A9225E81E0474C2B90FBB389 /* electronic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2A568FEF3B7B46948031AD5E /* electronic.mp3 */; };
+		947910CE27E446FF9D72331E /* end-point-reached.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 401AEA79426A4AAE804C222A /* end-point-reached.mp3 */; };
+		40C6341847894DE984B8AF7A /* error-3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 19F2E53553DE4E4D9386E4F6 /* error-3.mp3 */; };
+		7204CB4FA30641F39B50A16F /* et-voila.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 169803F767BB4AE39CDBF5A8 /* et-voila.mp3 */; };
+		684C8FC2C508414FA93C007F /* fallbackring.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 0CF8359C10FE462F846AEEF1 /* fallbackring.ogg */; };
+		253943E319D343789DC9C1D3 /* fallin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65AC9DE36EC44119BB68AE6C /* fallin.mp3 */; };
+		10722D343FD045D3888936FF /* fast-turnaround.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3E11862205FF43EB95FB2B11 /* fast-turnaround.mp3 */; };
+		38EDA67882AC4D1A950F448C /* finger-push.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3745259A66F546429AEF339E /* finger-push.mp3 */; };
+		741D789BECD64C65A32DDEBE /* genuinely-interested.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DF90AF73E18E435098DF25C6 /* genuinely-interested.mp3 */; };
+		6C088427166B46C38A108C3D /* gets-in-the-way.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780E31F413A74D81A92D6D52 /* gets-in-the-way.mp3 */; };
+		B65D7BC268AC4459BCC64741 /* good-morning.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE57167CB1654E8BB2A4A48B /* good-morning.mp3 */; };
+		20A6F76ADD1E4FB8AC9F9329 /* gummy-sweep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9CAB86F672E74B599C609568 /* gummy-sweep.mp3 */; };
+		F2E5BEA1966D4A1DAC8E7F70 /* happy-ending.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 64D7F164D85B456FA0C557A0 /* happy-ending.mp3 */; };
+		E9F081C3710E40478D11494A /* hey-im-here-too.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E268C9FF254D4B8797E76F31 /* hey-im-here-too.mp3 */; };
+		E3FEAC5139AC419F8BAB642B /* hiccup.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3783EF211BC046D1972EF72B /* hiccup.mp3 */; };
+		CC47C73DFDCC4D7F83EB6B44 /* inquisitiveness.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F93E46EBBB74773B7859A25 /* inquisitiveness.mp3 */; };
+		9DE81C5F38E44E8280DFA033 /* in-your-plate.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 58EB09EDCFB74F778154A28B /* in-your-plate.mp3 */; };
+		01B453D861574CCA80E33AE2 /* i-saw-you.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E4393C56A3C41AE952AC02A /* i-saw-you.mp3 */; };
+		EF0ED72A4E2B4C5ABDAB166A /* job-done.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6806D289D6164B639B4AFB91 /* job-done.mp3 */; };
+		3167ED9C155C42DC9551404C /* jubilation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56C9F1021DDC4129ACBE1AA2 /* jubilation.mp3 */; };
+		E09AAEEFC3A1492A83AC3A5D /* just-like-magic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B0B4CFDA9AFD48C2BC874BFE /* just-like-magic.mp3 */; };
+		97DF9EF7F059411C86269D88 /* just-like-that.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB779D03004E4D94AF633CCD /* just-like-that.mp3 */; };
+		5D635A5AFA2F420D98B5D7A1 /* knob.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A277D63E8501435D84F97B8D /* knob.mp3 */; };
+		B0F3C56D5E384FC1A822D0BB /* long-chime-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D3B705A715E44CB0BE46DA53 /* long-chime-sound.mp3 */; };
+		4B0821E6DBAD4134B3D2BA9F /* machine-poo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F278EBA21692489DAD3A6A20 /* machine-poo.mp3 */; };
+		CFB691A40E4344858E562CD8 /* may-i-have-your-attention.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 902B9C6FDC0C4A428CEFCF9B /* may-i-have-your-attention.mp3 */; };
+		06CE047A371D436596E13AB9 /* me.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F94B0C6FBE1406583A9F490 /* me.mp3 */; };
+		856C0A07B3454BBD92926ECF /* munchausen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 816CAA676C944529839A8034 /* munchausen.mp3 */; };
+		8F585144D8D24E6CB11033A5 /* net.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 188D218B29EE4D459C89DE46 /* net.mp3 */; };
+		A8385924F0044B4B8490DFA2 /* no-trespassing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 404CE303305740808B482184 /* no-trespassing.mp3 */; };
+		531509957E03416C9353B040 /* no-way.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CA58850E0BDB44859923348C /* no-way.mp3 */; };
+		F82DB19875FC4671B17AD2D5 /* oh-really.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 05198331DBEE482C958F52B7 /* oh-really.mp3 */; };
+		1353C5B7FA674D4FBDBD00FB /* on-serious-matters.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E8D9944DB2834EB4819CB5B3 /* on-serious-matters.mp3 */; };
+		7B180E4ACB534F3ABB3B8E31 /* oringz-pack-nine-15.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB8238BB3EA649E088117C52 /* oringz-pack-nine-15.mp3 */; };
+		1395AA459DAC4452B5326E7B /* pedantic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 609EC0ABB7234196A1532A46 /* pedantic.mp3 */; };
+		584A8586AF4F4DB598F24CCA /* pizzicato.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9ECF6E0A0CD24EA7951B2464 /* pizzicato.mp3 */; };
+		06A24B2C99A649149F148C46 /* pluck.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E8F604EB08454D408006BAC8 /* pluck.mp3 */; };
+		EB28787079D34E7DA6311410 /* professionals.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 70A9E4E54C5A452C961E6124 /* professionals.mp3 */; };
+		410AB3F0A6334E298474A118 /* pull-back.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE7043BC304F4D0394F365D9 /* pull-back.mp3 */; };
+		1CF43945F13846D2B4DA99AA /* put-down.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 431840DF66A0476EA2CAB298 /* put-down.mp3 */; };
+		29F8A4665D164DA48AEDD29C /* question-raised.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 12712F77918F4D17ADA78E4D /* question-raised.mp3 */; };
+		B77E2804568A40DEA5C34805 /* scissors.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8CF9042E36F24069A6AF33B4 /* scissors.mp3 */; };
+		0F0F9E14B824441D88F04D37 /* see-im-smart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6531B7529D844CDCA5EC86CE /* see-im-smart.mp3 */; };
+		06D130D094CE4B4BBF447B4F /* served.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5CB3D1B034AB4E4288FBD3C4 /* served.mp3 */; };
+		D31AE979CA794B0F83C10BF5 /* shut-your-mouth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 26D7B713B72745DB93C8582F /* shut-your-mouth.mp3 */; };
+		1E457AC47EEC4D1EB68B9B8B /* slap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AB9A74C9FD034C6B8ED366A6 /* slap.mp3 */; };
+		AE3C30413FE84F42851433C7 /* solemn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AEFFA471692C42888A5883CB /* solemn.mp3 */; };
+		2B9E0194C55643A881F2820E /* strongly-attached.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7B08F864375491FA33A5D26 /* strongly-attached.mp3 */; };
+		394B45063E05429FB6F75F26 /* surprise-on-a-spring.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D86061FE998D4840AD472FEC /* surprise-on-a-spring.mp3 */; };
+		FC7CA88AD705454C9DAA2EAA /* swift.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 60A2DA844532449AADB8470B /* swift.mp3 */; };
+		5A2D98CDBFF4411BB5931EA9 /* thats-a-no.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31673D938B8A46E4B23567F0 /* thats-a-no.mp3 */; };
+		970B590D298A4BC2AB790BE9 /* thats-nasty.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 350BA7DC45D5439281DA4CE9 /* thats-nasty.mp3 */; };
+		50EFC09543D44410AEAAFE6F /* the-squeaky-wheel-gets-the-grease.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 360BF559C822413E9EC57304 /* the-squeaky-wheel-gets-the-grease.mp3 */; };
+		06F096DCD33449E3BF246FA2 /* trained.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E98DCAA89474A989E53CFB3 /* trained.mp3 */; };
+		854685D337DF47AB992988D2 /* what.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E4728319EED0452A979132E5 /* what.mp3 */; };
+		8937ECE3A69E499DA97FC0EB /* whatever.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C5FED7003BDB48F7B8B6DF7E /* whatever.mp3 */; };
+		13645C280A924B6D98528AB9 /* will-you.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C7D6D56B78E4028BDEDEAE7 /* will-you.mp3 */; };
+		C2BF4D5973194E65A1B0085E /* worthwhile.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 965F0904E5CB4D01A8ADEF59 /* worthwhile.mp3 */; };
+		4AF3CDE9CC7D4479B83EBC8E /* yep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D3F01AC144FB80D99B32 /* yep.mp3 */; };
+		93C0D8C112E2414A98DD41ED /* you-know.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6D1EA0F012454C86A010CF2E /* you-know.mp3 */; };
+		7A8711B1F2AF4C47A26B3369 /* your-turn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7E86738C16804A7E9E842710 /* your-turn.mp3 */; };
+		BE08E9047F7043FA857328DD /* you-wouldnt-believe.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 43932BAD561D465A86D53FC5 /* you-wouldnt-believe.mp3 */; };
+		A216B33D9AF44C7A83CB3A08 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = FE273E98E44243539B701089 /* CDVLocation.m */; };
+		2525016B92C64656BB051399 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CFD77EA8003439CB194B4B5 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +167,101 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Timeweb Monitor/config.xml"; sourceTree = "<group>"; };
+		9ED9FF131DEF4974866C4B42 /* AppDelegate+notification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+notification.m"; path = "com.phonegap.plugins.Puship/AppDelegate+notification.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		947D1A25579B40FFBCC444D6 /* PushPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PushPlugin.m"; path = "com.phonegap.plugins.Puship/PushPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		25F071005A0C4B21A1C417CE /* AppDelegate+notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+notification.h"; path = "com.phonegap.plugins.Puship/AppDelegate+notification.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		C9F527E36BA547E58E7EFB2A /* PushPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PushPlugin.h"; path = "com.phonegap.plugins.Puship/PushPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		B19E2F93DFAF4258A0795E76 /* abduction.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "abduction.mp3"; path = "abduction.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		029CFB1AF85F437D85277338 /* ache.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "ache.mp3"; path = "ache.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		F86EE384926D4C25B768F757 /* a-ha-moment.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "a-ha-moment.mp3"; path = "a-ha-moment.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		A773899167244A6885C83203 /* all-of-a-sudden.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "all-of-a-sudden.mp3"; path = "all-of-a-sudden.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		9386BDD8A49E41799A9D36CB /* are-you-kidding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "are-you-kidding.mp3"; path = "are-you-kidding.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		67262EB29289493A899909D5 /* argh-my-eyes.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "argh-my-eyes.mp3"; path = "argh-my-eyes.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		D003F2FD67F44167B55064BB /* a-taste-of-the-whip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "a-taste-of-the-whip.mp3"; path = "a-taste-of-the-whip.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		BB479E65FAFB41AF833F22CB /* attracted.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "attracted.mp3"; path = "attracted.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		DF618B570F8649A6BE2236B9 /* awareness.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "awareness.mp3"; path = "awareness.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		7850B3C7A8B346F58F1626E7 /* base.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "base.mp3"; path = "base.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		221FC4CCED0846E4831A486C /* blocker.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "blocker.mp3"; path = "blocker.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		6D99A15C20B74423B9E2991B /* braking.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "braking.mp3"; path = "braking.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		9CC15752C9934F38AA7C7699 /* cable-unplugged.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "cable-unplugged.mp3"; path = "cable-unplugged.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		3C96C1A3946C48F98BFAC79A /* cause-and-effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "cause-and-effect.mp3"; path = "cause-and-effect.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		9567A5CA820845B39E79C018 /* chafing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "chafing.mp3"; path = "chafing.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		D8DFED42F9C04EA89C246BF3 /* closed.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "closed.mp3"; path = "closed.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		2C706072CDAD44B2BD16B674 /* code.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "code.mp3"; path = "code.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		DD15C5D3716647BE88410F5F /* coins.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "coins.mp3"; path = "coins.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		3BB3EF0F6DCF4C1E8F3A2DEB /* come-to-daddy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "come-to-daddy.mp3"; path = "come-to-daddy.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		319CBA2FBDF342FFA9F80E90 /* communication-channel.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "communication-channel.mp3"; path = "communication-channel.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		6C10061690184CAFA97DA492 /* credulous.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "credulous.mp3"; path = "credulous.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		0A61BC79927E4DEAA74F0304 /* croak.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "croak.mp3"; path = "croak.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		C0697074E04C41B491CBF015 /* cyberincident.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "cyberincident.mp3"; path = "cyberincident.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		FD8439B820364A1D9363D184 /* decay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "decay.mp3"; path = "decay.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		7B21F0744C3D46B78A48667E /* does-not-behave.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "does-not-behave.mp3"; path = "does-not-behave.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		75B03E6CDB32405888F54D0F /* dropped-spinner.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "dropped-spinner.mp3"; path = "dropped-spinner.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		2A568FEF3B7B46948031AD5E /* electronic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "electronic.mp3"; path = "electronic.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		401AEA79426A4AAE804C222A /* end-point-reached.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "end-point-reached.mp3"; path = "end-point-reached.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		19F2E53553DE4E4D9386E4F6 /* error-3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "error-3.mp3"; path = "error-3.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		169803F767BB4AE39CDBF5A8 /* et-voila.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "et-voila.mp3"; path = "et-voila.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		0CF8359C10FE462F846AEEF1 /* fallbackring.ogg */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "fallbackring.ogg"; path = "fallbackring.ogg"; sourceTree = "<group>"; fileEncoding = 4; };
+		65AC9DE36EC44119BB68AE6C /* fallin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "fallin.mp3"; path = "fallin.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		3E11862205FF43EB95FB2B11 /* fast-turnaround.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "fast-turnaround.mp3"; path = "fast-turnaround.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		3745259A66F546429AEF339E /* finger-push.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "finger-push.mp3"; path = "finger-push.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		DF90AF73E18E435098DF25C6 /* genuinely-interested.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "genuinely-interested.mp3"; path = "genuinely-interested.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		780E31F413A74D81A92D6D52 /* gets-in-the-way.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "gets-in-the-way.mp3"; path = "gets-in-the-way.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		BE57167CB1654E8BB2A4A48B /* good-morning.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "good-morning.mp3"; path = "good-morning.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		9CAB86F672E74B599C609568 /* gummy-sweep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "gummy-sweep.mp3"; path = "gummy-sweep.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		64D7F164D85B456FA0C557A0 /* happy-ending.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "happy-ending.mp3"; path = "happy-ending.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		E268C9FF254D4B8797E76F31 /* hey-im-here-too.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "hey-im-here-too.mp3"; path = "hey-im-here-too.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		3783EF211BC046D1972EF72B /* hiccup.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "hiccup.mp3"; path = "hiccup.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		4F93E46EBBB74773B7859A25 /* inquisitiveness.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "inquisitiveness.mp3"; path = "inquisitiveness.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		58EB09EDCFB74F778154A28B /* in-your-plate.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "in-your-plate.mp3"; path = "in-your-plate.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		2E4393C56A3C41AE952AC02A /* i-saw-you.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "i-saw-you.mp3"; path = "i-saw-you.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		6806D289D6164B639B4AFB91 /* job-done.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "job-done.mp3"; path = "job-done.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		56C9F1021DDC4129ACBE1AA2 /* jubilation.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "jubilation.mp3"; path = "jubilation.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		B0B4CFDA9AFD48C2BC874BFE /* just-like-magic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "just-like-magic.mp3"; path = "just-like-magic.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		DB779D03004E4D94AF633CCD /* just-like-that.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "just-like-that.mp3"; path = "just-like-that.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		A277D63E8501435D84F97B8D /* knob.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "knob.mp3"; path = "knob.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		D3B705A715E44CB0BE46DA53 /* long-chime-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "long-chime-sound.mp3"; path = "long-chime-sound.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		F278EBA21692489DAD3A6A20 /* machine-poo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "machine-poo.mp3"; path = "machine-poo.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		902B9C6FDC0C4A428CEFCF9B /* may-i-have-your-attention.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "may-i-have-your-attention.mp3"; path = "may-i-have-your-attention.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		7F94B0C6FBE1406583A9F490 /* me.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "me.mp3"; path = "me.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		816CAA676C944529839A8034 /* munchausen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "munchausen.mp3"; path = "munchausen.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		188D218B29EE4D459C89DE46 /* net.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "net.mp3"; path = "net.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		404CE303305740808B482184 /* no-trespassing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "no-trespassing.mp3"; path = "no-trespassing.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		CA58850E0BDB44859923348C /* no-way.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "no-way.mp3"; path = "no-way.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		05198331DBEE482C958F52B7 /* oh-really.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "oh-really.mp3"; path = "oh-really.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		E8D9944DB2834EB4819CB5B3 /* on-serious-matters.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "on-serious-matters.mp3"; path = "on-serious-matters.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		BB8238BB3EA649E088117C52 /* oringz-pack-nine-15.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "oringz-pack-nine-15.mp3"; path = "oringz-pack-nine-15.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		609EC0ABB7234196A1532A46 /* pedantic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "pedantic.mp3"; path = "pedantic.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		9ECF6E0A0CD24EA7951B2464 /* pizzicato.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "pizzicato.mp3"; path = "pizzicato.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		E8F604EB08454D408006BAC8 /* pluck.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "pluck.mp3"; path = "pluck.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		70A9E4E54C5A452C961E6124 /* professionals.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "professionals.mp3"; path = "professionals.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		CE7043BC304F4D0394F365D9 /* pull-back.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "pull-back.mp3"; path = "pull-back.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		431840DF66A0476EA2CAB298 /* put-down.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "put-down.mp3"; path = "put-down.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		12712F77918F4D17ADA78E4D /* question-raised.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "question-raised.mp3"; path = "question-raised.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		8CF9042E36F24069A6AF33B4 /* scissors.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "scissors.mp3"; path = "scissors.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		6531B7529D844CDCA5EC86CE /* see-im-smart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "see-im-smart.mp3"; path = "see-im-smart.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		5CB3D1B034AB4E4288FBD3C4 /* served.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "served.mp3"; path = "served.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		26D7B713B72745DB93C8582F /* shut-your-mouth.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "shut-your-mouth.mp3"; path = "shut-your-mouth.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		AB9A74C9FD034C6B8ED366A6 /* slap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "slap.mp3"; path = "slap.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		AEFFA471692C42888A5883CB /* solemn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "solemn.mp3"; path = "solemn.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		E7B08F864375491FA33A5D26 /* strongly-attached.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "strongly-attached.mp3"; path = "strongly-attached.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		D86061FE998D4840AD472FEC /* surprise-on-a-spring.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "surprise-on-a-spring.mp3"; path = "surprise-on-a-spring.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		60A2DA844532449AADB8470B /* swift.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "swift.mp3"; path = "swift.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		31673D938B8A46E4B23567F0 /* thats-a-no.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "thats-a-no.mp3"; path = "thats-a-no.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		350BA7DC45D5439281DA4CE9 /* thats-nasty.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "thats-nasty.mp3"; path = "thats-nasty.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		360BF559C822413E9EC57304 /* the-squeaky-wheel-gets-the-grease.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "the-squeaky-wheel-gets-the-grease.mp3"; path = "the-squeaky-wheel-gets-the-grease.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		5E98DCAA89474A989E53CFB3 /* trained.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "trained.mp3"; path = "trained.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		E4728319EED0452A979132E5 /* what.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "what.mp3"; path = "what.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		C5FED7003BDB48F7B8B6DF7E /* whatever.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "whatever.mp3"; path = "whatever.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		1C7D6D56B78E4028BDEDEAE7 /* will-you.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "will-you.mp3"; path = "will-you.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		965F0904E5CB4D01A8ADEF59 /* worthwhile.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "worthwhile.mp3"; path = "worthwhile.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		CBA5D3F01AC144FB80D99B32 /* yep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "yep.mp3"; path = "yep.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		6D1EA0F012454C86A010CF2E /* you-know.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "you-know.mp3"; path = "you-know.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		7E86738C16804A7E9E842710 /* your-turn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "your-turn.mp3"; path = "your-turn.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		43932BAD561D465A86D53FC5 /* you-wouldnt-believe.mp3 */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "you-wouldnt-believe.mp3"; path = "you-wouldnt-believe.mp3"; sourceTree = "<group>"; fileEncoding = 4; };
+		FE273E98E44243539B701089 /* CDVLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		39A2A5D831F34A0290268D8E /* CDVLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9CFD77EA8003439CB194B4B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +273,7 @@
 				D593DFC6CA71409193E8845C /* EventKit.framework in Frameworks */,
 				E655788267954A4591523B25 /* EventKitUI.framework in Frameworks */,
 				7DF12DDF5D554E01B8E7D730 /* AudioToolbox.framework in Frameworks */,
+				2525016B92C64656BB051399 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +335,94 @@
 				0207DA571B56EA530066E2B4 /* Images.xcassets */,
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* Timeweb Monitor-Info.plist */,
+				B19E2F93DFAF4258A0795E76 /* abduction.mp3 */,
+				029CFB1AF85F437D85277338 /* ache.mp3 */,
+				F86EE384926D4C25B768F757 /* a-ha-moment.mp3 */,
+				A773899167244A6885C83203 /* all-of-a-sudden.mp3 */,
+				9386BDD8A49E41799A9D36CB /* are-you-kidding.mp3 */,
+				67262EB29289493A899909D5 /* argh-my-eyes.mp3 */,
+				D003F2FD67F44167B55064BB /* a-taste-of-the-whip.mp3 */,
+				BB479E65FAFB41AF833F22CB /* attracted.mp3 */,
+				DF618B570F8649A6BE2236B9 /* awareness.mp3 */,
+				7850B3C7A8B346F58F1626E7 /* base.mp3 */,
+				221FC4CCED0846E4831A486C /* blocker.mp3 */,
+				6D99A15C20B74423B9E2991B /* braking.mp3 */,
+				9CC15752C9934F38AA7C7699 /* cable-unplugged.mp3 */,
+				3C96C1A3946C48F98BFAC79A /* cause-and-effect.mp3 */,
+				9567A5CA820845B39E79C018 /* chafing.mp3 */,
+				D8DFED42F9C04EA89C246BF3 /* closed.mp3 */,
+				2C706072CDAD44B2BD16B674 /* code.mp3 */,
+				DD15C5D3716647BE88410F5F /* coins.mp3 */,
+				3BB3EF0F6DCF4C1E8F3A2DEB /* come-to-daddy.mp3 */,
+				319CBA2FBDF342FFA9F80E90 /* communication-channel.mp3 */,
+				6C10061690184CAFA97DA492 /* credulous.mp3 */,
+				0A61BC79927E4DEAA74F0304 /* croak.mp3 */,
+				C0697074E04C41B491CBF015 /* cyberincident.mp3 */,
+				FD8439B820364A1D9363D184 /* decay.mp3 */,
+				7B21F0744C3D46B78A48667E /* does-not-behave.mp3 */,
+				75B03E6CDB32405888F54D0F /* dropped-spinner.mp3 */,
+				2A568FEF3B7B46948031AD5E /* electronic.mp3 */,
+				401AEA79426A4AAE804C222A /* end-point-reached.mp3 */,
+				19F2E53553DE4E4D9386E4F6 /* error-3.mp3 */,
+				169803F767BB4AE39CDBF5A8 /* et-voila.mp3 */,
+				0CF8359C10FE462F846AEEF1 /* fallbackring.ogg */,
+				65AC9DE36EC44119BB68AE6C /* fallin.mp3 */,
+				3E11862205FF43EB95FB2B11 /* fast-turnaround.mp3 */,
+				3745259A66F546429AEF339E /* finger-push.mp3 */,
+				DF90AF73E18E435098DF25C6 /* genuinely-interested.mp3 */,
+				780E31F413A74D81A92D6D52 /* gets-in-the-way.mp3 */,
+				BE57167CB1654E8BB2A4A48B /* good-morning.mp3 */,
+				9CAB86F672E74B599C609568 /* gummy-sweep.mp3 */,
+				64D7F164D85B456FA0C557A0 /* happy-ending.mp3 */,
+				E268C9FF254D4B8797E76F31 /* hey-im-here-too.mp3 */,
+				3783EF211BC046D1972EF72B /* hiccup.mp3 */,
+				4F93E46EBBB74773B7859A25 /* inquisitiveness.mp3 */,
+				58EB09EDCFB74F778154A28B /* in-your-plate.mp3 */,
+				2E4393C56A3C41AE952AC02A /* i-saw-you.mp3 */,
+				6806D289D6164B639B4AFB91 /* job-done.mp3 */,
+				56C9F1021DDC4129ACBE1AA2 /* jubilation.mp3 */,
+				B0B4CFDA9AFD48C2BC874BFE /* just-like-magic.mp3 */,
+				DB779D03004E4D94AF633CCD /* just-like-that.mp3 */,
+				A277D63E8501435D84F97B8D /* knob.mp3 */,
+				D3B705A715E44CB0BE46DA53 /* long-chime-sound.mp3 */,
+				F278EBA21692489DAD3A6A20 /* machine-poo.mp3 */,
+				902B9C6FDC0C4A428CEFCF9B /* may-i-have-your-attention.mp3 */,
+				7F94B0C6FBE1406583A9F490 /* me.mp3 */,
+				816CAA676C944529839A8034 /* munchausen.mp3 */,
+				188D218B29EE4D459C89DE46 /* net.mp3 */,
+				404CE303305740808B482184 /* no-trespassing.mp3 */,
+				CA58850E0BDB44859923348C /* no-way.mp3 */,
+				05198331DBEE482C958F52B7 /* oh-really.mp3 */,
+				E8D9944DB2834EB4819CB5B3 /* on-serious-matters.mp3 */,
+				BB8238BB3EA649E088117C52 /* oringz-pack-nine-15.mp3 */,
+				609EC0ABB7234196A1532A46 /* pedantic.mp3 */,
+				9ECF6E0A0CD24EA7951B2464 /* pizzicato.mp3 */,
+				E8F604EB08454D408006BAC8 /* pluck.mp3 */,
+				70A9E4E54C5A452C961E6124 /* professionals.mp3 */,
+				CE7043BC304F4D0394F365D9 /* pull-back.mp3 */,
+				431840DF66A0476EA2CAB298 /* put-down.mp3 */,
+				12712F77918F4D17ADA78E4D /* question-raised.mp3 */,
+				8CF9042E36F24069A6AF33B4 /* scissors.mp3 */,
+				6531B7529D844CDCA5EC86CE /* see-im-smart.mp3 */,
+				5CB3D1B034AB4E4288FBD3C4 /* served.mp3 */,
+				26D7B713B72745DB93C8582F /* shut-your-mouth.mp3 */,
+				AB9A74C9FD034C6B8ED366A6 /* slap.mp3 */,
+				AEFFA471692C42888A5883CB /* solemn.mp3 */,
+				E7B08F864375491FA33A5D26 /* strongly-attached.mp3 */,
+				D86061FE998D4840AD472FEC /* surprise-on-a-spring.mp3 */,
+				60A2DA844532449AADB8470B /* swift.mp3 */,
+				31673D938B8A46E4B23567F0 /* thats-a-no.mp3 */,
+				350BA7DC45D5439281DA4CE9 /* thats-nasty.mp3 */,
+				360BF559C822413E9EC57304 /* the-squeaky-wheel-gets-the-grease.mp3 */,
+				5E98DCAA89474A989E53CFB3 /* trained.mp3 */,
+				E4728319EED0452A979132E5 /* what.mp3 */,
+				C5FED7003BDB48F7B8B6DF7E /* whatever.mp3 */,
+				1C7D6D56B78E4028BDEDEAE7 /* will-you.mp3 */,
+				965F0904E5CB4D01A8ADEF59 /* worthwhile.mp3 */,
+				CBA5D3F01AC144FB80D99B32 /* yep.mp3 */,
+				6D1EA0F012454C86A010CF2E /* you-know.mp3 */,
+				7E86738C16804A7E9E842710 /* your-turn.mp3 */,
+				43932BAD561D465A86D53FC5 /* you-wouldnt-believe.mp3 */,
 			);
 			name = Resources;
 			path = "Timeweb Monitor/Resources";
@@ -158,6 +434,7 @@
 				2A5CFCA6B0934884A6B39BA9 /* EventKit.framework */,
 				EB0510FC06184FCF9BAE2C1E /* EventKitUI.framework */,
 				19DECAECAA8E47BEA2E27B34 /* AudioToolbox.framework */,
+				9CFD77EA8003439CB194B4B5 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -193,6 +470,12 @@
 				342680C88BD84227B81F42AF /* MBProgressHUD.h */,
 				CCD96AAFBBA048B896A39F04 /* CDVVibration.m */,
 				5825AF442FA744AFBE40E2A8 /* CDVVibration.h */,
+				9ED9FF131DEF4974866C4B42 /* AppDelegate+notification.m */,
+				947D1A25579B40FFBCC444D6 /* PushPlugin.m */,
+				25F071005A0C4B21A1C417CE /* AppDelegate+notification.h */,
+				C9F527E36BA547E58E7EFB2A /* PushPlugin.h */,
+				FE273E98E44243539B701089 /* CDVLocation.m */,
+				39A2A5D831F34A0290268D8E /* CDVLocation.h */,
 			);
 			name = Plugins;
 			path = "Timeweb Monitor/Plugins";
@@ -284,6 +567,94 @@
 				3047A5141AB8059700498E2A /* build.xcconfig in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				3047A5121AB8059700498E2A /* build-debug.xcconfig in Resources */,
+				32B120346F044A57B2B2E426 /* abduction.mp3 in Resources */,
+				3163067E371F413BBE222B6F /* ache.mp3 in Resources */,
+				037F1EDC629848EB82690933 /* a-ha-moment.mp3 in Resources */,
+				D76F53CB9F014F67994031A2 /* all-of-a-sudden.mp3 in Resources */,
+				8103801D783F47DEB0CBDE3A /* are-you-kidding.mp3 in Resources */,
+				B147EC74CE764B6D9E550FF1 /* argh-my-eyes.mp3 in Resources */,
+				21BEEB2CAAFA41A78748D65D /* a-taste-of-the-whip.mp3 in Resources */,
+				23ECA3BE25864F77A36664C9 /* attracted.mp3 in Resources */,
+				55BD262BBC8A48A39EC15D65 /* awareness.mp3 in Resources */,
+				2AF4E0DFCA8544B4A03D41E3 /* base.mp3 in Resources */,
+				E63FD416F3E74681ABAA0CEF /* blocker.mp3 in Resources */,
+				739B73F6FDD646A1BD0925C7 /* braking.mp3 in Resources */,
+				82F536028F704BAF83E88301 /* cable-unplugged.mp3 in Resources */,
+				767C7E8D873F47EAB6148B8D /* cause-and-effect.mp3 in Resources */,
+				6FC8978B7DFB40A0A34841C9 /* chafing.mp3 in Resources */,
+				2E29FB2DD25B4A759984BBE6 /* closed.mp3 in Resources */,
+				BCC5E5D95A8C402DA64FF042 /* code.mp3 in Resources */,
+				B7CD1D6FE68A4C60B4858F5F /* coins.mp3 in Resources */,
+				480A8F4460B642EEA62EA8C9 /* come-to-daddy.mp3 in Resources */,
+				C71B172DFD274FBDA04833A8 /* communication-channel.mp3 in Resources */,
+				CBB9C881BD8D48E8A8CF0028 /* credulous.mp3 in Resources */,
+				E3188E6B5426421BADAC9599 /* croak.mp3 in Resources */,
+				CD1E251983694D5C91630338 /* cyberincident.mp3 in Resources */,
+				246457D3E7024DEDB8C19BAE /* decay.mp3 in Resources */,
+				5BD9C88B70854D9994BAAF9D /* does-not-behave.mp3 in Resources */,
+				748CB84229B04D35A22AF76F /* dropped-spinner.mp3 in Resources */,
+				A9225E81E0474C2B90FBB389 /* electronic.mp3 in Resources */,
+				947910CE27E446FF9D72331E /* end-point-reached.mp3 in Resources */,
+				40C6341847894DE984B8AF7A /* error-3.mp3 in Resources */,
+				7204CB4FA30641F39B50A16F /* et-voila.mp3 in Resources */,
+				684C8FC2C508414FA93C007F /* fallbackring.ogg in Resources */,
+				253943E319D343789DC9C1D3 /* fallin.mp3 in Resources */,
+				10722D343FD045D3888936FF /* fast-turnaround.mp3 in Resources */,
+				38EDA67882AC4D1A950F448C /* finger-push.mp3 in Resources */,
+				741D789BECD64C65A32DDEBE /* genuinely-interested.mp3 in Resources */,
+				6C088427166B46C38A108C3D /* gets-in-the-way.mp3 in Resources */,
+				B65D7BC268AC4459BCC64741 /* good-morning.mp3 in Resources */,
+				20A6F76ADD1E4FB8AC9F9329 /* gummy-sweep.mp3 in Resources */,
+				F2E5BEA1966D4A1DAC8E7F70 /* happy-ending.mp3 in Resources */,
+				E9F081C3710E40478D11494A /* hey-im-here-too.mp3 in Resources */,
+				E3FEAC5139AC419F8BAB642B /* hiccup.mp3 in Resources */,
+				CC47C73DFDCC4D7F83EB6B44 /* inquisitiveness.mp3 in Resources */,
+				9DE81C5F38E44E8280DFA033 /* in-your-plate.mp3 in Resources */,
+				01B453D861574CCA80E33AE2 /* i-saw-you.mp3 in Resources */,
+				EF0ED72A4E2B4C5ABDAB166A /* job-done.mp3 in Resources */,
+				3167ED9C155C42DC9551404C /* jubilation.mp3 in Resources */,
+				E09AAEEFC3A1492A83AC3A5D /* just-like-magic.mp3 in Resources */,
+				97DF9EF7F059411C86269D88 /* just-like-that.mp3 in Resources */,
+				5D635A5AFA2F420D98B5D7A1 /* knob.mp3 in Resources */,
+				B0F3C56D5E384FC1A822D0BB /* long-chime-sound.mp3 in Resources */,
+				4B0821E6DBAD4134B3D2BA9F /* machine-poo.mp3 in Resources */,
+				CFB691A40E4344858E562CD8 /* may-i-have-your-attention.mp3 in Resources */,
+				06CE047A371D436596E13AB9 /* me.mp3 in Resources */,
+				856C0A07B3454BBD92926ECF /* munchausen.mp3 in Resources */,
+				8F585144D8D24E6CB11033A5 /* net.mp3 in Resources */,
+				A8385924F0044B4B8490DFA2 /* no-trespassing.mp3 in Resources */,
+				531509957E03416C9353B040 /* no-way.mp3 in Resources */,
+				F82DB19875FC4671B17AD2D5 /* oh-really.mp3 in Resources */,
+				1353C5B7FA674D4FBDBD00FB /* on-serious-matters.mp3 in Resources */,
+				7B180E4ACB534F3ABB3B8E31 /* oringz-pack-nine-15.mp3 in Resources */,
+				1395AA459DAC4452B5326E7B /* pedantic.mp3 in Resources */,
+				584A8586AF4F4DB598F24CCA /* pizzicato.mp3 in Resources */,
+				06A24B2C99A649149F148C46 /* pluck.mp3 in Resources */,
+				EB28787079D34E7DA6311410 /* professionals.mp3 in Resources */,
+				410AB3F0A6334E298474A118 /* pull-back.mp3 in Resources */,
+				1CF43945F13846D2B4DA99AA /* put-down.mp3 in Resources */,
+				29F8A4665D164DA48AEDD29C /* question-raised.mp3 in Resources */,
+				B77E2804568A40DEA5C34805 /* scissors.mp3 in Resources */,
+				0F0F9E14B824441D88F04D37 /* see-im-smart.mp3 in Resources */,
+				06D130D094CE4B4BBF447B4F /* served.mp3 in Resources */,
+				D31AE979CA794B0F83C10BF5 /* shut-your-mouth.mp3 in Resources */,
+				1E457AC47EEC4D1EB68B9B8B /* slap.mp3 in Resources */,
+				AE3C30413FE84F42851433C7 /* solemn.mp3 in Resources */,
+				2B9E0194C55643A881F2820E /* strongly-attached.mp3 in Resources */,
+				394B45063E05429FB6F75F26 /* surprise-on-a-spring.mp3 in Resources */,
+				FC7CA88AD705454C9DAA2EAA /* swift.mp3 in Resources */,
+				5A2D98CDBFF4411BB5931EA9 /* thats-a-no.mp3 in Resources */,
+				970B590D298A4BC2AB790BE9 /* thats-nasty.mp3 in Resources */,
+				50EFC09543D44410AEAAFE6F /* the-squeaky-wheel-gets-the-grease.mp3 in Resources */,
+				06F096DCD33449E3BF246FA2 /* trained.mp3 in Resources */,
+				854685D337DF47AB992988D2 /* what.mp3 in Resources */,
+				8937ECE3A69E499DA97FC0EB /* whatever.mp3 in Resources */,
+				13645C280A924B6D98528AB9 /* will-you.mp3 in Resources */,
+				C2BF4D5973194E65A1B0085E /* worthwhile.mp3 in Resources */,
+				4AF3CDE9CC7D4479B83EBC8E /* yep.mp3 in Resources */,
+				93C0D8C112E2414A98DD41ED /* you-know.mp3 in Resources */,
+				7A8711B1F2AF4C47A26B3369 /* your-turn.mp3 in Resources */,
+				BE08E9047F7043FA857328DD /* you-wouldnt-believe.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +691,9 @@
 				6DD37161EBF34E3D8A11288A /* SpinnerPlugin.m in Sources */,
 				42EAD6D3002F469BA1F10A7C /* MBProgressHUD.m in Sources */,
 				50215917F33248B09A9702E5 /* CDVVibration.m in Sources */,
+				78763F9F1CF644F68A371920 /* AppDelegate+notification.m in Sources */,
+				4F1A8543F20146EEB649BA1D /* PushPlugin.m in Sources */,
+				A216B33D9AF44C7A83CB3A08 /* CDVLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

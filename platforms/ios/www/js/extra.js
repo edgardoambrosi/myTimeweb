@@ -129,43 +129,76 @@ $( document ).ready(function() {
 		};
 
 		var esame_timbrature={
+			/*QUESTA FUNZIONE HA LO SCOPO DI IMPLEMENTARE LA LOGICA PER LE CAUSALI DIGITATE DAL DIPENDENTE AL MOMENTO DELL'USCITA DAI TORNELLI.
+			PER ORA SONO IMPLEMENTATE SOLO LE CAUSALI PAUSAPRANZO COD 0001 E SERVIZIO ESTERNO CAUSALE 0003.
+			LA GESTIONE E LA LOGICA DIPENDE ESCLUSIVAMENTE DALLE REGOLE INTERNE.*/
+			
 			gestione_causali:function(TIMBRATURE){
-	
-				var TIMBRATURE="E08:32 U13:04(0003) E13:15(0003) U14:00(0001) E14:23(0001) U16:21"
+				/*se le strisciate originali sono "E08:32 U14:00(0001) E14:53(0001) U16:21"
+				diventano "E08:32 U14:00(0001) E14:53 U16:21" e infine "E08:32 U14:30 E14:53 U16:21".
+				
+				Se originali sono "E08:32 U14:00(0001) E14:23(0001) U16:21" diventano "E08:32 U14:23 E14:23 U16:21"
+				
+				Se originali sono "E08:32 U14:00(0003) E14:23(0003) U16:21" diventano "E08:32 U16:21"
+				
+				*/
+				
 				var NUOVASTRISCIATA=new Array();
 				var TIMBRATUREARRAY=TIMBRATURE.split(" ")
 				var PAUSAPRANZOsec=esame_timbrature.insecondi(PAUSAPRANZO);
 
+				//SE VICINO AD UNA USCITA TROVO UN 0001 RIMUOVO DALLA TIMBRATURA SUCCESSIVA IL MEDESIMO CODICE 0001 SOLO PER UNA UTILITÀ NEL CICLO SUCCESSIVO. 
 				TIMBRATUREARRAY.forEach(function(e,i){
-				   //se trovi codice 0003		
-				   if (e.search(/(E|U)[0-9]+:[0-9]+\(0003\)/)==-1 ){
+				   if (e.search(/U[0-9]+:[0-9]+\(0001\)/)!==-1){
+					   TIMBRATUREARRAY[i+1]=TIMBRATUREARRAY[i+1].replace("(0001)","")
+				   }
+				})
+
+				TIMBRATUREARRAY.forEach(function(e,i){
+				   //se trovi codice 0003, MI ASPETTO CHE LA SUCCESSIVA TIMBRATA RIPORTI LO STESSO CODICE 0003  	
+				   if (e.search(/(E|U)[0-9]+:[0-9]+\(0003\)/)!==-1 ){
 				   		//...ignori la timbrata		
 						return;
 					//se trovi 0001	vicino ad una ENTRATA
 				   }else if (e.search(/E[0-9]+:[0-9]+\(0001\)/)!==-1){
-				   		//calcoli la pausa pranzo in eccesso
+				   		//calcoli la pausa pranzo in eccesso,
 				   		 ENTRATA=e.replace("(0001)","").replace("E","")
-				   		 USCITA=TIMBRATUREARRAY[i+1].replace("(0001)","").replace("U","");
-                         _ENTRATA=insecondi(ENTRATA+":00")
-                         _USCITA= insecondi(USCITA+":00")
-                         _PAUSAPRANZO=_ENTRATA-_USCITA
-		                 if (PAUSAPRANZOsec > _PAUSAPRANZO ) {
-		                   	    NUOVASTRISCIATA.pop(i-1);
-		                    	return;
-		                 }
-		                 if (PAUSAPRANZOsec <= _PAUSAPRANZO ){
-	                        	NUOVASTRISCIATA.push("U"+esame_timbrature.inorario(_USCITA+(_PAUSAPRANZO-PAUSAPRANZOsec)));
-                                return;
-		                 }
+				   		 USCITA=TIMBRATUREARRAY[i-1].replace("(0001)","").replace("U","");
+						 _ENTRATA=esame_timbrature.insecondi(ENTRATA+":00")
+						 _USCITA= esame_timbrature.insecondi(USCITA+":00")
+						 _PAUSAPRANZO=_ENTRATA-_USCITA
+						 if (PAUSAPRANZOsec > _PAUSAPRANZO ) {
+								NUOVASTRISCIATA.push("E"+TIMBRATUREARRAY[i-1].replace("(0001)","").replace("U",""));
+								return;
+						 }
+						 if (PAUSAPRANZOsec <= _PAUSAPRANZO ){
+								NUOVASTRISCIATA.push("E"+esame_timbrature.inorario(_USCITA+(_PAUSAPRANZO-PAUSAPRANZOsec)));
+								return;
+						 }
 				   //se trovi 0001	vicino ad una USCITA					   		 
 				   }else if (e.search(/U[0-9]+:[0-9]+\(0001\)/)!==-1){
+				   		var INVERTI=false;
+				   		if (TIMBRATUREARRAY[i+1].search(/E[0-9]+:[0-9]+\(0001\)/)!==-1) INVERTI=true
 				   		//calcoli la pausa pranzo in eccesso
-				   		 console.log(TIMBRATUREARRAY[i-1]+" "+e)
+				   		 USCITA=e.replace("(0001)","").replace("U","")
+				   		 ENTRATA=TIMBRATUREARRAY[i+1].replace("(0001)","").replace("E","");
+						 _ENTRATA=esame_timbrature.insecondi(ENTRATA+":00")
+						 _USCITA= esame_timbrature.insecondi(USCITA+":00")
+						 _PAUSAPRANZO=_ENTRATA-_USCITA
+						 if (PAUSAPRANZOsec > _PAUSAPRANZO ) {
+								NUOVASTRISCIATA.push("U"+TIMBRATUREARRAY[i+1].replace("(0001)","").replace("E",""));
+								return;
+						 }
+						 if (PAUSAPRANZOsec <= _PAUSAPRANZO ){
+								NUOVASTRISCIATA.push("U"+esame_timbrature.inorario(_ENTRATA-(_PAUSAPRANZO-PAUSAPRANZOsec)));
+								return;
+						 }
+
 				   }
 				   NUOVASTRISCIATA.push(e);
 				})
 
-				console.log(NUOVASTRISCIATA.toString().replace(/,/g," "))			
+				console.log(NUOVASTRISCIATA.toString().replace(/,/g," "))		
 				
 				return NUOVASTRISCIATA.toString().replace(/,/g," ");
 			},		
