@@ -1,4 +1,5 @@
-cordova.define("com.phonegap.plugins.Puship.PushNotification", function(require, exports, module) { var PushNotification = function() {
+cordova.define("com.phonegap.plugins.Puship.PushNotification", function(require, exports, module) {
+var PushNotification = function() {
 };
 
 

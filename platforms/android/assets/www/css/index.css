@@ -135,7 +135,7 @@ h1 {
 /*http://stackoverflow.com/questions/26099709/make-flipclock-js-responsive*/
 .your-clock{
    zoom: 0.6;
-   -moz-transform: scale(0.5);
+   -moz-transform: scale(0.6);
 }
 /********************/
 #tempo-restante{
@@ -240,11 +240,11 @@ h1 {
     0 1px 1px rgba(255,255,255,0.9);
     opacity: 1;
     top: 7vmax;
-    width: 100%;
-    height: 90vmax;
-    position: fixed;
+    width: 90%;
+    height: 1000px;
+    /*position: fixed;*/
     color:black;
-	overflow: scroll;
+	overflow-y: visible;
 }
 #calcola, #salva_set, #reset_set{
     width:13vmax;
@@ -293,29 +293,29 @@ h1 {
     width:90%;
 }
 
-#anomalieTable {
-    zoomX:0.8;
+.reportTable {
+    zoom:1.1;
     width:90%;
 }
 
-#anomalieTable th {
+.reportTable th {
     border: 1px solid black;
     background-color:#A0A0A0;
     color:white;
 }
-#anomalieTable td{
+.reportTable td{
     border: 1px solid black;
     background-color:#EEEEEE;
     width:10%;
 }
 
-#anomalieTable td:nth-child(3) {  
+.reportTable td:nth-child(3) {  
     border: none;
     background-color: transparent;
     width:10%;
 }
 
-#anomalieTable td input
+.reportTable td input
 {
    display: inline-block;
    width:13vmax;
@@ -324,6 +324,23 @@ h1 {
    border:5px;
    font-size: xx-small;   
 }
+
+.reportTableBis {
+    zoom:.5;
+    width:90%;
+}
+
+.reportTableBis th {
+    border: 1px solid black;
+    background-color:#A0A0A0;
+    color:white;
+}
+.reportTableBis td{
+    border: 1px solid black;
+    background-color:#EEEEEE;
+    width:10%;
+}
+
 
 /***********************/
 
@@ -347,7 +364,7 @@ h1 {
 	-webkit-transform:scale(1);
 	-o-transform:scale(1);
 }
-#credset{
+.conferma{
   margin: 0 0 5px;
   padding: 0 12px;
   height: 28px;
@@ -379,33 +396,35 @@ h1 {
   box-shadow: inset 0 1px #d9f3b5, inset 0 0 0 1px #b1e095, 0 1px #5e903f, 0 3px #6da445, 0 4px #5e903f, 0 5px 2px rgba(0, 0, 0, 0.4);
 }
 
+.annulla{
+	background: #ff6600;
+	border-color: #ffc299 #e65c00 #803300;
+	box-shadow: inset 0 1px #4d1f00, inset 0 0 0 1px #4d1f00, 0 1px #4d1f00, 0 3px #4d1f00, 0 4px #4d1f00, 0 5px 2px rgba(0, 0, 0, 0.4);
+	text-shadow: 0 1px #4d1f00;
+	zoom:1.2;
+}
 /*************************/
 
 /*************************/
 #form_giustificativi{
 	position:absolute;
-	top:3%;
-	left:3%;
-	width: 95%;
-	height:95%;
-	background: black;
-	opacity:0.9;
+	top:-5%;
+	left:7%;
+	width: 75%;
+	height:65%;
+	padding: 7%;
+	background-color:rgb(194, 203, 186);
+	transition:top 0s;
 	z-index:10;
 }
 
-#form_giustificativi div{
-	/*border:1px solid red;*/
-	position: relative;
-    top: 30%;
-    left: 15%;
-    width: 70%;
-
+#form_giustificativi input{
+	width: 10vmax;
+	zoom:1.2;
 }
 
-#form_giustificativi form{
-	/*border:1px solid red;*/
-	background-color:rgb(194, 203, 186);
-	padding: 7%;
+#form_giustificativi select{
+	zoom:1.2;
 }
 
 /*************************/
@@ -421,7 +440,7 @@ h1 {
 	margin-left:25vmax
 }
 .generale-centrato{
-	position:absolute;
+	position:inherit;
 	right: 0;
 	left: 0;
 	margin-right: auto;
