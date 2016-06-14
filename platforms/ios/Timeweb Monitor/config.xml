@@ -40,6 +40,12 @@
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
     </feature>
+    <feature name="PushPlugin">
+        <param name="ios-package" value="PushPlugin" />
+    </feature>
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+    </feature>
     <name>Timeweb Monitor</name>
     <description>
 		Timeweb monitor ti permette di avere alcune informazioni importanti relative alla tua giornata lavorativa.

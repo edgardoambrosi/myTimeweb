@@ -1,43 +1,240 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--
-       Licensed to the Apache Software Foundation (ASF) under one
-       or more contributor license agreements.  See the NOTICE file
-       distributed with this work for additional information
-       regarding copyright ownership.  The ASF licenses this file
-       to you under the Apache License, Version 2.0 (the
-       "License"); you may not use this file except in compliance
-       with the License.  You may obtain a copy of the License at
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
 
-         http://www.apache.org/licenses/LICENSE-2.0
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
 
-       Unless required by applicable law or agreed to in writing,
-       software distributed under the License is distributed on an
-       "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-       KIND, either express or implied.  See the License for the
-       specific language governing permissions and limitations
-       under the License.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <title>Hello World</title>
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" href="css/flipclock.css">
+
+        <title>Timeweb Monitor</title>
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
+            <h1>Orario Lavoro</h1>
             <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+                <p class="event listening">Connetti TimeWeb</p>
+                <p class="event received">Disconnetti Timeweb</p>
             </div>
+            <table>
+            	<tr>
+					<td><div id="giorno" class="generale-centrato generale-imbottitura">
+						<label for="GiornoLavoro">Scegliere un giorno</label>
+						<input type="date" id="GiornoLavoro" name="GiornoLavoro"/>
+					</div></td>
+					<td><button id="giustifica" class="block-level embossed-heavy giustifica" style="display:none" >INSERIRE CAUSALE</button></td>
+				 </tr>
+            </table>
         </div>
+
+
+		<div id="monitor" style="display:none">
+			<table class="cartellino">
+				<tbody>
+					<tr>
+						<td><div id="strisciata" class="block-level embossed-heavy"></div></td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="tempo-restante" class="your-clock"></div>
+			<div id="tempo-trascorso" class="your-clock"></div>
+			<div id="saldo" class="saldo">
+				<h1>Saldo Giornata</h1>		
+			</div>
+			
+		</div>
+		
+
+		<div id="credenziali" style="display:none">
+			<label for="NomeUtente">Nome Utente</label><input type="text" id="NomeUtente" name="NomeUtente" value=""/></br>
+			<label for="Password">Password</label><input type="password" id="Password" name="Password" value=""/></br>
+			<input type="checkbox" name="SaveCred" value="false" />Ricordami su questo dispositivo</br>
+			<button id="credset" class="generale-centrato conferma"  type="submit" >Autorizza</button>
+		</div>
+
+
+		<div id="form_giustificativi" style="display:none">
+				<form>
+					<h1>Inserimento del Giustificativo</h1>
+ 	          	    <div id="giustificativo_sel" style='left:2px' name='GIUS'><label style="margin-bottom:10%" for="GIUS">Giustificativo:</label><br></div><br>
+					<label for="DESC">Inserire una descrizione:</label><br>
+					<textarea cols="30" name="DESC" rows="5"></textarea><br>
+					<table>
+						<tr>
+							<td><label for="DA">Da che ora:</label></td>
+							<td><input type="time" name="DA" ></td>
+						</tr>	
+						<tr>
+							<td><label for="A">A che ora:</label></td>
+							<td><input type="time" name="A" ></td>
+						</tr>						
+						<tr>
+							<td><button class="conferma" type="button" id="form_giustificativi-conferma">Conferma</button><br></td>
+						</tr>	
+						<tr>
+							<td><button  class="conferma annulla" type="button" id="form_giustificativi-annulla">Annulla</button></td>
+						</tr>
+					</table>
+				</form> 
+		</div>
+
+		<div id="pannello-menu" class="block-level embossed-heavy pannello-embossed-heavy" style="display:none">
+			  <form class="block-level embossed-heavy pannello-embossed-heavy settings" style="display:none">
+				<label for="TOTALE">Totale ore da lavorare:</label><br>
+				<input type="text" name="TOTALE" ><br>
+				<label for="PAUSAPRANZO">Pausa pranzo:</label><br>
+				<input type="text" name="PAUSAPRANZO" ><br>
+				<label for="server_url">Server URL:</label><br>	
+				<input type="url" name="server_url" size="55" ><br>
+				<label for="notifiche_aut_url">Servizio Notifiche Login URL:</label><br>	
+				<input type="url" name="notifiche_aut_url" size="55" ><br>
+				<label for="notifiche_url">Servizio Notifiche URL:</label><br>	
+				<input type="url" name="notifiche_url" size="55" ><br>
+				<table>
+					<tr>
+						<td><button class="conferma" type="button" id="salva_set">Salva</button></td>
+						<td><button class="conferma annulla" style="zoom:1" type="button" id="reset_set">Ripristina Impostazioni</button></td>
+					</tr>
+				</table>	
+			  </form> 
+
+
+			  <div id="perConteggio" style="display:none;">
+				<h1>Rapporto Conteggio</h1>
+				<table>
+					<tbody>
+						<tr><div id="causale_sel"><p>Seleziona la Causale:</p></div></tr>
+						<tr>		    
+							<td><div id="giorno_inizio">
+								<label for="GiornoLavoro_inizio">Giorno Inizio:</label>
+								<input type="date" id="GiornoLavoro_inizio" name="GiornoLavoroInizio"/>
+							</div></td>
+							<td><div id="giorno_fine">
+								<label for="GiornoLavoro_fine">Giorno Fine:</label>
+								<input type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/> 
+							</div></td>
+						</tr>
+						<tr>
+							<td><button class="conferma" id="calcola">Calcola</button></td>
+							<td><div style="margin-left:-30px">
+								<table>
+									<tbody>
+										<tr>
+											<td><div id="quantita1" class="your-clock"  ></div></td>
+											<td><div id="separatore" style='display:none'>:</div></td>
+											<td><div id="quantita2" class="your-clock" style='display:none'></div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
+			  </div>
+			  
+			  
+		      <div id="saldi" style="display:none;">
+			  <hr style="93%">		      
+		      	<table>
+		      		<tr>	
+			      		<td><h1>Totali Mese </h1></td>
+			      		<td><input type="date" id="mese_corrente"/></td>
+			      		<td><button class="conferma" id="totali" style="zoom:1.2">Totalizza</button></td>
+		      		</tr>
+		      	</table>	
+		      </div>
+          
+			  <div id="anomalie" style="display:none">        
+				<table>
+					<tr>
+						<td><h1>Anomalie Mese</h1></td>
+						<td><input type="date" style="zoom:1.1" id="anomalie_mese_corrente"/></td>
+						<td><button class="conferma" id="anomali" style="zoom:1.1">Mostra</button></td>
+					</tr>
+				</table>
+				<table id='anomalieTable' class="reportTable" style="display:none">
+					<th>GIORNO</th><th>TIMBRATURE</th>
+				</table>
+			  </div>
+			  <div id="giustifica_manuale" style="display:none">    
+				<hr style="93%">				      
+				<table>
+					<tr>
+						<td><h1>Stato Giustificativi</h1></td>
+					</tr>
+				</table>
+				<table id='giusTable' class="reportTableBis" style="display:none">
+					<th>GIORNO</th><th>CAUSALE</th><th>STATO</th><th>ESITO</th>
+				</table>
+			  </div>
+			  <div id="timbrature_manuali" style="display:none">    
+			    <hr style="93%">				      
+				<table>
+					<tr>
+						<td><h1>Stato Timbrature</h1></td>
+					</tr>
+				</table>
+				<table id='timbTable' class="reportTableBis" style="display:none">
+					<th>GIORNO</th><th>MOTIVO</th><th>STATO</th><th>ESITO</th>
+				</table>
+			  </div>		    	
+		</div>
+
+        
+        
+        <div style="width:50%;overflow:scroll">
+			<table class="menu" style='display:none'>
+				<tbody>
+					<tr>
+						<td><div id="Causale" class="block-level embossed-heavy menu-embossed-heavy">Anomalie</div></td>
+						<td><div id="Saldi" class="block-level embossed-heavy menu-embossed-heavy">Saldi</div></td>
+						<td><div id="Notifiche" class="block-level embossed-heavy menu-embossed-heavy badge" data-badge="0">Notifiche</div></td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="menu-act" style='display:none'>
+				<tbody>
+					<tr>
+						<td><div id="imgmenu" style="zoom:2.3;">
+                                <img src="img/menu.svg"/>
+                            </div>
+                        </td>
+						<td><div id="imgset" style="zoom:0.07; display:none">
+                                <img src="img/settings.svg"/>
+                            </div>
+                        </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery.xpath.min.js"></script>
+		<script src="js/flipclock.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
+        
+        <script type="text/javascript" src="js/extra.js"></script>
     </body>
 </html>

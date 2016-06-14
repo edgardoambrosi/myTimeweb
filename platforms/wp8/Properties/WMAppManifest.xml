@@ -4,13 +4,14 @@
     <Languages xmlns="">
         <Language code="en-US" />
     </Languages>
-    <App Author="Timeweb Monitor author" BitsPerPixel="32" Description="Apache Cordova for Windows Phone" Genre="apps.normal" ProductID="{a783bc90-1e59-11e6-86b6-0f845e0c0423}" Publisher="Timeweb Monitor" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="Timeweb Monitor" Version="1.0.0.0" xmlns="">
+    <App Author="Edgardo Ambrosi" BitsPerPixel="32" Description="Timeweb monitor ti permette di avere alcune informazioni importanti relative alla tua giornata lavorativa." Genre="apps.normal" ProductID="{a783bc90-1e59-11e6-86b6-0f845e0c0423}" Publisher="Edgardo Ambrosi" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="Timeweb Monitor" Version="1.0.0" xmlns="">
         <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
         <Capabilities>
             <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
             <Capability Name="ID_CAP_NETWORKING" />
             <Capability Name="ID_CAP_ISV_CAMERA" />
             <Capability Name="ID_CAP_MICROPHONE" />
+            <Capability Name="ID_CAP_PUSH_NOTIFICATION" />
         </Capabilities>
         <Tasks>
             <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
