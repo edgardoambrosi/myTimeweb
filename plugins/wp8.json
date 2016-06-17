@@ -26,6 +26,9 @@
     "dependent_plugins": {
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "{a783bc90-1e59-11e6-86b6-0f845e0c0423}"
+        },
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "{97b197a0-345d-11e6-95a3-3fdffaf40646}"
         }
     }
 }

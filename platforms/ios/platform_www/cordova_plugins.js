@@ -17,19 +17,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
-        "id": "cordova-plugin-calendar.Calendar",
-        "pluginId": "cordova-plugin-calendar",
-        "clobbers": [
-            "Calendar"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-calendar/test/tests.js",
-        "id": "cordova-plugin-calendar.tests",
-        "pluginId": "cordova-plugin-calendar"
-    },
-    {
         "file": "plugins/cordova-plugin-flashlight/www/Flashlight.js",
         "id": "cordova-plugin-flashlight.Flashlight",
         "pluginId": "cordova-plugin-flashlight",
@@ -85,19 +72,32 @@ module.exports = [
             "navigator.notification",
             "navigator"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
+        "id": "cordova-plugin-calendar.Calendar",
+        "pluginId": "cordova-plugin-calendar",
+        "clobbers": [
+            "Calendar"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-calendar/test/tests.js",
+        "id": "cordova-plugin-calendar.tests",
+        "pluginId": "cordova-plugin-calendar"
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "com.phonegap.plugins.Puship": "1.0.7",
-    "cordova-plugin-calendar": "4.4.7",
-    "cordova-plugin-compat": "1.0.0",
     "cordova-plugin-flashlight": "3.0.0",
     "cordova-plugin-geolocation": "2.2.0",
     "cordova-plugin-spinner": "1.0.0",
     "cordova-plugin-vibration": "2.1.0",
-    "cordova-plugin-whitelist": "1.2.1"
+    "cordova-plugin-whitelist": "1.2.1",
+    "cordova-plugin-calendar": "4.4.7",
+    "cordova-plugin-compat": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

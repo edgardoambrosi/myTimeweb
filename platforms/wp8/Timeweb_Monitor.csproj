@@ -231,5 +231,4 @@
             <HintPath>plugins/com.phonegap.plugins.Puship/Newtonsoft.Json.dll</HintPath>
         </Reference>
     </ItemGroup>
-    <ItemGroup />
 </Project>

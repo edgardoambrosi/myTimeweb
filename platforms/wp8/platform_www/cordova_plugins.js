@@ -40,6 +40,19 @@ module.exports = [
         "clobbers": [
             "PushipNotification"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
+        "id": "cordova-plugin-calendar.Calendar",
+        "pluginId": "cordova-plugin-calendar",
+        "clobbers": [
+            "Calendar"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-calendar/test/tests.js",
+        "id": "cordova-plugin-calendar.tests",
+        "pluginId": "cordova-plugin-calendar"
     }
 ];
 module.exports.metadata = 
@@ -50,7 +63,8 @@ module.exports.metadata =
     "cordova-plugin-flashlight": "3.0.0",
     "cordova-plugin-spinner": "1.0.0",
     "com.phonegap.plugins.Puship": "1.0.7",
-    "cordova-plugin-compat": "1.0.0"
+    "cordova-plugin-compat": "1.0.0",
+    "cordova-plugin-calendar": "4.4.7"
 }
 // BOTTOM OF METADATA
 });

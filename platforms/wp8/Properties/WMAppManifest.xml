@@ -4,7 +4,7 @@
     <Languages xmlns="">
         <Language code="en-US" />
     </Languages>
-    <App Author="Edgardo Ambrosi" BitsPerPixel="32" Description="Timeweb monitor ti permette di avere alcune informazioni importanti relative alla tua giornata lavorativa." Genre="apps.normal" ProductID="{a783bc90-1e59-11e6-86b6-0f845e0c0423}" Publisher="Edgardo Ambrosi" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="Timeweb Monitor" Version="1.0.0" xmlns="">
+    <App Author="Edgardo Ambrosi" BitsPerPixel="32" Description="Timeweb monitor ti permette di avere alcune informazioni importanti relative alla tua giornata lavorativa." Genre="apps.normal" ProductID="{97b197a0-345d-11e6-95a3-3fdffaf40646}" Publisher="Edgardo Ambrosi" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="Timeweb Monitor" Version="1.0.0" xmlns="">
         <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
         <Capabilities>
             <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
