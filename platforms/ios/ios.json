@@ -13,6 +13,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Calendar\"><param name=\"ios-package\" value=\"Calendar\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Flashlight\"><param name=\"ios-package\" value=\"Flashlight\" /></feature>",
                             "count": 1
                         },
@@ -26,10 +30,6 @@
                         },
                         {
                             "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Calendar\"><param name=\"ios-package\" value=\"Calendar\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -51,6 +51,12 @@
         "com.phonegap.plugins.Puship": {
             "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
         "cordova-plugin-flashlight": {
             "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
@@ -64,12 +70,6 @@
             "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
-        },
-        "cordova-plugin-calendar": {
-            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
-        },
-        "cordova-plugin-compat": {
             "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
         }
     },
@@ -90,6 +90,19 @@
             "clobbers": [
                 "PushipNotification"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
+            "id": "cordova-plugin-calendar.Calendar",
+            "pluginId": "cordova-plugin-calendar",
+            "clobbers": [
+                "Calendar"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-calendar/test/tests.js",
+            "id": "cordova-plugin-calendar.tests",
+            "pluginId": "cordova-plugin-calendar"
         },
         {
             "file": "plugins/cordova-plugin-flashlight/www/Flashlight.js",
@@ -147,29 +160,16 @@
                 "navigator.notification",
                 "navigator"
             ]
-        },
-        {
-            "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
-            "id": "cordova-plugin-calendar.Calendar",
-            "pluginId": "cordova-plugin-calendar",
-            "clobbers": [
-                "Calendar"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-calendar/test/tests.js",
-            "id": "cordova-plugin-calendar.tests",
-            "pluginId": "cordova-plugin-calendar"
         }
     ],
     "plugin_metadata": {
         "com.phonegap.plugins.Puship": "1.0.7",
+        "cordova-plugin-calendar": "4.4.7",
+        "cordova-plugin-compat": "1.0.0",
         "cordova-plugin-flashlight": "3.0.0",
         "cordova-plugin-geolocation": "2.2.0",
         "cordova-plugin-spinner": "1.0.0",
         "cordova-plugin-vibration": "2.1.0",
-        "cordova-plugin-whitelist": "1.2.1",
-        "cordova-plugin-calendar": "4.4.7",
-        "cordova-plugin-compat": "1.0.0"
+        "cordova-plugin-whitelist": "1.2.1"
     }
 }
