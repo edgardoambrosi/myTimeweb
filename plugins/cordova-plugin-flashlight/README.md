@@ -14,12 +14,13 @@ by [Eddy Verbruggen](http://www.x-services.nl) for iOS, Android and WP8
 
 This plugin allows you to switch the flashlight / torch of the device on and off.
 
-* Works on Android 2.x and newer.
-* Works on iOS 5.0+, maybe even lower.
-* Works on Windows Phone 8 (since v2.0.0).
-* Depends on capabilities of the device, so you can test it with an API call.
-* Compatible with [Cordova Plugman](https://github.com/apache/cordova-plugman).
-* Pending review at [PhoneGap Build](https://build.phonegap.com/plugins).
+* Works on iOS 5+
+* Works on Android 2+
+* Android 6+ runtime permissions are handled automatically
+* Works on WP8
+* Depends on capabilities of the device, so you can test it with an API call
+* Compatible with [Cordova Plugman](https://github.com/apache/cordova-plugman)
+* Pending review at [PhoneGap Build](https://build.phonegap.com/plugins)
 
 ## 2. Installation
 
@@ -38,16 +39,25 @@ $ cordova plugin add https://github.com/EddyVerbruggen/Flashlight-PhoneGap-Plugi
 Flashlight works with PhoneGap build too! Compatible with PhoneGap 3.0.0 and up.
 Just add the following xml to your `config.xml` to always use the latest version of this plugin:
 ```xml
-<gap:plugin name="cordova-plugin-flashlight" source="npm />
+<gap:plugin name="cordova-plugin-flashlight" source="npm" />
 ```
 
 ## 3. Usage
+
+Since version 3.2.0 of this plugin you can pass in an `intensity` property
+which needs to be anywhere between 0.0 and 1.0. __Only__ on iOS this will affect the
+brightness of the torch.
+
 ```javascript
 window.plugins.flashlight.available(function(isAvailable) {
   if (isAvailable) {
 
     // switch on
-    window.plugins.flashlight.switchOn(); // success/error callbacks may be passed
+    window.plugins.flashlight.switchOn(
+      function() {}, // optional success callback
+      function() {}, // optional error callback
+      {intensity: 0.3} // optional as well
+    );
 
     // switch off after 3 seconds
     setTimeout(function() {
@@ -62,7 +72,16 @@ window.plugins.flashlight.available(function(isAvailable) {
 
 As an alternative to `switchOn` and `switchOff`, you can use the `toggle` function
 ```javascript
-window.plugins.flashlight.toggle(); // success/error callbacks may be passed
+window.plugins.flashlight.toggle(
+  function() {}, // optional success callback
+  function() {}, // optional error callback
+  {intensity: 0.3} // optional as well, used on iOS when switching on
+);
+```
+
+To know if the flashlight is on or off you can call `isSwitchedOn` 
+```javascript
+window.plugins.flashlight.isSwitchedOn(); // returns true/false
 ```
 
 A hint for `Android developers`: you'll want to make sure the torch is switched off when the app is exited via the backbutton.

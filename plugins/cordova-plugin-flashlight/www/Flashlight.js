@@ -8,12 +8,13 @@ Flashlight.prototype = {
   available: function (callback) {
     cordova.exec(function (avail) {
       callback(avail ? true : false);
-    }, null, "Flashlight", "available", []);
+    }, function() { callback(false); }, "Flashlight", "available", []);
   },
 
-  switchOn: function (successCallback, errorCallback) {
+  switchOn: function (successCallback, errorCallback, options) {
+    var opts = options || {};
     this._isSwitchedOn = true;
-    cordova.exec(successCallback, errorCallback, "Flashlight", "switchOn", []);
+    cordova.exec(successCallback, errorCallback, "Flashlight", "switchOn", [opts]);
   },
 
   switchOff: function (successCallback, errorCallback) {
@@ -21,12 +22,16 @@ Flashlight.prototype = {
     cordova.exec(successCallback, errorCallback, "Flashlight", "switchOff", []);
   },
 
-  toggle: function (successCallback, errorCallback) {
+  toggle: function (successCallback, errorCallback, options) {
     if (this._isSwitchedOn) {
       this.switchOff(successCallback, errorCallback);
     } else {
-      this.switchOn(successCallback, errorCallback);
+      this.switchOn(successCallback, errorCallback, options);
     }
+  },
+
+  isSwitchedOn: function () {
+    return this._isSwitchedOn;
   }
 };
 

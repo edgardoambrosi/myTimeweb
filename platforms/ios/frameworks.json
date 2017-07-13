@@ -1,6 +1,0 @@
-{
-    "EventKit.framework": 1,
-    "EventKitUI.framework": 1,
-    "CoreLocation.framework": 1,
-    "AudioToolbox.framework": 1
-}

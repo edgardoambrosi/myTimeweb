@@ -15,14 +15,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-flashlight": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-flashlight@2.0.1"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-spinner": {
         "source": {
             "type": "registry",
@@ -62,6 +54,14 @@
             "id": "cordova-plugin-compat"
         },
         "is_top_level": false,
+        "variables": {}
+    },
+    "cordova-plugin-flashlight": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-flashlight"
+        },
+        "is_top_level": true,
         "variables": {}
     }
 }
