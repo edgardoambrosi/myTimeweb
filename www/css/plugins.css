@@ -1,0 +1,10 @@
+/*SEZIONE PER LA CONFIGURAZIONE DI EVENTUALI PLUGINS*/
+
+/*Per il plugin FlipClock*/
+.clock{
+   zoom: 0.6;
+   -moz-transform: scale(0.6);
+}
+/*Per il plugin FlipClock*/
+
+

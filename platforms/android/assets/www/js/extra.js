@@ -31,34 +31,7 @@ $( document ).ready(function() {
 		var CONNESSO=false;
 		var COMUNICAZIONI="";
 		var IDDIP="";
-		
-		var app = {
-			//SERVER DISPONIBILE
-			isAvailable:false,
-			receivedEvent: function(id) {
-				var parentElement = document.getElementById(id);
-				$.ajax({
-				  url: server_url, 
-				  method: 'GET'	
-				}).success(function(a,b,c) {
-					console.log("Server Disponibile");
-					var listeningElement = parentElement.querySelector('.listening');
-					var receivedElement = parentElement.querySelector('.received');
-					listeningElement.setAttribute('style', 'display:none;');
-					receivedElement.setAttribute('style', 'display:block;');
-					$('#credenziali').show();
-					app.isAvailable=true;
-				}).error(function(){
-					console.log("Server non Disponibile");
-					var listeningElement = parentElement.querySelector('.listening');
-					var receivedElement = parentElement.querySelector('.received');
-					listeningElement.setAttribute('style', 'display:block;');
-					receivedElement.setAttribute('style', 'display:none;');
-					$('#credenziali').hide();
-					app.isAvailable=false;
-				});
-			}
-		};
+
 
 		var avvisi={
 			comunicazione:function(mess){
@@ -66,6 +39,89 @@ $( document ).ready(function() {
 			}
 		}
 
+		var check={
+			maxDay:15,
+			gestione_validita:function(d){
+				var date_avvio=d
+				DI=new Date(date_avvio)
+				DE=new Date()
+				DE.setDate(DI.getDate()+check.maxDay)
+				if (DI>=DE){
+					//se la demo e' scaduta tutta l'applicazione viene rimossa dal DOM
+					$(".container").remove();
+					avvisi.comunicazione("Demo Scaduta");					
+					console.log("Demo Scaduta!")
+				}else{
+					//avvisi.comunicazione("Demo Valida");					
+					console.log("Demo Valida!")
+				}	
+			},
+			validita:function(){
+		        var trial_db = window.openDatabase("StartDateDB", "1.0", "StartDateDB", 2000);
+				trial_db.transaction(
+					function(tx){tx.executeSql('create table expired (date_avvio);')},
+					function(err){
+						//se la tabella esiste viene restituito codice 5				
+						if (err.code==5){
+				            console.log("Leggo Data Avvio");
+							trial_db.transaction(
+								function(tx){
+									tx.executeSql(
+									  'select date_avvio from expired;',
+									  [],
+									  function(tx, results){
+										  for (var j=0; j<results.rows.length; j++) {
+											var row = results.rows.item(j);
+											check.gestione_validita(row['date_avvio']);
+										  }
+									   }
+									 );
+								}
+							)
+						}
+					},
+					function(){
+						console.log("Creazione Db StartDateDB...");
+				        trial_db.transaction(
+				            function(tx){
+								tx.executeSql("INSERT INTO expired (date_avvio) VALUES ('"+new Date()+"');")
+				            },
+				            function(err){console.log(err)},
+				            function(){
+								console.log("Inizializzazione periodo prova eseguita.")
+								avvisi.comunicazione("Salvataggio eseguito");
+							}
+				                                 
+				        )
+				    }
+				);
+			}
+			
+		};
+		
+		var container = {
+			//SERVER DISPONIBILE
+			isAvailable:false,
+			receivedEvent: function(id) {
+				$.ajax({
+				  url: server_url, 
+				  method: 'GET'	
+				}).success(function(a,b,c) {
+					check.validita()
+					console.log("Server Disponibile");
+					$('.listeningElement').hide();
+					$('.receivedElement').show();
+					$('#credenziali').show();
+					container.isAvailable=true;
+				}).error(function(){
+					console.log("Server non Disponibile");
+					$('.listeningElement').show();
+					$('.receivedElement').hide();
+					$('#credenziali').hide();
+					container.isAvailable=false;
+				});
+			}
+		};
 
 		var env={
 			reset: function(){
@@ -446,7 +502,6 @@ $( document ).ready(function() {
 						$('.listening').hide();
 						$('#credenziali').hide();					
 						$('#monitor').show();
-						$('#giustifica').show();
 		            	$('.menu-act').show();
 						CONNESSO=true;
 					}
@@ -459,6 +514,8 @@ $( document ).ready(function() {
 				  method: 'GET'	
 				}).success(function(a,b,c) {
 					console.log("Logout effettuato");
+					$('.received').hide()
+					$('.listening').show();
 					var cookies = document.cookie.split(";");
 					for(var i=0; i < cookies.length; i++) {
 						var equals = cookies[i].indexOf("=");
@@ -498,10 +555,11 @@ $( document ).ready(function() {
 
 					/*CALCOLO SEMPRE L'ORA IN CUI DOVREBBE ESSERE EFFETTUATA L'USCITA*/
 					$('#tempo-restante-extra').remove();
+					$('#tempo-lavorato-extra').remove();
 					esame_timbrature.uscita_prevista();
 					USCITA=esame_timbrature.inorario(USCITA_PREVISTA);
-					$('#tempo-restante').before("<p id='tempo-restante-extra'>DA LAVORARE: ( uscita prevista: "+USCITA+" )</p>");
-					$('#tempo-restante-extra').addClass('tempo-restante-extra');
+					$('#tempo-restante').before("<label id='tempo-restante-extra'>Da lavorare: ( uscita prevista: "+USCITA+" )</label>");
+					$('#tempo-trascorso').before("<label id='tempo-lavorato-extra'>Lavorato</label>");
 
 					clockCN = $('#tempo-trascorso').FlipClock({
 						autoStart:false
@@ -510,7 +568,7 @@ $( document ).ready(function() {
 					clockCN.setCountdown(false);
 					GIORNATATERMINATASOSPESA===true?clockCN.stop():clockCN.start();
 					$('#_saldo').remove();
-					$('#saldo').append("<h1 id='_saldo'>"+SALDOstr+"</h1>");
+					$('#saldo').append("<h2 class='blink' id='_saldo'>"+SALDOstr+"</h2>");
 					if ( SALDO < 0){
 						 $('#saldo').addClass('saldo-negativo');
 						 $('#saldo').removeClass('saldo-positivo');
@@ -538,15 +596,29 @@ $( document ).ready(function() {
 							var d=$(e).find('td').eq(0).text();
 							var h=$(e).find('td').eq(2).text();
 							var id_btn=(d.split(" ")[0]).replace(/\//g,"-")
-							$('#anomalieTable').append('<tr><td>'+d+'</td><td>'+h+'</td><td><input type="button" id="'+id_btn+'" value="CAUSALE"></input></td></tr>');
-							$("#"+id_btn).click(function(){
-								var GIORNODA=($(this).attr('id')).replace(/-/g,"/");
-								var GIORNOA=($(this).attr('id')).replace(/-/g,"/");
+							$('#anomalieTable').find('tbody').append('<tr><td>'+d+'</td><td>'+h+'</td><td><input style="zoom:1.7" type="radio" name="ANOMALIA" value="'+id_btn+'"></input></td></tr>');
+							$("input[type=radio]").parent().css("background-color","transparent")
+							$("input[type=radio]").parent().css("padding-right","2%")
+							$("#insGiust").click(function(){
+								var d=$($("input[type=radio]:checked")[0]).attr('value')
+								var GIORNODA=(d).replace(/-/g,"/");
+								var GIORNOA=(d).replace(/-/g,"/");
 								var t=GIORNODA;
-								var GIORNODA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
+								var GIORNODA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+"20"+t.split("/")[2]
 								var t=GIORNOA;
-								var GIORNOA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+t.split("/")[2].replace(/[0-9]+/,"2016")
-								$('#giustifica').trigger("click", [ GIORNODA, GIORNOA ]);								
+								var GIORNOA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+"20"+t.split("/")[2]
+								$('#giustifica_call').trigger("click", [ GIORNODA, GIORNOA ]);								
+							})
+							$("#insTimb").click(function(){
+								var d=$($("input[type=radio]:checked")[0]).attr('value')
+								var GIORNODA=(d).replace(/-/g,"/");
+								var GIORNOA=(d).replace(/-/g,"/");
+								var t=GIORNODA;
+								var GIORNODA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+"20"+t.split("/")[2]
+								var t=GIORNOA;
+								var GIORNOA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+"20"+t.split("/")[2]
+								alert("TODO: Creare il form per inserimento timbratura manuale")	
+								//$('#giustifica_call').trigger("click", [ GIORNODA, GIORNOA ]);								
 							})
 						}
 					})
@@ -571,7 +643,7 @@ $( document ).ready(function() {
 							var g=$(e).find('td').eq(2).text();
 							var l=$(e).find('td').eq(10).text();
 							var m=$(e).find('td').eq(9).text();
-							$('#giusTable').append('<tr><td>'+d+" "+h+'</td><td>'+g+'</td><td>'+l+'</td><td>'+m+'</td></tr>');
+							$('#giusTable').find('tbody').append('<tr><td>'+d+" "+h+'</td><td>'+g+'</td><td>'+l+'</td><td>'+m+'</td></tr>');
 						}
 					})
 					if ( $('#giusTable').find("tr:gt(0)").length > 0 )	$('#giusTable').show();
@@ -597,7 +669,7 @@ $( document ).ready(function() {
 							var m=$(e).find('td').eq(8).text();							
 							var n=$(e).find('td').eq(9).text();						
 							var raw='<tr><td>'+d+" "+h+" "+g+'</td><td>'+l+'</td><td>'+m+'</td><td>'+n+'</td></tr>'
-						 	$('#timbTable').append(raw);						
+						 	$('#timbTable').find('tbody').append(raw);						
 						}
 					})
 					if ( $('#timbTable').find("tr:gt(0)").length > 0 )	$('#timbTable').show();
@@ -667,9 +739,10 @@ $( document ).ready(function() {
                    }).success(function(a,b,c) {
                           console.log("Saldi: "+ DA+" "+A);
 	                      _TABLE=$(a).find('.CSTR').parent().parent().next().find('table').eq(1);
-                          _TABLE.addClass('responstable')
-                          $('#saldi').append($(_TABLE));
-                          $('#saldi').css('display','block')
+                          _TABLE.addClass('bordered condensed responstable')
+						  _TABLE.addClass('u-max-full-width')
+                          $('#totaliTab').append($(_TABLE));
+						  $('#totaliTab').find('.footer').parent().remove();	
                     });
             },
             causali:function(){
@@ -687,8 +760,7 @@ $( document ).ready(function() {
 					$(CAUSALI).removeAttr('multiple');
 					$('select[name="VOCISELEZIONATE"]').remove();
                     $('#causale_sel').append(CAUSALI);
-					$(CAUSALI).css("position","relative")
-					$(CAUSALI).css("top","-30px")
+					$(GIUSTIFICATIVI).addClass('u-max-full-width')
                 });
             },
             giustificativi:function(){
@@ -706,8 +778,7 @@ $( document ).ready(function() {
 						$(GIUSTIFICATIVI).removeAttr('multiple');
 						$('select[name="VOCISELEZIONATE"]').remove();
 		                $('#giustificativo_sel').append(GIUSTIFICATIVI);
-						$(GIUSTIFICATIVI).css("position","relative")
-						$(GIUSTIFICATIVI).css("top","1spx")
+						$(GIUSTIFICATIVI).addClass('u-max-full-width')
 	            });
             },
 			giustificativo:function(da,a,oraI,oraF,desc,tipodivoce,iddip){
@@ -769,7 +840,7 @@ $( document ).ready(function() {
                         recuperaNotifiche(true);
 						var f=setInterval(function(){
 							if ( listaNotification.length > 0 ){
-								$('#Notifiche').attr('data-badge',listaNotification.length)
+								$('#notifiche_call').attr('data-badge',listaNotification.length)
 								
 								/*TODO:DA QUI*/
 								COMUNICAZIONI=listaNotification;
@@ -809,7 +880,10 @@ $( document ).ready(function() {
 			timeweb.cartellino();
 		});
 
-		$('#giustifica').on("click",function(a,b,c){
+		$('#giustifica_call').on("click",function(a,b,c){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+        	
 			var GIORNODA=b;
 			var GIORNOA=c;
 			if (typeof b == "undefined" || typeof a == "undefined" ){
@@ -820,12 +894,12 @@ $( document ).ready(function() {
 			$('#form_giustificativi').data("A",GIORNOA);
             timeweb.giustificativi();
 			$('#form_giustificativi').show()
-			$('#form_giustificativi').css("top","0%")
             $('#giustificativo_sel').show();		
 		})
+
 		$('#form_giustificativi-conferma').click(function(){
-			$('#form_giustificativi').css("top","-100%");
-			//$('#form_giustificativi').hide();	
+			//$('#form_giustificativi').css("top","-100%");
+			$('#form_giustificativi').hide();	
 			var GIORNODA=$('#form_giustificativi').data("DA");
 			var GIORNOA=$('#form_giustificativi').data("A");
 			var DA=$('#form_giustificativi input[name="DA"]').val();
@@ -835,23 +909,22 @@ $( document ).ready(function() {
 		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);			
 		})
 		$('#form_giustificativi-annulla').click(function(){
-			$('#form_giustificativi').css("top","-100%")
-			//$('#form_giustificativi').hide()	
+			//$('#form_giustificativi').css("top","-100%")
+			$('#form_giustificativi').hide()	
 		})
+
 
 		$('.received').click(function(){
 			console.log("...tento la disconnessione...");
 			timeweb.disconnetti();
 			$('#monitor').hide();
-			$('#giustifica').hide();			
             $('.menu-act').hide();
-			app.receivedEvent('deviceready');
 			env.reset();
 		});
 
 		$('.listening').click(function(){
 			console.log("...tento la connessione...");
-			app.receivedEvent('deviceready');
+			container.receivedEvent('deviceready');
 		});
 
 		$("#reset_set").click(function(){
@@ -937,67 +1010,54 @@ $( document ).ready(function() {
 			timeweb.cartellino(DATA_GIORNO_LAVORATO);
 		});
 
-		$('#imgmenu').click(function(){
-		//SE STO ACCENDENDO IL MENU, QUINDI E' SPENTO
-		if(!$('.menu').is(":visible")){
-			//ACCENDO IL MENU
-            $('.menu').show();
-            //ACCENDO IL SECONDO COMANDO MENU
-			$('#imgset').show();
-            //ACCENDO IL PANNELLO DEI MENU
-            $('#pannello-menu').show();
-            //RIMUOVO LE NOTIFICHE
-			$("div[id*='info']").remove();
-			//IN CASO DI FALLIMENTO DI LOGIN, MI ASPETTO CHE IL MONITOR SIA SPENTO E QUINDI NON DEVE ESSERE RISPENTO.
-			if ($('#monitor').is(":visible")){
-				$('#monitor').hide();
-				$('#giustifica').hide();				
-			}
-			//SPENGO IL CONTROLLO DI AVVIO
-            $('.app').hide();
-         //SE LO STO SPEGNENDO   
-         }else{
-			//SPENGO IL MENU
-            $('.menu').hide()
-            //SPENGO IL SECONDO COMANDO MENU
-			$('#imgset').hide();
-            //SPENGO IL PANNELLO DEI MENU
-            $('#pannello-menu').hide();
-            //RIMUOVO LE NOTIFICHE
-			$("div[id*='info']").remove();
-			//IN CASO DI FALLIMENTO DI LOGIN, MI ASPETTO CHE IL MONITOR SIA SPENTO E QUINDI NON DEVE ESSERE RIACCESO.
-			if ( CONNESSO ){
-				$('#monitor').show();
-				$('#giustifica').show();				
-			}else{
-				$('#monitor').hide();
-				$('#giustifica').hide();				
-			}
-			//ACCENDO IL CONTROLLO DI AVVIO
-            $('.app').show();
-         }   
+		$('.menu-act').click(function(e,p){
+			if(p==true || p==undefined) $('.overlay-menu').toggleClass('overlay-menu-open')
 		});		
 
-		$('#imgset').click(function(){
+		$('#monitor_call').on("click",function(a,b,c){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+
+            $('#monitor').show();	
+		})
+
+		$('#impostazioni_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
 			$("input[name='TOTALE']").val(TOTALE);
 			$("input[name='PAUSAPRANZO']").val(PAUSAPRANZO);
 			$("input[name='server_url']").val(server_url);
 			$("input[name='notifiche_url']").val(notifiche_url);
 			$("input[name='notifiche_aut_url']").val(notifiche_aut_url);
-
-            $('#pannello-menu').children().hide();
-            $('.settings').fadeToggle("fast","linear");
-				
+            $('#form_settaggi').show();
 		});		
 
-		$('#totali').click(function(){
-			$('#Saldi').trigger("click");
+		$('#totalizza').click(function(){
+			$('#totali_call').trigger("click");
 		
 		})
+        $('#totali_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+            $('#totaliTab').find('table[class~="responstable"]').remove();
 
-        $('#Saldi').click(function(){
-            $('#pannello-menu').children().hide();
-            $('#saldi').find('table[class="responstable"]').remove();
+			env.reset();
+            timeweb.causali();
+            $('#totali').show();			
+
+            var _t=$('#mese_corrente').val();
+
+	        var t=data.iniziofinemese(new Date(_t));
+
+            timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
+            
+        })
+
+
+        $('#conteggi_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+
             $('#quantita1').FlipClock(0, {
             	clockFace: 'Counter'
             });
@@ -1007,7 +1067,7 @@ $( document ).ready(function() {
 
 			env.reset();
             timeweb.causali();
-            $('#perConteggio').show();
+            $('#conteggi').show();
 
             var _t=$('#mese_corrente').val();
 
@@ -1016,17 +1076,15 @@ $( document ).ready(function() {
             timeweb.saldi(data.composizione(t[0]),data.composizione(t[1]));
             
         })
-        
+
 		$('#anomali').click(function(){
-			$('#Causale').trigger("click");
+			$('#anomalie_call').trigger("click");
 		})					
-		
-		$('#Causale').click(function(){
-		    $('#pannello-menu').children().hide();
+		$('#anomalie_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
 
 			$('#anomalie').show()
-			$('#timbrature_manuali').show()
-			$('#giustifica_manuale').show()
 			
 			env.reset();
             timeweb.giustificativi();
@@ -1036,11 +1094,46 @@ $( document ).ready(function() {
             var t=data.iniziofinemese(new Date(_t))
 
 			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
-			
-			timeweb.giustificativi_manuali(data.composizione(t[0]),data.composizione(t[1]));
-			
-			timeweb.timbrature_manuali(data.composizione(t[0]),data.composizione(t[1]));
+            
+        });
 
+		$('#giustificati').click(function(){
+			$('#giustificativi_call').trigger("click");
+		})					
+		$('#giustificativi_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+
+			$('#giustifica_manuale').show()
+			
+			env.reset();
+            timeweb.giustificativi();
+            
+            var _t=$('#giustifica_mese_corrente').val();
+            
+            var t=data.iniziofinemese(new Date(_t))
+
+			timeweb.giustificativi_manuali(data.composizione(t[0]),data.composizione(t[1]));
+            
+        });
+
+		$('#timbrati').click(function(){
+			$('#timbrature_call').trigger("click");
+		})					
+		$('#timbrature_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+			
+			$('#timbrature_manuali').show()
+			
+			env.reset();
+            timeweb.giustificativi();
+            
+            var _t=$('#timbrature_mese_corrente').val();
+            
+            var t=data.iniziofinemese(new Date(_t))
+
+			timeweb.timbrature_manuali(data.composizione(t[0]),data.composizione(t[1]));
             
         });
 
@@ -1048,13 +1141,17 @@ $( document ).ready(function() {
 			env.reset();
 			timeweb.contatori(DATA_GIORNO_INIZIO,DATA_GIORNO_FINE,CAUSALE_SEL);
         });
-		$('#Notifiche').click(function(){
-            $('#pannello-menu').children().hide();
+
+		$('#notifiche_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+
+			$('#pannello_notifiche').show()
 			$("div[id*='info']").remove()
 			var f=setInterval(function(){
 				if ( listaNotification.length > 0 ){
 					$.each(listaNotification,function(i,e){
-						var d=$('#pannello-menu').append('<div id="info-'+i+'"></div>');
+						var d=$('#elenco_notifiche').append('<div id="info-'+i+'"></div>');
 						$("#info-"+i).addClass('info');
 						$("#info-"+i).append('<h1>'+atob($.parseJSON(e)[0].titolo)+'</h1>')
 						$("#info-"+i).append('<h2>'+atob($.parseJSON(e)[0].notification)+'</h2>')																
@@ -1064,6 +1161,32 @@ $( document ).ready(function() {
 			},1000)
         });
    		
+		$('.overlay-hide').click(function(e) {
+		  var vpHeight = window.innerHeight;
+		  var vpWidth = window.innerWidth;
+		  var dimensioneIconaX=$($('.overlay-hide')[0]).css('background-size').split(" ")[0].replace('px','')
+		  var dimensioneIconaY=$($('.overlay-hide')[0]).css('background-size').split(" ")[1].replace('px','')		  
+		  var colpitoX=e.pageX;
+  		  var colpitoY=e.pageY;
+		  var sogliaX=vpWidth - dimensioneIconaX;	
+		  var sogliaY=dimensioneIconaY
+		  /*questo condizione e' vera quando il click e' generato dal trigger*/	
+		  if (( typeof colpitoX == "undefined" ) && ( typeof colpitoY == "undefined" )){
+	   	  	  //console.log(dimensioneIconaX+"   "+colpitoX+"  "+sogliaX)
+ 	   	  	  //console.log(dimensioneIconaY+"   "+colpitoY+"  "+sogliaY)
+			  $('.notifyjs-corner').remove()	
+ 	   	  	  $('.overlay-hide').hide()
+			  //elimino tutte le notifiche	
+	   	  }	  
+		  if ((colpitoX > sogliaY ) && ( colpitoY < sogliaY )){
+	   	  	  //console.log(dimensioneIconaX+"   "+colpitoX+"  "+sogliaX)
+ 	   	  	  //console.log(dimensioneIconaY+"   "+colpitoY+"  "+sogliaY)
+			  $('.notifyjs-corner').remove()	
+ 	   	  	  $('.overlay-hide').hide()
+			  //elimino tutte le notifiche	
+	   	  }	  
+
+		});
 
 		var main={
 			//Abilitazione ad usare le credenziali salvate.
@@ -1124,8 +1247,16 @@ $( document ).ready(function() {
 				);
 			}
 		};
+	
+		var vpHeight = window.innerHeight;
+		var vpWidth = window.innerWidth;
+		console.log("Y"+vpHeight+"------------"+"X"+vpWidth)
 
+		//Controllo se demo scaduta
+		console.log("Controllo validita demo...")
+		check.validita();
 		//Operazioni Principali
+		
 		main.salva_cred()
 		main.salva_impostazioni()
 });
