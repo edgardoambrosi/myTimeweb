@@ -29,8 +29,7 @@
     <preference name="DisallowOverscroll" value="true" />
 
     <!--gap:plugin name="org.apache.cordova.battery-status" /-->
-    <!--gap:plugin name="org.apache.cordova.camera" /-->
-
+    <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
     <gap:plugin name="org.apache.cordova.console" />
     <gap:plugin name="org.apache.cordova.contacts" />
@@ -47,7 +46,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
-    <gap:plugin name="cordova-plugin-spinnerdialog" source="npm" />
+    <gap:plugin name="cordova-plugin-spinnerdialog" source="npm" /-->
     <splash src="www/img/mySplash.png" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
