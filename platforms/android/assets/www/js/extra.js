@@ -1250,7 +1250,8 @@ $( document ).ready(function() {
 	
 		var vpHeight = window.innerHeight;
 		var vpWidth = window.innerWidth;
-		console.log("Y"+vpHeight+"------------"+"X"+vpWidth)
+		var densityRatio=window.devicePixelRatio
+		console.log("Y "+vpHeight+"------------"+"X "+vpWidth+"-----------------"+"DensityRatio "+densityRatio)
 
 		//Controllo se demo scaduta
 		console.log("Controllo validita demo...")

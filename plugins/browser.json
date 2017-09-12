@@ -1,0 +1,37 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.phonegap.plugins.Puship": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-flashlight": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-spinner": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+        }
+    }
+}
