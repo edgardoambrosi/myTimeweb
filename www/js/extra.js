@@ -1247,11 +1247,24 @@ $( document ).ready(function() {
 				);
 			}
 		};
-	
+
+
+		/*TODO:Spiegare dettagliatamente*/
 		var vpHeight = window.innerHeight;
 		var vpWidth = window.innerWidth;
 		var densityRatio=window.devicePixelRatio
-		console.log("Y "+vpHeight+"------------"+"X "+vpWidth+"-----------------"+"DensityRatio "+densityRatio)
+		var iphoneResolutionRiferimento=844.44
+		var thisDeviceResolution=Math.sqrt(Math.pow(vpHeight,2)+Math.pow(vpWidth,2))
+		var zoom=(thisDeviceResolution/iphoneResolutionRiferimento)+((thisDeviceResolution/iphoneResolutionRiferimento*5)/100)
+		//$(".zoom").css("background-color", "blue");
+		$(".zoom").css("top", "0");
+		$(".zoom").css("left", "0");
+		$(".zoom").css("transform-origin","top");
+		$(".zoom").css("transform", "scaleY("+zoom+")");
+		//document.write(vpHeight+" "+ vpWidth +" "+iphoneResolutionRiferimento +" "+ thisDeviceResolution+" "+ zoom)
+		console.log("Y "+vpHeight+"------------"+"X "+vpWidth+"-----------------"+"DensityRatio "+densityRatio +"Zoom per questo dispositivo "+zoom )
+
+
 
 		//Controllo se demo scaduta
 		console.log("Controllo validita demo...")
