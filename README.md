@@ -1,16 +1,16 @@
 # Timeweb Monitor per Solari Web
 
-Questa versione è stabile per Iphone e utilizza i seguenti plugin
-notification, spinner, vibration. 
+Questa versione è stabile per Iphone e utilizza i seguenti plugin: 
+notification, spinner, vibration,...
 
 Le caratteristiche implementate sono 
-Monitoraggio orari lavoro, Contaotri vari, Servizio di Notifica, Impostazioni della App, Salvataggio delle credenziali.
+Monitoraggio orari lavoro, Contaotri vari, Servizio di Notifica, Impostazioni della App, Salvataggio delle credenziali,...
 
 
 
 
 POSSIBILI ERRORI QUANDO SI ESEGUE IL COMANDO
-phonegap cordova compile android
+phonegap cordova compile android, bisogna eliminare la libreria jar android-support...
 
 
 ERRORE:
