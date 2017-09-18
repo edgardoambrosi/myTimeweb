@@ -1280,6 +1280,60 @@ $( document ).ready(function() {
 			}
 		};
 
+var myElement=$('.zoom')[0]
+var mc = new Hammer.Manager(myElement);
+// create a pinch and rotate recognizer
+// these require 2 pointers
+var pinch = new Hammer.Pinch();
+var pan = new Hammer.Pan();
+// we want to detect both the same time
+pinch.recognizeWith(pan);
+// add to the Manager
+mc.add([pinch,pan]);
+
+var adjustScale = 1;
+var adjustDeltaX = 0;
+var adjustDeltaY = 0;
+
+var currentScale = null;
+var currentDeltaX = null;
+var currentDeltaY = null;
+
+// Prevent long press saving on mobiles.
+/*myElement.addEventListener('touchstart', function (e) {
+    e.preventDefault()
+});
+*/
+
+// Handles pinch and pan events/transforming at the same time;
+mc.on("pinch pan", function (ev) {
+
+    var transforms = [];
+
+    // Adjusting the current pinch/pan event properties using the previous ones set when they finished touching
+    currentScale = adjustScale * ev.scale;
+    currentDeltaX = adjustDeltaX + (ev.deltaX / currentScale);
+    currentDeltaY = adjustDeltaY + (ev.deltaY / currentScale);
+
+    // Concatinating and applying parameters.
+    transforms.push('scale({0})'.format(currentScale));
+    transforms.push('translate({0}px,{1}px)'.format(currentDeltaX, currentDeltaY));
+    webpage.style.transform = transforms.join(' ');
+
+});
+
+mc.on("panend pinchend", function (ev) {
+
+    // Saving the final transforms for adjustment next time the user interacts.
+    adjustScale = currentScale;
+    adjustDeltaX = currentDeltaX;
+    adjustDeltaY = currentDeltaY;
+
+});
+
+
+
+
 
 		//Controllo se demo scaduta
 		console.log("Controllo validita demo...")
