@@ -31,17 +31,7 @@ $( document ).ready(function() {
 		var CONNESSO=false;
 		var COMUNICAZIONI="";
 		var IDDIP="";
-
-
-		var avvisi={
-			comunicazione:function(title,mess){
-				if (title == "undefined"){
-					navigator.notification.alert(mess,null,"AVVISO","LETTO");
-				}else{
-					navigator.notification.alert(mess,null,title,"LETTO");			
-				}
-			}
-		}
+		var MEMORCOORD=[0,0];
 
 		var check={
 			maxDay:15,
@@ -904,7 +894,7 @@ $( document ).ready(function() {
 		$('#calibra_call').on("click",function(a,b,c){
         	$('.menu-act').trigger('hover')				
         	$('.overlay-hide').trigger('click')
-			
+			MEMORCOORD=[0,0]
    			main.ottimizzo();
 		})
 
@@ -1200,7 +1190,6 @@ $( document ).ready(function() {
 
 		});
 
-		var memorCoord=[0,0]
 		var main={
 			calibro:function(mess,coord){
 				var xBest=0;
@@ -1230,11 +1219,11 @@ $( document ).ready(function() {
 			    var t=setInterval(function(){
 					if (xBest > 0 ) {
 						clearInterval(t)
-						memorCoord[0]=xBest
+						MEMORCOORD[0]=xBest
 					}
 					if (yBest > 0 ) {
 						clearInterval(t)
-						memorCoord[1]=yBest
+						MEMORCOORD[1]=yBest
 					}
 				},1000)
 
@@ -1246,17 +1235,18 @@ $( document ).ready(function() {
 				$('#calibrazione').show()		
 				main.calibro("1) Indicare l\'angolo in alto a destra!",'X')
 				var tx=setInterval(function(){
-					if ( memorCoord[0] > 0 ){
+					if ( MEMORCOORD[0] > 0 ){
 						clearInterval(tx)
 						main.calibro("2) Indicare l\'angolo in basso a sinistra!","Y")
 						var ty=setInterval(function(){
-							if ( memorCoord[1] > 0 ){
+							if ( MEMORCOORD[1] > 0 ){
 								clearInterval(ty)
+								avvisi.richiesta("Calibrazione","Confermi gli angoli selezionati?")
 								$('#calibrazione').hide()
 
 								var iphoneResolutionRiferimento=844;
-								var vpWidth = memorCoord[0];
-								var vpHeight = memorCoord[1] ;
+								var vpWidth = MEMORCOORD[0];
+								var vpHeight = MEMORCOORD[1] ;
 						
 								/*Quindi calcolo la densita' diagonale per il dispositivo che suppongo sia inferiore a quella del riferimento*/
 								var thisDeviceResolution=Math.sqrt(Math.pow(vpHeight,2)+Math.pow(vpWidth,2))
@@ -1342,6 +1332,32 @@ $( document ).ready(function() {
 			}
 		};
 
+        var callbackFunc={
+        	onConfirmCalibra:function(a){
+           		if(a===1){avvisi.comunicazione("Calibrazione salvata. Non verra\' richiesta nuovamente. Per calibrare nuovamente utilizzare la voce nel menu.")} //salva in DB le coordinate  
+           		if(a===2) {
+           			MEMORCOORD=[0,0]	
+           			main.ottimizzo()	
+           		}	
+        	}
+        }	
+		var avvisi={
+			comunicazione:function(title,mess,conferma){
+				if (title == "undefined"){
+					navigator.notification.alert(mess,null,"AVVISO",["Letto"]);
+				}else{
+					navigator.notification.alert(mess,null,title,["Letto"]);			
+				}
+			},
+			richiesta:function(title,mess){
+				if (title == "undefined"){
+					navigator.notification.confirm(mess,callbackFunc.onConfirmCalibra,"AVVISO",["Ok","No"]);
+				}else{
+					navigator.notification.confirm(mess,callbackFunc.onConfirmCalibra,title,["Ok","No"]);			
+				}
+			}
+
+		}
 
 
 		//Controllo se demo scaduta
