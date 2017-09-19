@@ -901,6 +901,14 @@ $( document ).ready(function() {
             $('#giustificativo_sel').show();		
 		})
 
+		$('#calibra_call').on("click",function(a,b,c){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+			
+   			main.ottimizzo();
+		})
+
+
 		$('#form_giustificativi-conferma').click(function(){
 			//$('#form_giustificativi').css("top","-100%");
 			$('#form_giustificativi').hide();	
@@ -1192,34 +1200,88 @@ $( document ).ready(function() {
 
 		});
 
+		var memorCoord=[0,0]
 		var main={
-			ottimizzo:function(){
-				/*https://en.wikipedia.org/wiki/Pixel_density
-				La seguente serie di istruzioni servono per calcolare la dimensione PPI ossia la densita in pixel per inch (o centimetro quadrato). Prima di tutto 
-				bisogna calcolare la risoluzione della diagonale in pixel usando il teorema di pitagora density=SQRT((w^2)+(h^2)).
-				Quindi come dati noti considero la density del device IPHONE 6 plus (su cui la presente app ha un rendering ottimale) che ha una densita diagonale molto alta con un density=844.44.
-				*/
-				var iphoneResolutionRiferimento=844.44
-				/*Quindi prendo i valori W e H in pixel del dispositivo che sta eseguendo la app*/
-				var vpHeight = window.innerHeight;
-				var vpWidth = window.innerWidth;
-				/*Quindi calcolo la densita' diagonale per il dispositivo che suppongo sia inferiore a quella del riferimento*/
-				var thisDeviceResolution=Math.sqrt(Math.pow(vpHeight,2)+Math.pow(vpWidth,2))
-				/*ED INFINE ARIBITRARIAMENTE IPOTIZZO CHE UNO ZOOM OTTIMALE PER UN DISPOSITIVO RISPETTO ALL'IPHONE E' DATO DALLA SEGUENTE FORMULA (EMPIRICA):
-					CALCOLO IL RAPPORTO TRA LA  DENSITA_DEL_DISPOSITIVO E LA DENSITA_IPHONE CHE SARA' COMPRESA TRA 0 E 1.
-					CALCOLO IL 5% DI DEL PRECEDENTE RAPPORTO E LO USO COME CORRETTIVO
-					AGGIUNGO IL 5% AL PRECEDENTE RAPPORTO. 
-					QUESTO E' LO ZOOM-OUT CHE APPLICHERO' ALLA APP SU QUESTO DISPOSITIVO.
-				*/
-				var zoom=(thisDeviceResolution/iphoneResolutionRiferimento)+((thisDeviceResolution/iphoneResolutionRiferimento*5)/100)
-				//$(".zoom").css("background-color", "blue");
-				$(".zoom").css("top", "0");
-				$(".zoom").css("left", "0");
-				$(".zoom").css("transform-origin","top");
- 				$(".zoom").css("transform", "scaleY("+zoom+")");
+			calibro:function(mess,coord){
+				var xBest=0;
+				var yBest=0;
+				
+				$("#flusso").find('p').remove()				
+				$("#flusso").append('<p style="color:white;font-size: xx-large;">'+mess+'</p>')
 
-				//document.write(vpHeight+" "+ vpWidth +" "+iphoneResolutionRiferimento +" "+ thisDeviceResolution+" "+ zoom)
-				console.log("Y "+vpHeight+"-----"+" X "+vpWidth+"-----"+" Zoom per questo dispositivo "+zoom )
+				var touchmeBullet=$('#calibratore');
+				var touchTarget=$('#calibrazione');
+				$(touchTarget).bind('click',onTarget);
+				function onTarget(e) {
+					$('#calibratore').css('top',e.clientY - ( $('.circle').height() / 2 ))
+					$('#calibratore').css('left',e.clientX - ( $('.circle').width() / 2 ))
+					if (coord=='X') {
+						$('#calibratore').show()
+						$(touchTarget).unbind('click')
+						 xBest=e.clientX 
+					}
+					if (coord=='Y') {
+						$('#calibratore').show()
+						$(touchTarget).unbind('click')
+						yBest=e.clientY
+					}
+				
+				}
+			    var t=setInterval(function(){
+					if (xBest > 0 ) {
+						clearInterval(t)
+						memorCoord[0]=xBest
+					}
+					if (yBest > 0 ) {
+						clearInterval(t)
+						memorCoord[1]=yBest
+					}
+				},1000)
+
+			},
+			ottimizzo:function(){
+				$('#salta').click(function(){
+					$('#calibrazione').hide()								
+				})
+				$('#calibrazione').show()		
+				main.calibro("1) Indicare l\'angolo in alto a destra!",'X')
+				var tx=setInterval(function(){
+					if ( memorCoord[0] > 0 ){
+						clearInterval(tx)
+						main.calibro("2) Indicare l\'angolo in basso a sinistra!","Y")
+						var ty=setInterval(function(){
+							if ( memorCoord[1] > 0 ){
+								clearInterval(ty)
+								$('#calibrazione').hide()
+
+								var iphoneResolutionRiferimento=844;
+								var vpWidth = memorCoord[0];
+								var vpHeight = memorCoord[1] ;
+						
+								/*Quindi calcolo la densita' diagonale per il dispositivo che suppongo sia inferiore a quella del riferimento*/
+								var thisDeviceResolution=Math.sqrt(Math.pow(vpHeight,2)+Math.pow(vpWidth,2))
+								/*ED INFINE ARIBITRARIAMENTE IPOTIZZO CHE UNO ZOOM OTTIMALE PER UN DISPOSITIVO RISPETTO ALL'IPHONE E' DATO DALLA SEGUENTE FORMULA (EMPIRICA):
+									CALCOLO IL RAPPORTO TRA LA  DENSITA_DEL_DISPOSITIVO E LA DENSITA_IPHONE CHE SARA' COMPRESA TRA 0 E 1.
+									CALCOLO IL 5% DI DEL PRECEDENTE RAPPORTO E LO USO COME CORRETTIVO
+									AGGIUNGO IL 5% AL PRECEDENTE RAPPORTO. 
+									QUESTO E' LO ZOOM-OUT CHE APPLICHERO' ALLA APP SU QUESTO DISPOSITIVO.
+								*/
+								var zoom=(thisDeviceResolution/iphoneResolutionRiferimento)+((thisDeviceResolution/iphoneResolutionRiferimento*5)/100)
+								$(".zoom").css("top", "0");
+								$(".zoom").css("left", "0");
+								$(".zoom").css("transform-origin","top");
+				 				$(".zoom").css("transform", "scaleY("+zoom+")");
+								$(".zoom").css('zoom',zoom)
+
+
+								//document.write(vpHeight+" "+ vpWidth +" "+iphoneResolutionRiferimento +" "+ thisDeviceResolution+" "+ zoom)
+								console.log("Y "+vpHeight+"-----"+" X "+vpWidth+"-----"+" Zoom per questo dispositivo "+zoom )
+
+							}
+						},1000)
+					}
+				},1000)
+
 			},
 			//Abilitazione ad usare le credenziali salvate.
 			//Questo viene fatto simulando il click sul flag "Ricordami su questo dispositivo"
@@ -1280,59 +1342,6 @@ $( document ).ready(function() {
 			}
 		};
 
-var myElement=$('.zoom')[0]
-var mc = new Hammer.Manager(myElement);
-// create a pinch and rotate recognizer
-// these require 2 pointers
-var pinch = new Hammer.Pinch();
-var pan = new Hammer.Pan();
-// we want to detect both the same time
-pinch.recognizeWith(pan);
-// add to the Manager
-mc.add([pinch,pan]);
-
-var adjustScale = 1;
-var adjustDeltaX = 0;
-var adjustDeltaY = 0;
-
-var currentScale = null;
-var currentDeltaX = null;
-var currentDeltaY = null;
-
-// Prevent long press saving on mobiles.
-/*myElement.addEventListener('touchstart', function (e) {
-    e.preventDefault()
-});
-*/
-
-// Handles pinch and pan events/transforming at the same time;
-mc.on("pinch pan", function (ev) {
-
-    var transforms = [];
-
-    // Adjusting the current pinch/pan event properties using the previous ones set when they finished touching
-    currentScale = adjustScale * ev.scale;
-    currentDeltaX = adjustDeltaX + (ev.deltaX / currentScale);
-    currentDeltaY = adjustDeltaY + (ev.deltaY / currentScale);
-
-    // Concatinating and applying parameters.
-    transforms.push('scale({0})'.format(currentScale));
-    transforms.push('translate({0}px,{1}px)'.format(currentDeltaX, currentDeltaY));
-    webpage.style.transform = transforms.join(' ');
-
-});
-
-mc.on("panend pinchend", function (ev) {
-
-    // Saving the final transforms for adjustment next time the user interacts.
-    adjustScale = currentScale;
-    adjustDeltaX = currentDeltaX;
-    adjustDeltaY = currentDeltaY;
-
-});
-
-
-
 
 
 		//Controllo se demo scaduta
@@ -1342,6 +1351,7 @@ mc.on("panend pinchend", function (ev) {
 		//OTTIMIZZO LA VIEW DELLA APP
 		console.log("Ottimizzo il rendering della app...")		
 		main.ottimizzo();
+
 
 		//Operazioni Principali
 		main.salva_cred()

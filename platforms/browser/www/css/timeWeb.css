@@ -198,3 +198,14 @@ table.bordered td + td {
 
 
 
+.circle {
+	position:absolute;	
+	width: 70px;
+	height: 70px;
+	background: red;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+
+
