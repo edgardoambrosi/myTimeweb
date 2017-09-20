@@ -894,6 +894,12 @@ $( document ).ready(function() {
 		$('#calibra_call').on("click",function(a,b,c){
         	$('.menu-act').trigger('hover')				
         	$('.overlay-hide').trigger('click')
+			$('.finger').removeClass('finger-left')
+		    var calibrazione = window.openDatabase("Calibrazione", "1.0", "Calibrazione", 200000);
+			calibrazione.transaction(
+				function(tx){tx.executeSql('DROP TABLE IF EXISTS Calibrazione')},
+				function(tx,err){console.log("Error processing SQL: "+err);}							
+			);
 			MEMORCOORD=[0,0]
    			main.ottimizzo();
 		})
@@ -1190,13 +1196,14 @@ $( document ).ready(function() {
 
 		});
 
+
 		var main={
 			calibro:function(mess,coord){
 				var xBest=0;
 				var yBest=0;
 				
 				$("#flusso").find('p').remove()				
-				$("#flusso").append('<p style="color:white;font-size: xx-large;">'+mess+'</p>')
+				$('<p style="color:white;font-size:xx-large;">'+mess+'</p>').insertBefore('#salta')
 
 				var touchmeBullet=$('#calibratore');
 				var touchTarget=$('#calibrazione');
@@ -1229,25 +1236,26 @@ $( document ).ready(function() {
 
 			},
 			ottimizzo:function(){
-				$('#salta').click(function(){
-					$('#calibrazione').hide()								
-				})
-				$('#calibrazione').show()		
-				main.calibro("1) Indicare l\'angolo in alto a destra!",'X')
-				var tx=setInterval(function(){
-					if ( MEMORCOORD[0] > 0 ){
-						clearInterval(tx)
-						main.calibro("2) Indicare l\'angolo in basso a sinistra!","Y")
-						var ty=setInterval(function(){
-							if ( MEMORCOORD[1] > 0 ){
-								clearInterval(ty)
-								avvisi.richiesta("Calibrazione","Confermi gli angoli selezionati?")
-								$('#calibrazione').hide()
+				//APRO IL DB DELLE COORDINATE...
+		        var db = window.openDatabase("Calibrazione", "1.0", "Calibrazione", 200000);
+				db.transaction(
+					//...SE LA TABELLA ESISTE PRELEVO LE COORDINATE X Y...
+					function(transaction){
+						transaction.executeSql(
+						  'select X,Y from Calibrazione;',
+						  [],
+						  function(tx, results){
+							for (var j=0; j<results.rows.length; j++) {
+								var row = results.rows.item(j);
+								//...ASSOCIO LE X Y ALLA VARIABILE GLOBALE MEMORCOORD...
+								MEMORCOORD[0]=row['X'];
+								MEMORCOORD[1]=row['Y'];
 
+								//...QUINDI PROCEDO CON LA CALIBRAZIONE AUTOMATICA...
 								var iphoneResolutionRiferimento=844;
 								var vpWidth = MEMORCOORD[0];
 								var vpHeight = MEMORCOORD[1] ;
-						
+
 								/*Quindi calcolo la densita' diagonale per il dispositivo che suppongo sia inferiore a quella del riferimento*/
 								var thisDeviceResolution=Math.sqrt(Math.pow(vpHeight,2)+Math.pow(vpWidth,2))
 								/*ED INFINE ARIBITRARIAMENTE IPOTIZZO CHE UNO ZOOM OTTIMALE PER UN DISPOSITIVO RISPETTO ALL'IPHONE E' DATO DALLA SEGUENTE FORMULA (EMPIRICA):
@@ -1263,14 +1271,63 @@ $( document ).ready(function() {
 				 				$(".zoom").css("transform", "scaleY("+zoom+")");
 								$(".zoom").css('zoom',zoom)
 
-
 								//document.write(vpHeight+" "+ vpWidth +" "+iphoneResolutionRiferimento +" "+ thisDeviceResolution+" "+ zoom)
 								console.log("Y "+vpHeight+"-----"+" X "+vpWidth+"-----"+" Zoom per questo dispositivo "+zoom )
 
 							}
-						},1000)
+
+						   },
+						   //...INVECE SE LA TABELLA CALIBRAZIONE NON ESISTE...	
+						   function(e){
+								//...PROCEDO CON UNA NUOVA CALIBRAZIONE
+								$('#salta').click(function(){
+									$('#calibrazione').hide()								
+								})
+								$('#calibrazione').show()		
+								main.calibro("1) Indicare l\'angolo in alto a destra!",'X')
+								var tx=setInterval(function(){
+									if ( MEMORCOORD[0] > 0 ){
+										clearInterval(tx)
+										main.calibro("2) Indicare l\'angolo in basso a sinistra!","Y")
+										$('.finger').addClass('finger-left')
+										var ty=setInterval(function(){
+											if ( MEMORCOORD[1] > 0 ){
+												clearInterval(ty)
+												avvisi.richiesta("Calibrazione","Confermi i punti selezionati?")
+												$('#calibrazione').hide()
+
+												var iphoneResolutionRiferimento=844;
+												var vpWidth = MEMORCOORD[0];
+												var vpHeight = MEMORCOORD[1] ;
+
+												/*Quindi calcolo la densita' diagonale per il dispositivo che suppongo sia inferiore a quella del riferimento*/
+												var thisDeviceResolution=Math.sqrt(Math.pow(vpHeight,2)+Math.pow(vpWidth,2))
+												/*ED INFINE ARIBITRARIAMENTE IPOTIZZO CHE UNO ZOOM OTTIMALE PER UN DISPOSITIVO RISPETTO ALL'IPHONE E' DATO DALLA SEGUENTE FORMULA (EMPIRICA):
+													CALCOLO IL RAPPORTO TRA LA  DENSITA_DEL_DISPOSITIVO E LA DENSITA_IPHONE CHE SARA' COMPRESA TRA 0 E 1.
+													CALCOLO IL 5% DI DEL PRECEDENTE RAPPORTO E LO USO COME CORRETTIVO
+													AGGIUNGO IL 5% AL PRECEDENTE RAPPORTO. 
+													QUESTO E' LO ZOOM-OUT CHE APPLICHERO' ALLA APP SU QUESTO DISPOSITIVO.
+												*/
+												var zoom=(thisDeviceResolution/iphoneResolutionRiferimento)+((thisDeviceResolution/iphoneResolutionRiferimento*5)/100)
+												$(".zoom").css("top", "0");
+												$(".zoom").css("left", "0");
+												$(".zoom").css("transform-origin","top");
+								 				$(".zoom").css("transform", "scaleY("+zoom+")");
+												$(".zoom").css('zoom',zoom)
+
+
+												//document.write(vpHeight+" "+ vpWidth +" "+iphoneResolutionRiferimento +" "+ thisDeviceResolution+" "+ zoom)
+												console.log("Y "+vpHeight+"-----"+" X "+vpWidth+"-----"+" Zoom per questo dispositivo "+zoom )
+
+											}
+										},1000)
+									}
+								},1000)
+						   }
+					
+						 );
 					}
-				},1000)
+				)		
 
 			},
 			//Abilitazione ad usare le credenziali salvate.
@@ -1334,19 +1391,38 @@ $( document ).ready(function() {
 
         var callbackFunc={
         	onConfirmCalibra:function(a){
-           		if(a===1){avvisi.comunicazione("Calibrazione salvata. Non verra\' richiesta nuovamente. Per calibrare nuovamente utilizzare la voce nel menu.")} //salva in DB le coordinate  
+           		if(a===1){
+					//salva in DB le coordinate 
+				    var calibrazione = window.openDatabase("Calibrazione", "1.0", "Calibrazione", 200000);
+					calibrazione.transaction(
+						function(tx){tx.executeSql('DROP TABLE IF EXISTS Calibrazione')},
+						function(tx,err){console.log("Error processing SQL: "+err);}							
+					);
+					calibrazione.transaction(
+						function(tx){tx.executeSql('CREATE TABLE IF NOT EXISTS Calibrazione (X,Y)')},
+						function(tx,err){console.log("Error processing SQL: "+err);}							
+					);
+		            calibrazione.transaction(
+						function(tx) {
+						    tx.executeSql("INSERT INTO Calibrazione (X, Y) VALUES ('"+MEMORCOORD[0]+"','"+MEMORCOORD[1]+"')");
+							avvisi.comunicazione("Calibrazione salvata. Non verra\' richiesta nuovamente. Per calibrare nuovamente utilizzare la voce nel menu.")
+						}
+					);			
+
+				} 
            		if(a===2) {
+					$('.finger').removeClass('finger-left')
            			MEMORCOORD=[0,0]	
            			main.ottimizzo()	
            		}	
         	}
         }	
 		var avvisi={
-			comunicazione:function(title,mess,conferma){
+			comunicazione:function(mess,title){
 				if (title == "undefined"){
-					navigator.notification.alert(mess,null,"AVVISO",["Letto"]);
+					navigator.notification.alert(mess,null,"AVVISO","Letto");
 				}else{
-					navigator.notification.alert(mess,null,title,["Letto"]);			
+					navigator.notification.alert(mess,null,title,"Letto");			
 				}
 			},
 			richiesta:function(title,mess){

@@ -402,9 +402,11 @@
 
 
 		<div id="calibrazione" class="section overlay" style="display:none;width:100%;height:100%;opacity:0.9;z-index:100">
-			<div id='flusso'></div>
 			<div id='calibratore' class="circle blink" style='display:none'></div>
-			<div><button id='salta' class='button-primary'>Salta Calibrazione</button></div>
+			<div id='flusso' class='flusso'>
+				<div class='finger'></div>
+				<button id='salta' class='button-primary' style='z-index:110'>Salta Calibrazione</button>
+			</div>
 		</div>
 
 		<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
