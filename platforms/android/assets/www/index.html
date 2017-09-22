@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/> 
+    <link rel="stylesheet" type="text/css" href="css/skeletonEstensioni.css" />
+    <link rel="stylesheet" type="text/css" href="css/timeWeb.css" />
+    <link rel="stylesheet" type="text/css" href="css/plugins.css" />
+	<link rel="stylesheet" type="text/css" href="css/css-notification-boxes/style.css" />
+
+
+	<link rel="stylesheet" href="css/flipclock.css">
+
+	
+	<!-- SEZIONE SKELETON ––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+	<!-- CSS
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/skeleton.css">
+	<!-- Favicon
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<!-- SEZIONE SKELETON ––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+        <title>Timeweb Monitor</title>
+    </head>
+    <body>
+		<div class="overlay-menu menu-act" style="text-align:right;display:none">
+			<!-- Il simbolo del menu a panino, e' impostato attraverso il tag span ed il valore alfanumerico che rappresenta le tre linee del menu.
+				 Per far si che il colore cambi quando lo sfondo sottostante e' nero o bianco, il simbolo e' doppio con i due colori nero e bianco (che 
+					possono essere cambiati in accordo con sfondi di colore diverso) e traslati l'uno rispetto all'altro di 2px, in modo che sia visibile l'uno 
+					piuttosto che l'altro a menu chiuso.
+					Invece quando il menu viene aperto siccome uno dei due simboli ossia il nero e' fisso mentre il bianco si puo muovere questo diventa visibile 
+					aessendo il menu di colore nero.
+			-->	
+			<span style="font-size:30px;cursor:auto;color:white">&#9776;</span>
+			<span style="font-size:30px;cursor:auto;color:black;position:absolute; top:2px; left:0">&#9776;</span>
+			<div style="overflow:hidden">
+				<ul style="text-align:left">
+					<li>
+					<a href="#" id="monitor_call" class="giustifica">Monitor Giornata</a>
+					</li>
+					<li>
+					<a href="#" id="anomalie_call" class="giustifica">Anomalie Mese</a>
+					</li>
+					<li>
+					<a href="#" id="giustificativi_call" class="giustifica">Stato Giustificativi</a>
+					</li>
+					<li>
+					<a href="#" id="timbrature_call" class="giustifica">Stato Timbrature Manuali</a>
+					</li>
+					<li>
+					<a href="#" id="conteggi_call" class="giustifica">Conteggi</a>
+					</li>
+					<li>
+					<a href="#" id="totali_call" class="giustifica">Totali Mese</a>
+					</li>
+					<li>
+					<a href="#" id="giustifica_call" class="giustifica">Giustificativo</a>
+					</li>
+					<li>
+					<a href="#" id="notifiche_call" class="giustifica badge" data-badge="0">Notifiche</a>
+					</li>
+					<li>
+					<a href="#" id="calibra_call" class="giustifica" >Calibra Display</a>
+					</li>
+					<li>
+					<a href="#" id="impostazioni_call" class="giustifica ">Impostazioni</a>
+					</li>
+					<li>
+					<a href="#">Contatti</a>
+					</li>
+					<li>
+					<a href="#">Informazioni</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="zoom section  hero main">
+
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-two four columns">
+						<img class="phones" style="zoom: .7;" src="img/logo3.png"> 
+					</div>
+					<div class="five columns">
+						<h1>Orario Lavoro</h1>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="six columns">
+						<div  id="deviceready" class="blink">
+							<p class="event listening" style="text-align:center;zoom:1.7">Connetti TimeWeb</p>
+							<p class="event received" style="text-align:center;zoom:1.7">Disconnetti Timeweb</p>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+
+		<div id="credenziali" class="zoom section overlay overlay-hide" style="display:none">
+			<div class="container" >
+				<div class="row">
+					<div class="offset-by-three four columns">
+						<h1>Autenticazione</h1>
+					</div>		
+				</div>		
+				<div class="row">
+					<div class="offset-by-four three columns">
+						<label for="NomeUtente">Nome Utente</label>
+						<input type="text" id="NomeUtente" name="NomeUtente" value=""/>
+
+						<label for="Password">Password</label>
+						<input type="password" id="Password" name="Password" value=""/>
+					</div>		
+				</div>		
+				<div class="row">		
+					<div class="offset-by-four three columns">
+						<input type="checkbox" name="SaveCred" value="false" />
+						<label for="SaveCred">Ricordami su questo dispositivo</label>
+						<button id="credset" class="button-primary" type="submit" >Autorizza</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		 
+
+		<div id="monitor" class="zoom section  overlay overlay-hide" style="display:none">
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-one ten columns">
+						<label for="GiornoLavoro">Scegliere un giorno</label>
+						<input type="date" id="GiornoLavoro" name="GiornoLavoro"/>
+					</div>
+				</div>		
+				<div class="row">
+					<div class="offset-by-one ten columns">
+						<h1>Situazione Attuale</h1>
+					</div>		
+				</div>		
+				<div class="row">
+					<div class="offset-by-two eight columns">
+						<div id="strisciata" class="strisciata"></div>
+					</div>
+				</div>
+				</br>
+				<div class="row">
+					<div class="offset-by-three six columns">
+						<div id="tempo-restante" class="clock"></div>
+						<div id="tempo-trascorso" class="clock"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-by-one ten columns">
+						<h2>Saldo Giornata</h2>		
+					</div>				
+				</div>
+				<div class="row">
+					<div id="saldo" class="offset-by-two eight columns saldo"></div>
+				</div>								
+			</div>	
+		</div>
+
+		<div id="anomalie" class="zoom section  overlay overlay-hide" style="display:none">      
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<h1>Anomalie Mese</h1>
+						<input type="date" id="anomalie_mese_corrente"/>
+						<button class="button-primary" id="anomali">Mostra</button>
+					</div>		
+				</div>
+			</div>		  
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<table id='anomalieTable' class="bordered condensed reportTable" style="display:none">
+						  <thead>	
+							<tr>
+								<th>GIORNO</th>
+								<th>TIMBRATURE</th>
+							</tr>
+						  <thead>
+						  <tbody/>	
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-by-three six columns">
+						<input class="button-primary" type="button" id="insGiust" value="GIUSTIFICATIVO"></input>
+						<input class="button-primary" type="button" id="insTimb" value="TIMBRATURA"></input>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="giustifica_manuale" class="zoom section  overlay overlay-hide" style="display:none">      
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<h1>Stato Giustificativi</h1>
+						<input type="date" id="giustifica_mese_corrente"/>
+						<button class="button-primary" id="giustificati">Mostra</button>
+					</div>		
+				</div>
+			</div>		  
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-three six columns">
+						<table id='giusTable' class="bordered condensed reportTable" style="display:none">
+						  <thead>	
+							<tr>
+								<th>GIORNO</th>
+								<th>CAUSALE</th>
+								<th>STATO</th>
+								<th>ESITO</th>
+							</tr>
+						  <thead>
+						  <tbody/>	
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="timbrature_manuali" class="zoom section  overlay overlay-hide" style="display:none">      
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<h1>Stato Timbrature</h1>
+						<input type="date" id="timbrature_mese_corrente"/>
+						<button class="button-primary" id="timbrati">Mostra</button>
+					</div>		
+				</div>
+			</div>		  
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-three six columns">
+						<table id='timbTable' class="bordered condensed reportTable" style="display:none">
+						  <thead>	
+							<tr>
+								<th>GIORNO</th>
+								<th>MOTIVO</th>
+								<th>STATO</th>
+								<th>ESITO</th>
+							</tr>
+						  <thead>
+						  <tbody/>	
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="conteggi" class="zoom section  overlay overlay-hide" style="display:none">      
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<h1>Conteggi</h1>
+					</div>		
+				</div>
+			</div>		  
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<div id="causale_sel">
+							<label for="causale_sel">Seleziona la Causale:</label>
+						</div>
+						<div id="giorno_inizio">
+								<label for="GiornoLavoro_inizio">Giorno Inizio:</label>
+								<input type="date" id="GiornoLavoro_inizio" name="GiornoLavoroInizio"/>
+						</div>
+						<div id="giorno_fine">
+								<label for="GiornoLavoro_fine">Giorno Fine:</label>
+								<input type="date" id="GiornoLavoro_fine" name="GiornoLavoroFine"/> 
+						</div>
+						</td>
+						<button class="conferma button-primary" id="calcola">Calcola</button>
+						<table>
+							<tbody>
+								<tr>
+									<td><div id="quantita1" class="your-clock"  ></div></td>
+									<td><div id="separatore" style='display:none;color:white'>:</div></td>
+									<td><div id="quantita2" class="your-clock" style='display:none'></div></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="totali" class="zoom section  overlay overlay-hide" style="display:none">      
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<h1>Totali Mese</h1>
+					</div>		
+				</div>
+			</div>		  
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<input type="date" id="mese_corrente"/>
+						<button class="conferma button-primary" id="totalizza">Totalizza</button>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div id='totaliTab' class="offset-by-four four columns">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div id="form_settaggi" class="zoom section overlay overlay-hide" style="display:none;height:600px">	  
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-one eleven columns">
+						<h1>Parametri Applicazione</h1>
+					</div>		
+				</div>		
+				<div class="row">
+					<div class="offset-by-four six columns">
+						<label for="ORARIOINIZIOLAVORO" >Orario inizio lavoro:</label>
+						<input type="text" name="ORARIOINIZIOLAVORO" >
+						<label for="TOTALE">Totale ore da lavorare:</label>
+						<input type="text" name="TOTALE" >
+						<label for="PAUSAPRANZO">Pausa pranzo:</label>
+						<input type="text" name="PAUSAPRANZO" >
+						<label for="server_url">Server URL:</label>
+						<textarea type="url" name="server_url" rows="14" cols="10" wrap="soft"></textarea>
+						<label for="notifiche_aut_url">Servizio Notifiche Login URL:</label>
+						<textarea type="url" name="notifiche_aut_url" rows="14" cols="10" wrap="soft"></textarea>
+						<label for="notifiche_url">Servizio Notifiche URL:</label>
+						<textarea type="url" name="notifiche_url" rows="14" cols="10" wrap="soft"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-by-four six columns">
+						<button class="button-primary" type="button" id="salva_set">Salva</button>
+						<button type="button" id="reset_set">Ripristina Impostazioni</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="form_giustificativi" class="zoom section  overlay overlay-hide" style="display:none">
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-one eleven columns">
+						<h1>Inserimento del Giustificativo</h1>
+					</div>		
+				</div>		
+				<div class="row">
+					<div class="offset-by-three six columns">
+				  	    <div id="giustificativo_sel">
+							<label for="GIUS">Giustificativo:</label>
+						</div>
+						<label for="DESC">Inserire una descrizione:</label>
+						<textarea cols="30" name="DESC" rows="5"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="eigth columns">
+						<div>
+							<label for="DA">Da che ora:</label>
+							<input type="time" name="DA" />
+							<label for="A">A che ora:</label>
+							<input type="time" name="A" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<button class="button-primary" type="button" id="form_giustificativi-conferma">Conferma</button>
+						<button  class="button-annulla" type="button" id="form_giustificativi-annulla">Annulla</button>
+					</div>
+				</div> 
+			</div> 
+		</div> 
+
+
+		<div id="pannello_notifiche" class="section  overlay overlay-hide" style="display:none">
+						<div id='elenco_notifiche' style="overflow-y:scroll;height:1000px"></div>
+			<!--div class="container">
+				<div class="row">
+					<div class="twelve columns">
+					</div>
+				</div>
+			</div-->
+		</div>
+
+
+		<div id="calibrazione" class="section overlay" style="display:none;width:100%;height:100%;opacity:0.9;z-index:100">
+			<div id='calibratore' class="circle blink" style='display:none'></div>
+			<div id='flusso' class='flusso'>
+				<div class='finger'></div>
+				<button id='salta' class='button-primary' style='z-index:110'>Salta Calibrazione</button>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery.xpath.min.js"></script>
+		<script src="js/flipclock.min.js"></script>
+
+       	<script type="text/javascript" src="cordova.js"></script>
+       	<script type="text/javascript" src="js/extra.js"></script>
+    </body>
+</html>
+
