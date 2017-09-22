@@ -71,7 +71,7 @@
   width:100%;
   height:100%;	
   background-color: rgba(0,0,0,1);
-  overflow-y:scroll;
+  overflow-y:auto;
   opacity:30;	
   transition: opacity 5000ms;
   &:target{
@@ -236,6 +236,13 @@ table.bordered td + td {
 }
 
 
+
+/*SEZIONE FORM SETTAGGI*/
+#form_settaggi textarea {
+	margin: 0px 0px 15px; 
+	width: 353px; 
+	height: 92px;
+}
 
 
 

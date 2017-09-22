@@ -136,3 +136,11 @@ Il colore rosso lo commento e lo uso solo per motivi di sviluppo.
 		}
     }
 */
+
+
+/*SVILUPPO PER EVIDENZIARE I BORDI DEI VARI CONTAINER DECOMMENTARE QUESTA CLASSE
+.section,.container,.row, .columns{
+	border:red solid
+}
+*/
+

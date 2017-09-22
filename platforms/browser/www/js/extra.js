@@ -11,6 +11,7 @@ $( document ).ready(function() {
 		var	DALAVORARE=0;
 		var USCITA_PREVISTA=0;
 		var GIORNATATERMINATASOSPESA;
+		var ORARIOINIZIOLAVORO="07:50:00";
 		var	TOTALE="07:42:00";
 		var PAUSAPRANZO="00:30:00"
 		var clockCD="";	
@@ -130,6 +131,7 @@ $( document ).ready(function() {
 				DALAVORARE=0;
 				GIORNATATERMINATASOSPESA;
 				DATA_GIORNO_LAVORATO="";
+				ORARIOINIZIOLAVORO="07:50:00";
 				TOTALE="07:42:00";
 				PAUSAPRANZO="00:30:00"
                 CAUSALI=new Object();
@@ -182,13 +184,12 @@ $( document ).ready(function() {
 			/*QUESTA FUNZIONE HA LO SCOPO DI IMPLEMENTARE LA LOGICA PER LE CAUSALI DIGITATE DAL DIPENDENTE AL MOMENTO DELL'USCITA DAI TORNELLI.
 			PER ORA SONO IMPLEMENTATE SOLO LE CAUSALI PAUSAPRANZO COD 0001 E SERVIZIO ESTERNO CAUSALE 0003.
 			LA GESTIONE E LA LOGICA DIPENDE ESCLUSIVAMENTE DALLE REGOLE INTERNE.*/
-			
 			gestione_causali:function(TIMBRATURE){
 				/*se le strisciate originali sono "E08:32 U14:00(0001) E14:53(0001) U16:21"
 				diventano "E08:32 U14:00(0001) E14:53 U16:21" e infine "E08:32 U14:30 E14:53 U16:21".
 				
 				Se originali sono "E08:32 U14:00(0001) E14:23(0001) U16:21" diventano "E08:32 U14:23 E14:23 U16:21"
-				
+
 				Se originali sono "E08:32 U14:00(0003) E14:23(0003) U16:21" diventano "E08:32 U16:21"
 				
 				*/
@@ -270,8 +271,13 @@ $( document ).ready(function() {
 						if (XTIMBRATURE[i] !==null && XTIMBRATURE[i] !==undefined && XTIMBRATURE[i] !==""){
 							//CONTROLLO SE LA TIMBRATURA È UNA ENTRATA
 							if ( XTIMBRATURE[i].charAt(0)=="E"){
-								//...SE LO È ASSEGNO L'ENTRATA
-								ENTRATA=XTIMBRATURE[i];
+								//...SE LO È ASSEGNO L'ENTRATA, MA SE LA TIMBRATURA CHE STO CONSIDERNADO E' LA PRIMA E ORARIOINIZIOLAVORO E' STATO ABILITATO IN IMPOSTAZIONI
+								if(i==0 && (ORARIOINIZIOLAVORO!="undefined" && ORARIOINIZIOLAVORO!="" ) && (esame_timbrature.insecondi(ENTRATA.replace(/E/, '')+":00") < (esame_timbrature.insecondi(ORARIOINIZIOLAVORO) )  ) ){
+									ENTRATA='E'+ORARIOINIZIOLAVORO.replace(/:00$/,'')
+								}else{
+									ENTRATA=XTIMBRATURE[i];
+								}	
+//								ENTRATA=XTIMBRATURE[i];
 								//INTERROMPO QUESTA FASE E PROSEGUO AL PUNTO (2)
 								continue;
 							}else{
@@ -940,11 +946,12 @@ $( document ).ready(function() {
 			main.salva_impostazioni();
 		});
 		$("#salva_set").click(function(){
+			ORARIOINIZIOLAVORO=$("input[name='ORARIOINIZIOLAVORO']").val();
 			TOTALE=$("input[name='TOTALE']").val();
 			PAUSAPRANZO=$("input[name='PAUSAPRANZO']").val();
-			server_url=$("input[name='server_url']").val();
-			notifiche_url=$("input[name='notifiche_url']").val();
-			notifiche_aut_url=$("input[name='notifiche_aut_url']").val();
+			server_url=$("textarea[name='server_url']").val();
+			notifiche_url=$("textarea[name='notifiche_url']").val();
+			notifiche_aut_url=$("textarea[name='notifiche_aut_url']").val();
 			main.reset_impostazioni();
 			main.salva_impostazioni(true);
 					
@@ -1032,12 +1039,14 @@ $( document ).ready(function() {
 		$('#impostazioni_call').click(function(){
         	$('.menu-act').trigger('hover')				
         	$('.overlay-hide').trigger('click')
+			$("input[name='ORARIOINIZIOLAVORO']").val(ORARIOINIZIOLAVORO);
 			$("input[name='TOTALE']").val(TOTALE);
 			$("input[name='PAUSAPRANZO']").val(PAUSAPRANZO);
-			$("input[name='server_url']").val(server_url);
-			$("input[name='notifiche_url']").val(notifiche_url);
-			$("input[name='notifiche_aut_url']").val(notifiche_aut_url);
+			$("textarea[name='server_url']").val(server_url);
+			$("textarea[name='notifiche_url']").val(notifiche_url);
+			$("textarea[name='notifiche_aut_url']").val(notifiche_aut_url);
             $('#form_settaggi').show();
+			//alert($('#form_settaggi').height())
 		});		
 
 		$('#totalizza').click(function(){
@@ -1345,7 +1354,7 @@ $( document ).ready(function() {
 				//Cerca il db impostazioni, se c'è lo carico e imposto i settaggi. Altrimenti scrivo nel db quelli di default.
 				var impostazioni = window.openDatabase("Impostazioni", "1.0", "Impostazioni", 200000);
 				impostazioni.transaction(
-					function(tx){tx.executeSql('create table impostazioni (totale,pausa,server,notifiche_server,notifiche_auth);')},
+					function(tx){tx.executeSql('create table impostazioni (orarioiniziolavoro,totale,pausa,server,notifiche_server,notifiche_auth);')},
 					function(err){
 						//se la tabella esiste viene restituito codice 5				
 						if (err.code==5){
@@ -1353,11 +1362,12 @@ $( document ).ready(function() {
 							impostazioni.transaction(
 								function(tx){
 									tx.executeSql(
-									  'select totale,pausa,server,notifiche_server,notifiche_auth from impostazioni;',
+									  'select orarioiniziolavoro,totale,pausa,server,notifiche_server,notifiche_auth from impostazioni;',
 									  [],
 									  function(tx, results){
 										  for (var j=0; j<results.rows.length; j++) {
 											var row = results.rows.item(j);
+												ORARIOINIZIOLAVORO=row['orarioiniziolavoro'];
 												TOTALE=row['totale'];
 												PAUSAPRANZO=row['pausa'];
 												server_url=row['server'];
@@ -1374,7 +1384,7 @@ $( document ).ready(function() {
 						console.log("Creazione Db...");
 				        impostazioni.transaction(
 				            function(tx){
-								tx.executeSql("INSERT INTO impostazioni (totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+TOTALE+"','"+PAUSAPRANZO+"','"+server_url+"','"+notifiche_url+"','"+notifiche_aut_url+"');")
+								tx.executeSql("INSERT INTO impostazioni (orarioiniziolavoro,totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+ORARIOINIZIOLAVORO+"','"+TOTALE+"','"+PAUSAPRANZO+"','"+server_url+"','"+notifiche_url+"','"+notifiche_aut_url+"');")
 				            },
 				            function(err){console.log(err)},
 				            function(){
