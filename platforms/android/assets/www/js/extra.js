@@ -165,7 +165,6 @@ $( document ).ready(function() {
 				}else{
 					DATA_GIORNO_FINE=data.composizione(t);
 				}
-				
 				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
 				GIUSTIFICATIVO_SEL=$('select[name="VOCISELEZIONATE"]').val();
 
@@ -760,7 +759,23 @@ $( document ).ready(function() {
 					$(CAUSALI).removeAttr('multiple');
 					$('select[name="VOCISELEZIONATE"]').remove();
                     $('#causale_sel').append(CAUSALI);
-					$(GIUSTIFICATIVI).addClass('u-max-full-width')
+					$(CAUSALI).addClass('u-max-full-width')
+					
+					
+					/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
+					E' stato sostituito perche' il select html su android non funziona correttamente. 
+					Magari una futura release phonegap e cordova sistemeranno il bug. per ora alla versione 8 di 
+					Phonegap e Cordova non funziona.
+					*/
+					$(CAUSALI).addClass('js-example-basic-single')
+					$(CAUSALI).select2({
+						placeholder:'Selezionare una causale...',
+						minimumResultsForSearch:Infinity
+					})
+					//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
+					$(CAUSALI).val('1').trigger('change')
+					
+					
                 });
             },
             giustificativi:function(){
@@ -779,6 +794,22 @@ $( document ).ready(function() {
 						$('select[name="VOCISELEZIONATE"]').remove();
 		                $('#giustificativo_sel').append(GIUSTIFICATIVI);
 						$(GIUSTIFICATIVI).addClass('u-max-full-width')
+						
+
+						/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
+						E' stato sostituito perche' il select html su android non funziona correttamente. 
+						Magari una futura release phonegap e cordova sistemeranno il bug. per ora alla versione 8 di 
+						Phonegap e Cordova non funziona.
+						*/
+						$(GIUSTIFICATIVI).addClass('js-example-basic-single')
+						$(GIUSTIFICATIVI).select2({
+							placeholder:'Selezionare un giustificativo...',
+							minimumResultsForSearch:Infinity
+						})
+						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
+						$(GIUSTIFICATIVI).val('1').trigger('change')
+
+						
 	            });
             },
 			giustificativo:function(da,a,oraI,oraF,desc,tipodivoce,iddip){

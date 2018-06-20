@@ -30,6 +30,22 @@ module.exports = [
         "pluginId": "cordova-plugin-calendar"
     },
     {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/browser/notification.js",
+        "id": "cordova-plugin-dialogs.notification_browser",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-flashlight/www/Flashlight.js",
         "id": "cordova-plugin-flashlight.Flashlight",
         "pluginId": "cordova-plugin-flashlight",
@@ -62,22 +78,6 @@ module.exports = [
             "navigator.notification",
             "navigator"
         ]
-    },
-    {
-        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
-        "id": "cordova-plugin-dialogs.notification",
-        "pluginId": "cordova-plugin-dialogs",
-        "merges": [
-            "navigator.notification"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-dialogs/www/browser/notification.js",
-        "id": "cordova-plugin-dialogs.notification_browser",
-        "pluginId": "cordova-plugin-dialogs",
-        "merges": [
-            "navigator.notification"
-        ]
     }
 ];
 module.exports.metadata = 
@@ -86,12 +86,12 @@ module.exports.metadata =
     "com.phonegap.plugins.Puship": "1.0.7",
     "cordova-plugin-calendar": "4.4.7",
     "cordova-plugin-compat": "1.0.0",
+    "cordova-plugin-dialogs": "1.3.3",
     "cordova-plugin-flashlight": "3.2.0",
     "cordova-plugin-geolocation": "2.2.0",
     "cordova-plugin-spinner": "1.0.0",
     "cordova-plugin-vibration": "2.1.0",
-    "cordova-plugin-whitelist": "1.2.1",
-    "cordova-plugin-dialogs": "1.3.3"
+    "cordova-plugin-whitelist": "1.2.1"
 }
 // BOTTOM OF METADATA
 });

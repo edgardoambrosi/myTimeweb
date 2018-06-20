@@ -8,6 +8,7 @@
 		Edgardo Ambrosi
     </author>
     <content src="index.html" />
+    <icon src="icon.png" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
@@ -51,7 +52,7 @@
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="14" />
-    <preference name="android-targetSdkVersion" value="24" />
+    <preference name="android-targetSdkVersion" value="22" />
     <preference name="android-installLocation" value="auto" />
     <preference name="DisallowOverscroll" value="true" />
 </widget>
