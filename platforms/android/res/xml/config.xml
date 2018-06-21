@@ -25,6 +25,9 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="CallNumber">
+        <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber" />
+    </feature>
     <name>Timeweb Monitor</name>
     <description>
 		Timeweb monitor ti permette di avere alcune informazioni importanti relative alla tua giornata lavorativa.
@@ -55,6 +58,7 @@
     <gap:plugin name="cordova-plugin-spinnerdialog" source="npm" />
     <splash src="www/img/mySplash.png" />
     <access origin="*" />
+    <access launch-external="yes" origin="mailto:*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

@@ -30,6 +30,7 @@
     <gap:plugin name="cordova-plugin-spinnerdialog" source="npm" />
     <splash src="www/img/mySplash.png" />
     <access origin="*" />
+    <access launch-external="yes" origin="mailto:*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

@@ -1080,6 +1080,21 @@ $( document ).ready(function() {
 			//alert($('#form_settaggi').height())
 		});		
 
+		$('#contatti_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+	        $('#make_a_call').click(function(){	
+	        	console.log('3286755538');
+		        window.plugins.CallNumber.callNumber(onSuccess, onError, 3286755538, bypassAppChooser);	
+		    });    
+    		$('#form_contatti').show()	    	
+		});		
+
+		$('#informazioni_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+		});		
+
 		$('#totalizza').click(function(){
 			$('#totali_call').trigger("click");
 		

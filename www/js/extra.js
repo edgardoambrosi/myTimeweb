@@ -1080,6 +1080,18 @@ $( document ).ready(function() {
 			//alert($('#form_settaggi').height())
 		});		
 
+		$('#contatti_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+	        	
+    		$('#form_contatti').show();	    	
+		});		
+
+		$('#informazioni_call').click(function(){
+        	$('.menu-act').trigger('hover')				
+        	$('.overlay-hide').trigger('click')
+		});		
+
 		$('#totalizza').click(function(){
 			$('#totali_call').trigger("click");
 		

@@ -78,6 +78,14 @@ module.exports = [
             "navigator.notification",
             "navigator"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-call-number/www/CallNumber.js",
+        "id": "cordova-plugin-call-number.CallNumber",
+        "pluginId": "cordova-plugin-call-number",
+        "clobbers": [
+            "call"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -91,7 +99,8 @@ module.exports.metadata =
     "cordova-plugin-geolocation": "2.2.0",
     "cordova-plugin-spinner": "1.0.0",
     "cordova-plugin-vibration": "2.1.0",
-    "cordova-plugin-whitelist": "1.2.1"
+    "cordova-plugin-whitelist": "1.2.1",
+    "cordova-plugin-call-number": "1.0.1"
 }
 // BOTTOM OF METADATA
 });

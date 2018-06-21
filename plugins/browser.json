@@ -27,6 +27,9 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+    },
+    "cordova-plugin-call-number": {
+      "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
     }
   },
   "dependent_plugins": {
