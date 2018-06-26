@@ -1,0 +1,7 @@
+Per configurare nuovamente l’ambiente di sviluppo su MACOSX per la compilazione, build e simulazione e quindi creazione di un IPA, bisogna usare il comando:
+1) phonegap cordova platform add ios
+2) poi andare nella fonder platforms/ios/Timeweb Monitor/Images.xcassets
+3) andare sul sito https://makeappicon.com o simili, per caricare una immagine che verra’ moltiplicata nella stessa immagine in formati diversi. Il sito invierà’ via email uno zip con le icone che dovranno essere copiate nella fonder precedente, OPPURE  copiare folder AppIcon.appiconset
+4) procedere con il build e simulazione sotto XCODE
+5) oppure si potrà procedere con la creazione di un IPA Xcodebuild di cui bisogna documentarsi
+​
