@@ -1556,7 +1556,7 @@ $( document ).ready(function() {
 					}catch(err){
                         clearInterval(v);
 					}
-                },2000)           
+                },3000)           
             }
         }
         
