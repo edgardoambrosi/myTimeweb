@@ -912,8 +912,11 @@ $( document ).ready(function() {
 		});
 
 		$('#giustifica_call').on("click",function(a,b,c){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
         	
 			var GIORNODA=b;
 			var GIORNOA=c;
@@ -929,8 +932,11 @@ $( document ).ready(function() {
 		})
 
 		$('#calibra_call').on("click",function(a,b,c){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
 			$('.finger').removeClass('finger-left')
 		    var calibrazione = window.openDatabase("Calibrazione", "1.0", "Calibrazione", 200000);
 			calibrazione.transaction(
@@ -1056,20 +1062,54 @@ $( document ).ready(function() {
 			timeweb.cartellino(DATA_GIORNO_LAVORATO);
 		});
 
+		var s=true
 		$('.menu-act').click(function(e,p){
-			if(p==true || p==undefined) $('.overlay-menu').toggleClass('overlay-menu-open')
+			if(p==undefined && s==true){
+				s=false
+				console.log(s)
+				ss=setTimeout(function(){
+					clearTimeout(ss)
+					s=true
+					console.log(s)
+				},420)				
+				$('.overlay-menu').toggleClass('overlay-menu-open')				
+			}
+			if(p==1 && s==true){
+				s=false
+				ss=setTimeout(function(){
+					clearTimeout(ss)
+					s=true
+				},320)				
+				$('.overlay-menu').toggleClass('overlay-menu-open')
+				console.log("Apri o Ritira Menu")
+			}	 
+			if(p==0 && s==true){
+				s=false
+				ss=setTimeout(function(){
+					clearTimeout(ss)
+					s=true
+				},320)				
+				$('.overlay-menu').removeClass('overlay-menu-open')				 
+				console.log("Chiudi Menu")				
+			}	 
 		});		
 
 		$('#monitor_call').on("click",function(a,b,c){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
 
             $('#monitor').show();	
 		})
 
 		$('#impostazioni_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+ 
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
 			$("input[name='ORARIOINIZIOLAVORO']").val(ORARIOINIZIOLAVORO);
 			$("input[name='TOTALE']").val(TOTALE);
 			$("input[name='PAUSAPRANZO']").val(PAUSAPRANZO);
@@ -1081,15 +1121,21 @@ $( document ).ready(function() {
 		});		
 
 		$('#contatti_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
 	        	
     		$('#form_contatti').show();	    	
 		});		
 
 		$('#informazioni_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
 		});		
 
 		$('#totalizza').click(function(){
@@ -1097,8 +1143,11 @@ $( document ).ready(function() {
 		
 		})
         $('#totali_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+ 
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
             $('#totaliTab').find('table[class~="responstable"]').remove();
 
 			env.reset();
@@ -1115,7 +1164,9 @@ $( document ).ready(function() {
 
 
         $('#conteggi_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
 
             $('#quantita1').FlipClock(0, {
@@ -1141,8 +1192,11 @@ $( document ).ready(function() {
 			$('#anomalie_call').trigger("click");
 		})					
 		$('#anomalie_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
 
 			$('#anomalie').show()
 			
@@ -1154,14 +1208,16 @@ $( document ).ready(function() {
             var t=data.iniziofinemese(new Date(_t))
 
 			timeweb.anomalie(data.composizione(t[0]),data.composizione(t[1]));
-            
+
         });
 
 		$('#giustificati').click(function(){
 			$('#giustificativi_call').trigger("click");
 		})					
 		$('#giustificativi_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
 
 			$('#giustifica_manuale').show()
@@ -1181,8 +1237,11 @@ $( document ).ready(function() {
 			$('#timbrature_call').trigger("click");
 		})					
 		$('#timbrature_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
 			
 			$('#timbrature_manuali').show()
 			
@@ -1203,8 +1262,11 @@ $( document ).ready(function() {
         });
 
 		$('#notifiche_call').click(function(){
-        	$('.menu-act').trigger('hover')				
+
+        	$('.menu-act').trigger('click', [0])
+
         	$('.overlay-hide').trigger('click')
+
 
 			$('#pannello_notifiche').show()
 			$("div[id*='info']").remove()
