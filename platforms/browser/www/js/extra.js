@@ -44,7 +44,8 @@ $( document ).ready(function() {
 				if (DI>=DE){
 					//se la demo e' scaduta tutta l'applicazione viene rimossa dal DOM
 					$(".container").remove();
-					avvisi.comunicazione("Demo Scaduta");					
+					avvisi.comunicazione("Demo Scaduta");	
+					$('#demo_info').show();				
 					console.log("Demo Scaduta!")
 				}else{
 					//avvisi.comunicazione("Demo Valida");					
@@ -108,12 +109,15 @@ $( document ).ready(function() {
 					$('.receivedElement').show();
 					$('#credenziali').show();
 					container.isAvailable=true;
+					spinner.termina();
 				}).error(function(){
 					console.log("Server non Disponibile");
 					$('.listeningElement').show();
 					$('.receivedElement').hide();
 					$('#credenziali').hide();
 					container.isAvailable=false;
+					spinner.termina();
+					avvisi.comunicazione("Rete o Server non disponibile.");
 				});
 			}
 		};
@@ -974,6 +978,7 @@ $( document ).ready(function() {
 		});
 
 		$('.listening').click(function(){
+			spinner.attesa("...tento la connessione...");
 			console.log("...tento la connessione...");
 			container.receivedEvent('deviceready');
 		});
@@ -1135,6 +1140,8 @@ $( document ).ready(function() {
         	$('.menu-act').trigger('click', [0])
 
         	$('.overlay-hide').trigger('click')
+        	
+			$('#form_informazioni').show();	    	
 
 		});		
 
@@ -1532,6 +1539,27 @@ $( document ).ready(function() {
            		}	
         	}
         }	
+        
+        var spinner={
+        	attesa:function(mess){
+				try{
+		            SpinnerPlugin.activityStart(mess);
+				}catch(err){
+					avvisi.comunicazione("Plugin non disponibile.")
+				}
+			},	
+            termina:function(){
+		     	var v=setInterval(function(){
+					try{
+                        SpinnerPlugin.activityStop();
+                        clearInterval(v);
+					}catch(err){
+                        clearInterval(v);
+					}
+                },1000)           
+            }
+        }
+        
 		var avvisi={
 			comunicazione:function(mess,title){
 				if (title == "undefined"){
