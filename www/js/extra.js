@@ -488,12 +488,14 @@ $( document ).ready(function() {
 				  method: 'POST'	
 				}).complete(function(a,b,c) {
 					if ($($.parseHTML(a.responseText)[5]).text()=="Login"){
+						spinner.termina();
 						avvisi.comunicazione("Autenticazione non valida. L'accesso è garantito solo per la gestione dell'applicazione!")
 						$('.received').show()
 						$('.listening').hide();
 						$('#credenziali').hide();					
 		            	$('.menu-act').show();
 					}else{
+					    spinner.termina()
 						console.log("Autenticazione Effettuata");
 						/*ESTRAGGO DALLA RISPOSTA l'ID DEL DIPENDENTE*/
 						var resp=$.parseHTML(a.responseText);
@@ -525,6 +527,7 @@ $( document ).ready(function() {
 						var name = equals > -1 ? cookies[i].substr(0, equals) : cookies[i];
 						document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
 					}
+					spinner.termina()
 				});
 			},
 			cartellino:function(a){
@@ -971,6 +974,7 @@ $( document ).ready(function() {
 
 		$('.received').click(function(){
 			console.log("...tento la disconnessione...");
+			spinner.attesa("...tento la disconnessione...");			
 			timeweb.disconnetti();
 			$('#monitor').hide();
             $('.menu-act').hide();
@@ -1051,6 +1055,7 @@ $( document ).ready(function() {
 				    }
 				);			
 			}
+			spinner.attesa("Connessione in corso...");
 			timeweb.connetti($('#NomeUtente').val(),$('#Password').val(),DATA_GIORNO_LAVORATO);
             if (CONNESSO) notifiche.connetti($('#NomeUtente').val(),$('#Password').val());
 		});
