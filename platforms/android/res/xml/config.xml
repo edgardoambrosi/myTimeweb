@@ -59,6 +59,7 @@
     <splash src="www/img/mySplash.png" />
     <access origin="*" />
     <access launch-external="yes" origin="mailto:*" />
+    <allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
