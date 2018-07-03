@@ -1310,6 +1310,7 @@ $( document ).ready(function() {
  	   	  	  //console.log(dimensioneIconaY+"   "+colpitoY+"  "+sogliaY)
 			  $('.notifyjs-corner').remove()	
  	   	  	  $('.overlay-hide').hide()
+			  $('.menu-act').trigger('click', [0]) 	   	  	  
 			  //elimino tutte le notifiche	
 	   	  }	  
 		  if ((colpitoX > sogliaY ) && ( colpitoY < sogliaY )){
@@ -1317,11 +1318,15 @@ $( document ).ready(function() {
  	   	  	  //console.log(dimensioneIconaY+"   "+colpitoY+"  "+sogliaY)
 			  $('.notifyjs-corner').remove()	
  	   	  	  $('.overlay-hide').hide()
+			  $('.menu-act').trigger('click', [0]) 	   	  	  
 			  //elimino tutte le notifiche	
 	   	  }	  
 
 		});
 
+		$('.zoom').click(function(e){
+			  $('.menu-act').trigger('click', [0]) 	   	  	  
+		});
 
 		var main={
 			calibro:function(mess,coord){
