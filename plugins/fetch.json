@@ -88,10 +88,18 @@
     "is_top_level": true,
     "variables": {}
   },
-  "com.moust.cordova.writelog": {
+  "cordova-plugin-logtofile": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-write-log@0.0.5"
+      "id": "cordova-plugin-logtofile"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-file": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file@4.3.3"
     },
     "is_top_level": true,
     "variables": {}

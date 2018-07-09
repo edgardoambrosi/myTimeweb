@@ -1,0 +1,58 @@
+{
+  "_from": "cordova-plugin-logtofile",
+  "_id": "cordova-plugin-logtofile@1.1.2",
+  "_inBundle": false,
+  "_integrity": "sha1-MT+17wpaE/QaxNEQooq2PrE4Iyw=",
+  "_location": "/cordova-plugin-logtofile",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-logtofile",
+    "name": "cordova-plugin-logtofile",
+    "escapedName": "cordova-plugin-logtofile",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-logtofile/-/cordova-plugin-logtofile-1.1.2.tgz",
+  "_shasum": "313fb5ef0a5a13f41ac4d110a28ab63eb138232c",
+  "_spec": "cordova-plugin-logtofile",
+  "_where": "/home/ambrosi/Desktop/AmbienteSviluppo/AlfrescoDev/Cordova-workspace/myTimeweb",
+  "author": {
+    "name": "Andreas Scherer"
+  },
+  "bugs": {
+    "url": "https://github.com/andischerer/cordova-plugin-logtofile/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-logtofile",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova-Plugin logs to a logfile in filesystem",
+  "homepage": "https://github.com/andischerer/cordova-plugin-logtofile#readme",
+  "keywords": [
+    "logger",
+    "log",
+    "logfile",
+    "local",
+    "log4j",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-logtofile",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andischerer/cordova-plugin-logtofile.git"
+  },
+  "version": "1.1.2"
+}

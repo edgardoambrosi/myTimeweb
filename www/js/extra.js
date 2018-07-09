@@ -1589,15 +1589,26 @@ $( document ).ready(function() {
 		}
 
 		var log={
-			info:function(nameFile,mess){	
-				WriteLog.write(nameFile , function(mess) {
-					alert(JSON.stringify(mes));            
-				}, function(err) {
-					alert(JSON.stringify(err));
+			init:function(){
+				return cordova.file.dataDirectory
+			},
+			set:function(){	
+				var p=log.init
+				window.logToFile.setLogfilePath(p+'/log.txt', function () {
+					cordova.file.removeFile(p,"log.txt");
+					console.log("File Log Inizializzato")
+				}, function (err) {
+					console.log("File Log Non Inizializzato")
 				});
+			}
+			info:function(mess){	
+				window.logToFile.info('Sample info message');
 			}
 		}	
 		
+		//Inizializzo log file
+		log.set();
+
 		//Controllo se demo scaduta
 		log.info("log_info.txt","Controllo validita demo...")
 		console.log("Controllo validita demo...")
