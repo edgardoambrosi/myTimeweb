@@ -28,6 +28,9 @@
     <feature name="CallNumber">
         <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber" />
     </feature>
+    <feature name="WriteLog">
+        <param name="android-package" value="com.moust.cordova.writelog.WriteLog" />
+    </feature>
     <name>Timeweb Monitor</name>
     <description>
 		Timeweb monitor ti permette di avere alcune informazioni importanti relative alla tua giornata lavorativa.

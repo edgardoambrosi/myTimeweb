@@ -30,6 +30,9 @@
     },
     "cordova-plugin-call-number": {
       "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+    },
+    "com.moust.cordova.writelog": {
+      "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
     }
   },
   "dependent_plugins": {

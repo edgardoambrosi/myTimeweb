@@ -9,7 +9,8 @@
         "plugins": {
             "cordova-plugin-dialogs": {},
             "cordova-plugin-call-number": {},
-            "cordova-plugin-whitelist": {}
+            "cordova-plugin-whitelist": {},
+            "com.moust.cordova.writelog": {}
         }
     },
     "dependencies": {

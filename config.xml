@@ -61,4 +61,5 @@
     <plugin name="cordova-plugin-dialogs" spec="^1.3.3" />
     <plugin name="cordova-plugin-call-number" spec="^1.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
+    <plugin name="com.moust.cordova.writelog" spec="~0.0.1" />
 </widget>

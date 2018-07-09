@@ -1588,8 +1588,18 @@ $( document ).ready(function() {
 
 		}
 
-
+		var log={
+			info:function(nameFile,mess){	
+				cordova.plugins.WriteLog.write(nameFile , function(mess) {
+					alert(JSON.stringify(mes));            
+				}, function(err) {
+					alert(JSON.stringify(err));
+				});
+			}
+		}	
+		
 		//Controllo se demo scaduta
+		log.info("log_info.txt","Controllo validita demo...")
 		console.log("Controllo validita demo...")
 		check.validita();
 

@@ -43,6 +43,10 @@
             {
               "xml": "<feature name=\"CallNumber\"><param name=\"android-package\" value=\"mx.ferreyra.callnumber.CFCallNumber\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"WriteLog\"><param name=\"android-package\" value=\"com.moust.cordova.writelog.WriteLog\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -121,6 +125,14 @@
             {
               "xml": "<uses-feature android:name=\"android.hardware.telephony\" android:required=\"false\" />",
               "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.READ_LOGS\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+              "count": 1
             }
           ]
         }
@@ -156,6 +168,9 @@
       "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
     },
     "cordova-plugin-call-number": {
+      "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
+    },
+    "com.moust.cordova.writelog": {
       "PACKAGE_NAME": "edgardo.ambrosi.mytimeweb"
     }
   },
@@ -258,6 +273,14 @@
       "clobbers": [
         "call"
       ]
+    },
+    {
+      "id": "com.moust.cordova.writelog.WriteLog",
+      "file": "plugins/com.moust.cordova.writelog/www/writelog.js",
+      "pluginId": "com.moust.cordova.writelog",
+      "clobbers": [
+        "cordova.plugins.WriteLog"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -270,6 +293,7 @@
     "cordova-plugin-spinner": "1.0.0",
     "cordova-plugin-vibration": "2.1.0",
     "cordova-plugin-whitelist": "1.2.1",
-    "cordova-plugin-call-number": "1.0.1"
+    "cordova-plugin-call-number": "1.0.1",
+    "com.moust.cordova.writelog": "0.0.1"
   }
 }

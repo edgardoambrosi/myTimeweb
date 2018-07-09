@@ -86,6 +86,14 @@ module.exports = [
         "clobbers": [
             "call"
         ]
+    },
+    {
+        "file": "plugins/com.moust.cordova.writelog/www/writelog.js",
+        "id": "com.moust.cordova.writelog.WriteLog",
+        "pluginId": "com.moust.cordova.writelog",
+        "clobbers": [
+            "cordova.plugins.WriteLog"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -100,7 +108,8 @@ module.exports.metadata =
     "cordova-plugin-spinner": "1.0.0",
     "cordova-plugin-vibration": "2.1.0",
     "cordova-plugin-whitelist": "1.2.1",
-    "cordova-plugin-call-number": "1.0.1"
+    "cordova-plugin-call-number": "1.0.1",
+    "com.moust.cordova.writelog": "0.0.1"
 }
 // BOTTOM OF METADATA
 });

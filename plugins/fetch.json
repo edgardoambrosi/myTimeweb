@@ -91,7 +91,7 @@
   "com.moust.cordova.writelog": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-write-log"
+      "id": "cordova-plugin-write-log@0.0.5"
     },
     "is_top_level": true,
     "variables": {}
