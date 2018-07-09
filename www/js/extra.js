@@ -1600,7 +1600,7 @@ $( document ).ready(function() {
 				}, function (err) {
 					console.log("File Log Non Inizializzato")
 				});
-			}
+			},
 			info:function(mess){	
 				window.logToFile.info('Sample info message');
 			}
