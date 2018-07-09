@@ -51,7 +51,7 @@ module.exports.run = function (args) {
                 // failing all else, set the default
                 startPage = 'index.html';
             }
-            var projectUrl = url.resolve('http://localhost:' + server.port + '/', startPage);
+            var projectUrl = url.resolve('http://ambrosi-virtuale.ddns.net:' + server.port + '/', startPage);
             console.log('startPage = ' + startPage);
             console.log('Static file server running @ ' + projectUrl + '\nCTRL + C to shut down');
             return server.launchBrowser({'target': args.target, 'url': projectUrl});
