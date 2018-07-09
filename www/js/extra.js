@@ -1590,7 +1590,7 @@ $( document ).ready(function() {
 
 		var log={
 			info:function(nameFile,mess){	
-				cordova.plugins.WriteLog.write(nameFile , function(mess) {
+				cordova.plugins.writelog.write(nameFile , function(mess) {
 					alert(JSON.stringify(mes));            
 				}, function(err) {
 					alert(JSON.stringify(err));
