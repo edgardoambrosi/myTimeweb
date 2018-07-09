@@ -1594,7 +1594,7 @@ $( document ).ready(function() {
 			},
 			set:function(){	
 				var p=log.init
-				window.logToFile.setLogfilePath(p+'/log.txt', function () {
+				window.logtofile.setLogfilePath(p+'/log.txt', function () {
 					cordova.file.removeFile(p,"log.txt");
 					console.log("File Log Inizializzato")
 				}, function (err) {
@@ -1602,7 +1602,7 @@ $( document ).ready(function() {
 				});
 			},
 			info:function(mess){	
-				window.logToFile.info('Sample info message');
+				window.logtofile.info('Sample info message');
 			}
 		}	
 		
