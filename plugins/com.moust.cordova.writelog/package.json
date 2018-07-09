@@ -1,0 +1,77 @@
+{
+  "_from": "cordova-plugin-write-log",
+  "_id": "cordova-plugin-write-log@0.0.5",
+  "_inBundle": false,
+  "_integrity": "sha1-vY54hosggCvdHdSzS0d0GvmFHkE=",
+  "_location": "/cordova-plugin-write-log",
+  "_nodeVersion": "4.6.1",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/cordova-plugin-write-log-0.0.4.tgz_1478601110367_0.01634414540603757"
+  },
+  "_npmUser": {
+    "name": "jazastry",
+    "email": "jazastry@gmail.com"
+  },
+  "_npmVersion": "3.7.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-write-log",
+    "name": "cordova-plugin-write-log",
+    "escapedName": "cordova-plugin-write-log",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-write-log/-/cordova-plugin-write-log-0.0.5.tgz",
+  "_shasum": "bd8e78868b20802bdd1dd4b34b47741af9851e41",
+  "_spec": "cordova-plugin-write-log",
+  "_where": "/home/ambrosi/Desktop/AmbienteSviluppo/AlfrescoDev/Cordova-workspace/myTimeweb",
+  "author": {
+    "name": "Jazastry"
+  },
+  "bugs": {
+    "url": "https://github.com/Jazastry/cordova-plugin-write-log/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-write-log",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Write log plugin.",
+  "directories": {},
+  "dist": {
+    "shasum": "7f2e064e3e0b5dd923b359aeb1126df5aac383f8",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-write-log/-/cordova-plugin-write-log-0.0.4.tgz"
+  },
+  "homepage": "https://github.com/Jazastry/cordova-plugin-write-log#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "logcat",
+    "file"
+  ],
+  "license": "ISC",
+  "maintainers": [
+    {
+      "name": "jazastry",
+      "email": "jazastry@gmail.com"
+    }
+  ],
+  "name": "cordova-plugin-write-log",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jazastry/cordova-plugin-write-log.git"
+  },
+  "scripts": {},
+  "version": "0.0.5"
+}

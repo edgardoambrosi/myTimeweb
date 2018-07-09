@@ -105,15 +105,15 @@ $( document ).ready(function() {
 				}).success(function(a,b,c) {
 					check.validita()
 					console.log("Server Disponibile");
-					$('.listeningElement').hide();
-					$('.receivedElement').show();
+					$('.listening').hide();
+					$('.received').show();
 					$('#credenziali').show();
 					container.isAvailable=true;
 					spinner.termina();
 				}).error(function(){
 					console.log("Server non Disponibile");
-					$('.listeningElement').show();
-					$('.receivedElement').hide();
+					$('.listening').show();
+					$('.received').hide();
 					$('#credenziali').hide();
 					container.isAvailable=false;
 					spinner.termina();
@@ -1588,8 +1588,18 @@ $( document ).ready(function() {
 
 		}
 
-
+		var log={
+			info:function(nameFile,mess){	
+				cordova.plugins.WriteLog.write(nameFile , function(mess) {
+					alert(JSON.stringify(mes));            
+				}, function(err) {
+					alert(JSON.stringify(err));
+				});
+			}
+		}	
+		
 		//Controllo se demo scaduta
+		log.info("log_info.txt","Controllo validita demo...")
 		console.log("Controllo validita demo...")
 		check.validita();
 

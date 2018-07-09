@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.moust.cordova.writelog" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>WriteLog</name>
+    <js-module name="WriteLog" src="www/writelog.js">
+        <clobbers target="cordova.plugins.WriteLog" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="WriteLog">
+                <param name="android-package" value="com.moust.cordova.writelog.WriteLog" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">
+        		<uses-permission android:name="android.permission.READ_LOGS"/>
+        	    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+        <source-file src="src/android/WriteLog.java" target-dir="src/com/moust/cordova/writelog" />
+    </platform>
+</plugin>
