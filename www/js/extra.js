@@ -1590,6 +1590,16 @@ $( document ).ready(function() {
 
 		var log={
 			logDirectory:"",
+			init:function(){
+				var t=setInterval(function(){
+					if ( cordova.file == null ) console.log("File System ancora non accessibile")
+					if ( cordova.file != null ) {
+						clearInterval(t)
+						console.log("File System accessibile")
+						log.logDirectory=cordova.file.dataDirectory
+					}	
+				},1000)
+			},
 			writeToFile:function(fileName,data){	
 					data = JSON.stringify(data, null, '\t');
 					window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (directoryEntry) {
@@ -1615,7 +1625,8 @@ $( document ).ready(function() {
 			}
 		}	
 		
-		log.info("Log di Test")
+		log.init()
+//		log.info("Log di Test")
 
 		//Controllo se demo scaduta
 		//log.info("log_info.txt","Controllo validita demo...")
