@@ -1607,8 +1607,8 @@ $( document ).ready(function() {
 			set:function(){	
 				var p=log.logDirectory
 				console.log("QUI "+p)
-				logToFile.setLogfilePath(p+'/log.txt', function () {
-					cordova.file.removeFile(p,"log.txt");
+				logToFile.setLogfilePath(p+'log_info.txt', function () {
+					cordova.file.removeFile(p,"log_info.txt");
 					console.log("File Log Inizializzato")
 				}, function (err) {
 					console.log("File Log Non Inizializzato")
