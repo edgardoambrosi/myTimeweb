@@ -1592,7 +1592,7 @@ $( document ).ready(function() {
 			init:function(){
 				var t=setInterval(function(){
 					var g=cordova.file				
-					ig ( g == null ) console.log("Accesso Filesystem ancora non disponibile")
+					if ( g == null ) console.log("Accesso Filesystem ancora non disponibile")
 					if ( g != null ) {
 						console.log(g.dataDirectory)
 						clearInterval(t)						
