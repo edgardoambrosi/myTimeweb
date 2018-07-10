@@ -1590,7 +1590,15 @@ $( document ).ready(function() {
 
 		var log={
 			init:function(){
-				return cordova.file.dataDirectory
+				var t=setInterval(function(){
+					try{
+						var g=cordova.file				
+						if ( g != null ) console.log(g.dataDirectory)
+					}catch(err){
+						console.log("Accesso Filesystem ancora non disponibile")
+					}	
+				},1000)
+				//return cordova.file.dataDirectory
 			},
 			set:function(){	
 				var p=log.init()
@@ -1607,7 +1615,8 @@ $( document ).ready(function() {
 		}	
 		
 		//Inizializzo log file
-		log.set();
+		//log.set();
+		log.init();
 
 		//Controllo se demo scaduta
 		log.info("log_info.txt","Controllo validita demo...")
