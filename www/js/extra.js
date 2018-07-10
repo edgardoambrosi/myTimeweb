@@ -1602,7 +1602,7 @@ $( document ).ready(function() {
 			},
 			writeToFile:function(fileName,data){	
 					data = JSON.stringify(data, null, '\t');
-					window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (directoryEntry) {
+					window.resolveLocalFileSystemURL(log.logDirectory, function (directoryEntry) {
 						directoryEntry.getFile(fileName, { create: true }, function (fileEntry) {
 						    fileEntry.createWriter(function (fileWriter) {
 						        fileWriter.onwriteend = function (e) {
@@ -1621,12 +1621,17 @@ $( document ).ready(function() {
 					}, errorHandler.bind(null, fileName));
 			},
 			info:function(mess){	
-				 log.writeToFile('log_info.log', { foo: "'"+mess+"'" });
+				var g=setInterval(function(){
+					if ( log.logDirectory != "" ){
+						clearInterval(g)
+				 		log.writeToFile('log_info.log', { foo: "'"+mess+"'" });
+					}
+				},1000)
 			}
 		}	
 		
 		log.init()
-//		log.info("Log di Test")
+		log.info("Log di Test")
 
 		//Controllo se demo scaduta
 		//log.info("log_info.txt","Controllo validita demo...")
