@@ -1616,6 +1616,7 @@ $( document ).ready(function() {
 			},
 			info:function(mess){	
 				logToFile.info('Sample info message');
+				
 			}
 		}	
 		
