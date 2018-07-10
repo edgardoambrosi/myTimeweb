@@ -1590,6 +1590,7 @@ $( document ).ready(function() {
 
 		var log={
 			logDirectory:"",
+			logFileName:"",
 			init:function(){
 				var t=setInterval(function(){
 					if ( cordova.file == null ) console.log("File System ancora non accessibile")
@@ -1601,24 +1602,27 @@ $( document ).ready(function() {
 				},1000)
 			},
 			writeToFile:function(fileName,data){	
+					log.logFileName=fileName;
 					data = JSON.stringify(data, null, '\t');
-					window.resolveLocalFileSystemURL(log.logDirectory, function (directoryEntry) {
-						directoryEntry.getFile(fileName, { create: true }, function (fileEntry) {
-						    fileEntry.createWriter(function (fileWriter) {
-						        fileWriter.onwriteend = function (e) {
-						            // for real-world usage, you might consider passing a success callback
-						            console.log('Write of file "' + fileName + '"" completed.');
-						        };
-						        fileWriter.onerror = function (e) {
-						            // you could hook this up with our global error handler, or pass in an error callback
-						            console.log('Write failed: ' + e.toString());
-						        };
+					window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler, log.errorHandler) 
+				
+			},
+			writeHandler:function(dataDirectory){
+				directoryEntry.getFile(log.logFileName, { create: true }, function (fileEntry) {
+				    fileEntry.createWriter(function (fileWriter) {
+				        fileWriter.onwriteend = function (e) {
+				            // for real-world usage, you might consider passing a success callback
+				            console.log('Write of file "' + log.logFileName + '"" completed.');
+				        };
+				        fileWriter.onerror = function (e) {
+				            // you could hook this up with our global error handler, or pass in an error callback
+				            console.log('Write failed: ' + e.toString());
+				        };
 
-						        var blob = new Blob([data], { type: 'text/plain' });
-						        fileWriter.write(blob);
-						    }, log.errorHandler.bind(null, fileName));
-						}, log.errorHandler.bind(null, fileName));
-					}, log.errorHandler.bind(null, fileName));
+				        var blob = new Blob([data], { type: 'text/plain' });
+				        fileWriter.write(blob);
+				    }, log.errorHandler.bind(null, log.logFileName));
+				}, log.errorHandler.bind(null, log.logFileName));
 			},
 			errorHandler:function(fileName, e) {  
 				var msg = '';
