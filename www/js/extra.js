@@ -1590,52 +1590,32 @@ $( document ).ready(function() {
 
 		var log={
 			logDirectory:"",
-			set:function(){	
-			   var type = window.TEMPORARY;
-			   var size = 5*1024*1024;
-			   window.requestFileSystem(type, size, successCallback, errorCallback)
-			   function successCallback(fs) {
-				  fs.root.getFile('log_info.txt', {create: true, exclusive: true}, function(fileEntry) {
-					 alert('File creation successfull!')
-				  }, errorCallback);
-			   }
+			writeToFile:function(fileName,data){	
+					data = JSON.stringify(data, null, '\t');
+					window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (directoryEntry) {
+						directoryEntry.getFile(fileName, { create: true }, function (fileEntry) {
+						    fileEntry.createWriter(function (fileWriter) {
+						        fileWriter.onwriteend = function (e) {
+						            // for real-world usage, you might consider passing a success callback
+						            console.log('Write of file "' + fileName + '"" completed.');
+						        };
+						        fileWriter.onerror = function (e) {
+						            // you could hook this up with our global error handler, or pass in an error callback
+						            console.log('Write failed: ' + e.toString());
+						        };
 
-			   function errorCallback(error) {
-				  alert("ERROR: " + error.code)
-			   }
+						        var blob = new Blob([data], { type: 'text/plain' });
+						        fileWriter.write(blob);
+						    }, errorHandler.bind(null, fileName));
+						}, errorHandler.bind(null, fileName));
+					}, errorHandler.bind(null, fileName));
 			},
 			info:function(mess){	
-			   var type = window.TEMPORARY;
-			   var size = 5*1024*1024;
-			   window.requestFileSystem(type, size, successCallback, errorCallback)
-
-			   function successCallback(fs) {
-				  fs.root.getFile('log_info.txt', {create: true}, function(fileEntry) {
-
-					 fileEntry.createWriter(function(fileWriter) {
-						fileWriter.onwriteend = function(e) {
-						   alert('Write completed.');
-						};
-
-						fileWriter.onerror = function(e) {
-						   alert('Write failed: ' + e.toString());
-						};
-
-						var blob = new Blob([mess], {type: 'text/plain'});
-						fileWriter.write(blob);
-					 }, errorCallback);
-				  }, errorCallback);
-			   }
-
-			   function errorCallback(error) {
-				  alert("ERROR: " + error.code)
-			   }				
+				 log.writeToFile('log_info.log', { foo: "'"+mess+"'" });
 			}
 		}	
 		
-		//Inizializzo log file
-		log.set();
-		log.info("Log di TEst")
+		log.info("Log di Test")
 
 		//Controllo se demo scaduta
 		//log.info("log_info.txt","Controllo validita demo...")
