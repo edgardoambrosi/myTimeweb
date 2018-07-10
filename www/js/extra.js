@@ -1590,39 +1590,52 @@ $( document ).ready(function() {
 
 		var log={
 			logDirectory:"",
-			init:function(){
-				var t=setInterval(function(){
-					var g=cordova.file				
-					if ( g == null ) console.log("Accesso Filesystem ancora non disponibile")
-					if ( g != null ) {
-						clearInterval(t)						
-						console.log(g.dataDirectory)
-						log.logDirectory=g.dataDirectory
-						log.set();
-						log.info("log_info.txt","Controllo validita demo...")
-					}	
-				},1000)
-				//return cordova.file.dataDirectory
-			},
 			set:function(){	
-				var p=log.logDirectory
-				console.log("QUI "+p)
-				logToFile.setLogfilePath(p+'log_info.txt', function () {
-					cordova.file.removeFile(p,"log_info.txt");
-					console.log("File Log Inizializzato")
-				}, function (err) {
-					console.log("File Log Non Inizializzato")
-				});
+			   var type = window.TEMPORARY;
+			   var size = 5*1024*1024;
+			   window.requestFileSystem(type, size, successCallback, errorCallback)
+			   function successCallback(fs) {
+				  fs.root.getFile('log_info.txt', {create: true, exclusive: true}, function(fileEntry) {
+					 alert('File creation successfull!')
+				  }, errorCallback);
+			   }
+
+			   function errorCallback(error) {
+				  alert("ERROR: " + error.code)
+			   }
 			},
 			info:function(mess){	
-				logToFile.info('Sample info message');
-				
+			   var type = window.TEMPORARY;
+			   var size = 5*1024*1024;
+			   window.requestFileSystem(type, size, successCallback, errorCallback)
+
+			   function successCallback(fs) {
+				  fs.root.getFile('log_info.txt', {create: true}, function(fileEntry) {
+
+					 fileEntry.createWriter(function(fileWriter) {
+						fileWriter.onwriteend = function(e) {
+						   alert('Write completed.');
+						};
+
+						fileWriter.onerror = function(e) {
+						   alert('Write failed: ' + e.toString());
+						};
+
+						var blob = new Blob([mess], {type: 'text/plain'});
+						fileWriter.write(blob);
+					 }, errorCallback);
+				  }, errorCallback);
+			   }
+
+			   function errorCallback(error) {
+				  alert("ERROR: " + error.code)
+			   }				
 			}
 		}	
 		
 		//Inizializzo log file
-		//log.set();
-		log.init();
+		log.set();
+		log.info("Log di TEst")
 
 		//Controllo se demo scaduta
 		//log.info("log_info.txt","Controllo validita demo...")
