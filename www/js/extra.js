@@ -1621,8 +1621,8 @@ $( document ).ready(function() {
 
 				        var blob = new Blob([data], { type: 'text/plain' });
 				        fileWriter.write(blob);
-				    }, log.errorHandler.bind(null, log.logFileName));
-				}, log.errorHandler.bind(null, log.logFileName));
+				    }, log.errorHandler(log.logFileName));
+				}, log.errorHandler.bind(log.logFileName));
 			},
 			errorHandler:function(fileName, e) {  
 				var msg = '';
