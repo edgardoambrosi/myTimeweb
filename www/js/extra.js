@@ -1593,7 +1593,7 @@ $( document ).ready(function() {
 				return cordova.file.dataDirectory
 			},
 			set:function(){	
-				var p=log.init
+				var p=log.init()
 				window.logtofile.setLogfilePath(p+'/log.txt', function () {
 					cordova.file.removeFile(p,"log.txt");
 					console.log("File Log Inizializzato")
