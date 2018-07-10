@@ -1591,11 +1591,11 @@ $( document ).ready(function() {
 		var log={
 			init:function(){
 				var t=setInterval(function(){
-					try{
-						var g=cordova.file				
-						if ( g != null ) console.log(g.dataDirectory)
-					}catch(err){
-						console.log("Accesso Filesystem ancora non disponibile")
+					var g=cordova.file				
+					ig ( g == null ) console.log("Accesso Filesystem ancora non disponibile")
+					if ( g != null ) {
+						console.log(g.dataDirectory)
+						clearInterval(t)						
 					}	
 				},1000)
 				//return cordova.file.dataDirectory
