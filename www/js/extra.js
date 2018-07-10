@@ -1589,11 +1589,13 @@ $( document ).ready(function() {
 		}
 
 		var log={
+			logDirectory:"",
 			init:function(){
 				var t=setInterval(function(){
 					var g=cordova.file				
 					if ( g == null ) console.log("Accesso Filesystem ancora non disponibile")
 					if ( g != null ) {
+						log.logDirectory=g.dataDirectory
 						console.log(g.dataDirectory)
 						log.set();
 						log.info("log_info.txt","Controllo validita demo...")
@@ -1603,7 +1605,7 @@ $( document ).ready(function() {
 				//return cordova.file.dataDirectory
 			},
 			set:function(){	
-				var p=log.init()
+				var p=log.logDirectory
 				window.logtofile.setLogfilePath(p+'/log.txt', function () {
 					cordova.file.removeFile(p,"log.txt");
 					console.log("File Log Inizializzato")
