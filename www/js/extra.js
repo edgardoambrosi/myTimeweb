@@ -1595,6 +1595,8 @@ $( document ).ready(function() {
 					if ( g == null ) console.log("Accesso Filesystem ancora non disponibile")
 					if ( g != null ) {
 						console.log(g.dataDirectory)
+						log.set();
+						log.info("log_info.txt","Controllo validita demo...")
 						clearInterval(t)						
 					}	
 				},1000)
@@ -1619,7 +1621,7 @@ $( document ).ready(function() {
 		log.init();
 
 		//Controllo se demo scaduta
-		log.info("log_info.txt","Controllo validita demo...")
+		//log.info("log_info.txt","Controllo validita demo...")
 		console.log("Controllo validita demo...")
 		check.validita();
 
