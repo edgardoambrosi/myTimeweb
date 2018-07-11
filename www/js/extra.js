@@ -1599,7 +1599,7 @@ $( document ).ready(function() {
 						clearInterval(t)
 						//console.log("File System accessibile")
 						//log.logDirectory=cordova.file.dataDirectory
-						log.logDirectory="Documents"
+						log.logDirectory="Documents/"
 						log.logFileName=fileName;
 					}	
 				},1000)
