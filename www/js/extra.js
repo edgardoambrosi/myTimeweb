@@ -1618,7 +1618,7 @@ $( document ).ready(function() {
 				});				
 			},
 			writeError:function(error){
-				console.log("RICEVUTO ERRORE: "+error.name)
+				console.log("RICEVUTO ERRORE: "+error.message)
 			},
 			writeToFile:function(data){	
 					log.logMessage = data //JSON.stringify(data, null, '\t');
