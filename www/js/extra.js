@@ -1591,35 +1591,50 @@ $( document ).ready(function() {
 		var log={
 			logDirectory:"",
 			logFileName:"",
-			init:function(){
+			logMessage:"",
+			init:function(fileName){
 				var t=setInterval(function(){
 					if ( cordova.file == null ) console.log("File System ancora non accessibile")
 					if ( cordova.file != null ) {
 						clearInterval(t)
-						console.log("File System accessibile")
-						log.logDirectory=cordova.file.dataDirectory
+						//console.log("File System accessibile")
+						//log.logDirectory=cordova.file.dataDirectory
+						log.logDirectory="Documents"
+						log.logFileName=fileName;
 					}	
 				},1000)
 			},
 			writeHandler:function(fileEntry){
-				console.log("QUI   "+fileEntry.name)
+				//console.log("QUI   "+fileEntry)
+				fileEntry.getFile(log.logFileName, {create:true}, function(file) {
+					logOb = file;
+					logOb.createWriter(function(fileWriter) {
+						fileWriter.seek(fileWriter.length);
+						var blob = new Blob([log.logMessage], {type:'text/plain'});
+						fileWriter.write(blob);
+						//console.log("ok, in theory i worked");
+					}, log.writeError);					
+					//console.log("got the file", file);
+				});				
 			},
-			writeToFile:function(fileName,data){	
-					log.logFileName=fileName;
-					data = JSON.stringify(data, null, '\t');
-					window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler) 
+			writeError:function(error){
+				console.log("RICEVUTO ERRORE: "+error.name)
+			},
+			writeToFile:function(data){	
+					log.logMessage = data //JSON.stringify(data, null, '\t');
+					window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler,log.writeError) 
 			},
 			info:function(mess){	
 				var g=setInterval(function(){
 					if ( log.logDirectory != "" ){
 						clearInterval(g)
-				 		log.writeToFile('log_info.log', { foo: "'"+mess+"'" });
+				 		log.writeToFile({ foo: "'"+mess+"'" });
 					}
 				},1000)
 			}
 		}	
 		
-		log.init()
+		log.init("log_info.log")
 		log.info("Log di Test")
 
 		//Controllo se demo scaduta

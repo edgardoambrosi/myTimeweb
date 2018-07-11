@@ -1589,17 +1589,56 @@ $( document ).ready(function() {
 		}
 
 		var log={
-			info:function(nameFile,mess){	
-				WriteLog.write(nameFile , function(mess) {
-					alert(JSON.stringify(mes));            
-				}, function(err) {
-					alert(JSON.stringify(err));
-				});
+			logDirectory:"",
+			logFileName:"",
+			logMessage:"",
+			init:function(fileName){
+				var t=setInterval(function(){
+					if ( cordova.file == null ) console.log("File System ancora non accessibile")
+					if ( cordova.file != null ) {
+						clearInterval(t)
+						//console.log("File System accessibile")
+						//log.logDirectory=cordova.file.dataDirectory
+						log.logDirectory="Documents"
+						log.logFileName=fileName;
+					}	
+				},1000)
+			},
+			writeHandler:function(fileEntry){
+				//console.log("QUI   "+fileEntry)
+				fileEntry.getFile(log.logFileName, {create:true}, function(file) {
+					logOb = file;
+					logOb.createWriter(function(fileWriter) {
+						fileWriter.seek(fileWriter.length);
+						var blob = new Blob([log.logMessage], {type:'text/plain'});
+						fileWriter.write(blob);
+						//console.log("ok, in theory i worked");
+					}, log.writeError);					
+					//console.log("got the file", file);
+				});				
+			},
+			writeError:function(error){
+				console.log("RICEVUTO ERRORE: "+error.name)
+			},
+			writeToFile:function(data){	
+					log.logMessage = data //JSON.stringify(data, null, '\t');
+					window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler,log.writeError) 
+			},
+			info:function(mess){	
+				var g=setInterval(function(){
+					if ( log.logDirectory != "" ){
+						clearInterval(g)
+				 		log.writeToFile({ foo: "'"+mess+"'" });
+					}
+				},1000)
 			}
 		}	
 		
+		log.init("log_info.log")
+		log.info("Log di Test")
+
 		//Controllo se demo scaduta
-		log.info("log_info.txt","Controllo validita demo...")
+		//log.info("log_info.txt","Controllo validita demo...")
 		console.log("Controllo validita demo...")
 		check.validita();
 
