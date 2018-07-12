@@ -863,7 +863,7 @@ $( document ).ready(function() {
 				});
 			},
 			library:function(u){
-				log.info("QUI)
+				log.info("QUI")
 				$.ajax({
 				  url: notifiche_url+"/"+u,
                   async:false,
