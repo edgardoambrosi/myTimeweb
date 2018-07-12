@@ -33,7 +33,9 @@ $( document ).ready(function() {
 		var COMUNICAZIONI="";
 		var IDDIP="";
 		var MEMORCOORD=[0,0];
-
+		var LOGINFOARRAY=[];
+				
+			
 		var check={
 			maxDay:15,
 			gestione_validita:function(d){
@@ -860,6 +862,7 @@ $( document ).ready(function() {
 					//subito dopo il login al servizio notifica effettuo il download delle notifiche
 		       		notifiche.library($('#NomeUtente').val());
 				}).error(function(a,b,c){
+					log.info("Autenticazione Notifiche Incompleta. Non si potranno recuperare le comunicazioni da parte dell'ente. Verificare le credenziali del sistema di notifica.")	
 					avvisi.comunicazione("Autenticazione Notifiche Incompleta. Non si potranno recuperare le comunicazioni da parte dell'ente. Verificare le credenziali del sistema di notifica.")	
 				});
 			},
@@ -900,6 +903,7 @@ $( document ).ready(function() {
 						}
                     },5000)
 				}).error(function(a,b,c){
+					log.info("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")
 					avvisi.comunicazione("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
                 });
 			}
@@ -1591,59 +1595,53 @@ $( document ).ready(function() {
 		var log={
 			logDirectory:"",
 			logFileName:"",
-			logMessage:"",
 			init:function(fileName){
 				var t=setInterval(function(){
 					if ( cordova.file == null ) console.log("File System ancora non accessibile")
 					if ( cordova.file != null ) {
 						clearInterval(t)
-						//console.log("File System accessibile")
 						log.logDirectory=cordova.file.externalDataDirectory 
 						log.logFileName=fileName;
-						//console.log("QUI "+cordova.file.externalDataDirectory )
-
 						window.resolveLocalFileSystemURL(log.logDirectory, function(dir){
 							dir.getFile(fileName, {create:false}, function(file) {
 								file.remove(function(){console.log("File Rimosso")},function(err){console.log(err.code)})
 							});
-						});						
+						});	
+						window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler);					
 					}	
 				},1000)
 			},
 			writeHandler:function(dir){
-				var logMess=log.logMessage
-				var logFile=log.logFileName
-				var reader = new FileReader()
-				reader.onload=function(){
-					console.log(reader.result)
-				}
-				//console.log("got main dir",dir.fullPath);
-				dir.getFile(logFile, {create:true}, function(file) {
-					//console.log("got the file", file.name);
-					logOb = file;
-					//console.log("App started");			
-					if(!logOb) return;
-					var log = logMess + " [" + (new Date()) + "]\n";
-					//console.log("going to log "+log);
-					logOb.createWriter(function(fileWriter) {
-						fileWriter.seek(fileWriter.length);
-						var blob = new Blob([log], {type:'text/plain'});
-						//quando il metodo readAs... del FileReader viene invocato, scatta il trigger onload (definito sopra ) che stampa 
-						//il blob
-						reader.readAsText(blob);
-						fileWriter.write(blob);
-						//console.log("ok, in theory i worked");
-					}, log.writeError);
+				var wh=setInterval(function(){
+					if (LOGINFOARRAY.length > 0) {
+						var logMess=LOGINFOARRAY.pop(0)
+						var logFile=log.logFileName
+						var reader = new FileReader()
+						reader.onload=function(){
+							console.log(reader.result)
+						}
+						dir.getFile(logFile, {create:true}, function(file) {
+							logOb = file;
+							if(!logOb) return;
+							var log = logMess + " [" + (new Date()) + "]\n";
+							logOb.createWriter(function(fileWriter) {
+								fileWriter.seek(fileWriter.length);
+								var blob = new Blob([log], {type:'text/plain'});
+								/*quando il metodo readAs... del FileReader viene invocato, scatta il trigger onload (definito sopra ) che stampa il blob*/
+								reader.readAsText(blob);
+								fileWriter.write(blob);
+							}, log.writeError);
 
-				});
+						});
+					}	
+				},500)
 				
 			},
 			writeError:function(error){
 				console.log("RICEVUTO ERRORE: "+error.message)
 			},
 			writeToFile:function(mess){	
-				log.logMessage=mess;
-				window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler);
+				LOGINFOARRAY.push(mess)
 			},
 			info:function(mess){	
 				var g=setInterval(function(){
@@ -1657,15 +1655,13 @@ $( document ).ready(function() {
 		
 		//Inizializzo il file di log
 		log.init("log_info.log")
-
+		
 		//Controllo se demo scaduta
-		//console.log("Controllo validita demo...")
 		log.info("Controllo validita demo...")
 		check.validita();
 
 		//OTTIMIZZO LA VIEW DELLA APP
 		log.info("Ottimizzo il rendering della app...")
-		//console.log("Ottimizzo il rendering della app...")		
 		main.ottimizzo();
 
 
