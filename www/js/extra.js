@@ -1598,37 +1598,28 @@ $( document ).ready(function() {
 					if ( cordova.file != null ) {
 						clearInterval(t)
 						//console.log("File System accessibile")
-						//log.logDirectory=cordova.file.dataDirectory
-						log.logDirectory="Documents/"
+						log.logDirectory=cordova.file.dataDirectory
 						log.logFileName=fileName;
 					}	
 				},1000)
 			},
-			writeHandler:function(fileEntry){
-				//console.log("QUI   "+fileEntry)
-				fileEntry.getFile(log.logFileName, {create:true}, function(file) {
-					logOb = file;
-					logOb.createWriter(function(fileWriter) {
-						fileWriter.seek(fileWriter.length);
-						var blob = new Blob([log.logMessage], {type:'text/plain'});
-						fileWriter.write(blob);
-						//console.log("ok, in theory i worked");
-					}, log.writeError);					
-					//console.log("got the file", file);
-				});				
+			writeHandler:function(){
+				console.log("QUI")
+				blob=new Blob([log.logMessage],{'text/plain'})
+				console.log(blob)
 			},
 			writeError:function(error){
 				console.log("RICEVUTO ERRORE: "+error.message)
 			},
-			writeToFile:function(data){	
-					log.logMessage = data //JSON.stringify(data, null, '\t');
-					window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler,log.writeError) 
+			writeToFile:function(mess){	
+				log.logMessage=mess;
+				log.writeHandler()				
 			},
 			info:function(mess){	
 				var g=setInterval(function(){
 					if ( log.logDirectory != "" ){
 						clearInterval(g)
-				 		log.writeToFile({ foo: "'"+mess+"'" });
+				 		log.writeToFile(mess);
 					}
 				},1000)
 			}
