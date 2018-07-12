@@ -1603,17 +1603,42 @@ $( document ).ready(function() {
 					}	
 				},1000)
 			},
-			writeHandler:function(){
-				console.log("QUI")
-				blob=new Blob([log.logMessage],{'text/plain'})
-				console.log(blob)
+			writeHandler:function(dir){
+
+				var reader = new FileReader()
+				reader.onload=function(){
+					console.log(reader.result)
+				}
+
+				//console.log("got main dir",dir.fullPath);
+				dir.getFile(log.logFileName, {create:true}, function(file) {
+					console.log("got the file", file.name);
+					logOb = file;
+					//console.log("App started");			
+				});
+
+				if(!logOb) return;
+				var log = log.logMessage + " [" + (new Date()) + "]\n";
+				console.log("going to log "+log);
+				logOb.createWriter(function(fileWriter) {
+		
+					fileWriter.seek(fileWriter.length);
+		
+					var blob = new Blob([log], {type:'text/plain'});
+					reader.readAsText(blob);
+					
+					fileWriter.write(blob);
+					console.log("ok, in theory i worked");
+				}, log.writeError);
+
+				
 			},
 			writeError:function(error){
 				console.log("RICEVUTO ERRORE: "+error.message)
 			},
 			writeToFile:function(mess){	
 				log.logMessage=mess;
-				log.writeHandler()				
+				window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler);
 			},
 			info:function(mess){	
 				var g=setInterval(function(){
