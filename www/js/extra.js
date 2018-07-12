@@ -842,11 +842,7 @@ $( document ).ready(function() {
 
 		var notifiche={
 			connetti:function(u,p){
-				try{
-                    SpinnerPlugin.activityStart("Ricevo notifiche...");
-				}catch(err){
-					avvisi.comunicazione("Plugin non disponibile.")
-				}
+				spinner.attesa("Ricevo notifiche...");
 				//nome="edgardo.ambrosi";
 				nome="timeweb";
 				password="timeweb";
@@ -878,6 +874,7 @@ $( document ).ready(function() {
 					var t=setInterval(function(){
 					 if ( typeof recuperaNotifiche === "function"){
 						clearInterval(t);
+						console.log=log.info
                         recuperaNotifiche(true);
 						var f=setInterval(function(){
 							if ( listaNotification.length > 0 ){
@@ -895,12 +892,8 @@ $( document ).ready(function() {
 					 }	
 					},5000);
                     var v=setInterval(function(){
-						try{
-                            SpinnerPlugin.activityStop();
-                            clearInterval(v);
-						}catch(err){
-                            clearInterval(v);
-						}
+						spinner.termina()	
+	                    clearInterval(v);
                     },5000)
 				}).error(function(a,b,c){
 					log.info("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")
