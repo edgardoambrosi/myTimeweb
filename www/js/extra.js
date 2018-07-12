@@ -46,10 +46,10 @@ $( document ).ready(function() {
 					$(".container").remove();
 					avvisi.comunicazione("Demo Scaduta");	
 					$('#demo_info').show();				
-					console.log("Demo Scaduta!")
+					log.info("Demo Scaduta!")
 				}else{
 					//avvisi.comunicazione("Demo Valida");					
-					console.log("Demo Valida!")
+					log.info("Demo Valida!")
 				}	
 			},
 			validita:function(){
@@ -59,7 +59,7 @@ $( document ).ready(function() {
 					function(err){
 						//se la tabella esiste viene restituito codice 5				
 						if (err.code==5){
-				            console.log("Leggo Data Avvio");
+				            log.info("Leggo Data Avvio");
 							trial_db.transaction(
 								function(tx){
 									tx.executeSql(
@@ -77,14 +77,14 @@ $( document ).ready(function() {
 						}
 					},
 					function(){
-						console.log("Creazione Db StartDateDB...");
+						log.info("Creazione Db StartDateDB...");
 				        trial_db.transaction(
 				            function(tx){
 								tx.executeSql("INSERT INTO expired (date_avvio) VALUES ('"+new Date()+"');")
 				            },
 				            function(err){console.log(err)},
 				            function(){
-								console.log("Inizializzazione periodo prova eseguita.")
+								log.info("Inizializzazione periodo prova eseguita.")
 								avvisi.comunicazione("Salvataggio eseguito");
 							}
 				                                 
@@ -104,14 +104,14 @@ $( document ).ready(function() {
 				  method: 'GET'	
 				}).success(function(a,b,c) {
 					check.validita()
-					console.log("Server Disponibile");
+					log.info("Server Disponibile");
 					$('.listening').hide();
 					$('.received').show();
 					$('#credenziali').show();
 					container.isAvailable=true;
 					spinner.termina();
 				}).error(function(){
-					console.log("Server non Disponibile");
+					log.info("Server non Disponibile");
 					$('.listening').show();
 					$('.received').hide();
 					$('#credenziali').hide();
@@ -496,7 +496,7 @@ $( document ).ready(function() {
 		            	$('.menu-act').show();
 					}else{
 					    spinner.termina()
-						console.log("Autenticazione Effettuata");
+						log.info("Autenticazione Effettuata");
 						/*ESTRAGGO DALLA RISPOSTA l'ID DEL DIPENDENTE*/
 						var resp=$.parseHTML(a.responseText);
 						var t=$(resp).find('.linkcomandi').attr('href')
@@ -518,7 +518,7 @@ $( document ).ready(function() {
 				  data:"AZIONE=LOGOUT",
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					console.log("Logout effettuato");
+					log.info("Logout effettuato");
 					$('.received').hide()
 					$('.listening').show();
 					var cookies = document.cookie.split(";");
@@ -543,7 +543,7 @@ $( document ).ready(function() {
 				  //data:"AZIONE=CARTELLINO&DATAINIZIO=03-02-2016&DATAFINE=03-02-2016",
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					console.log("Orari Cartellino");
+					log.info("Orari Cartellino");
 					//alert("Orari Cartellino")
 					_TIMBRATURE=$(a).find('table[id="divDatiTB"]').find('tr').find('td[align="LEFT"]').eq(2).text();
 
@@ -594,7 +594,7 @@ $( document ).ready(function() {
 				  data:"AZIONE=CARTELLINO&DATAINIZIO="+DA+"&DATAFINE="+A,
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					console.log("Anomalie");
+					log.info("Anomalie");
 					$('#anomalieTable').find("tr:gt(0)").remove();
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
 					$.each(t,function(i,e){
@@ -639,7 +639,7 @@ $( document ).ready(function() {
 				  data:"AZIONE=GESTIONEGIUSTIFICATIVI&DATAINIZIO="+DA+"&DATAFINE="+A,
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					console.log("Giustificativi");
+					log.info("Giustificativi");
 					$('#giusTable').find("tr:gt(0)").remove();
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
 					$.each(t,function(i,e){
@@ -663,7 +663,7 @@ $( document ).ready(function() {
 				  data:"AZIONE=GESTIONETIMBRATURE&DATAINIZIO="+DA+"&DATAFINE="+A,
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					console.log("Timbrature");
+					log.info("Timbrature");
 					$('#timbTable').find("tr:gt(0)").remove();
 					var t=$(a).find('table[id="divDatiTB"]').find('tr');
 					$.each(t,function(i,e){
@@ -694,7 +694,7 @@ $( document ).ready(function() {
                    data:"AZIONE=RIEPILOGHIVGMENSILI&DATAINIZIOMENS="+DA+"&DATAFINEMENS="+A+"&VOCISELEZIONATE="+CAUSALE_SEL+"&GRIDRIEPILOGHIMENSILI=Descrizione&DOEXEC=DOEXEC&NOMEPAGATTUALE:VISUALIZZA%20TPAGINARIEPILOGOVGMENSILE&VIEWNULLROWS=S",
                    method: 'POST'
                    }).success(function(a,b,c) {
-                          console.log("Riepiloghi Contatori: "+ DA+" "+A);
+                          log.info("Riepiloghi Contatori: "+ DA+" "+A);
 						  __CAUSALE="00.00";
 	                      _CAUSALE=$(a).find('#divDatiTB tr td[align="right"]');
                           $.each(_CAUSALE,function(i,e){
@@ -743,7 +743,7 @@ $( document ).ready(function() {
                    data:"AZIONE=CARTELLINO&DETTAGLIOAZIONE=TOTALIVB&DATAINIZIO="+DA+"&DATAFINE="+A,
                    method: 'GET'
                    }).success(function(a,b,c) {
-                          console.log("Saldi: "+ DA+" "+A);
+                          log.info("Saldi: "+ DA+" "+A);
 	                      _TABLE=$(a).find('.CSTR').parent().parent().next().find('table').eq(1);
                           _TABLE.addClass('bordered condensed responstable')
 						  _TABLE.addClass('u-max-full-width')
@@ -761,7 +761,7 @@ $( document ).ready(function() {
                 data:"AZIONE=RIEPILOGHIVGMENSILI",
                 method: 'GET'
                 }).success(function(a,b,c) {
-                    console.log("Recupero Causali: ");
+                    log.info("Recupero Causali: ");
                     CAUSALI=$(a).find('select[name="VOCISELEZIONATE"]');
 					$(CAUSALI).removeAttr('multiple');
 					$('select[name="VOCISELEZIONATE"]').remove();
@@ -795,7 +795,7 @@ $( document ).ready(function() {
 		            data:"AZIONE=PROSPETTIGIUSTIFICATIVI",
 		            method: 'GET'
 		            }).success(function(a,b,c) {
-		                console.log("Recupero Giustificativi: ");
+		                log.info("Recupero Giustificativi: ");
 		                GIUSTIFICATIVI=$(a).find('select[name="VOCISELEZIONATE"]');
 						$(GIUSTIFICATIVI).removeAttr('multiple');
 						$('select[name="VOCISELEZIONATE"]').remove();
@@ -855,7 +855,7 @@ $( document ).ready(function() {
 				  data:"u="+nome+"&pw="+password,
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					console.log("Autenticazione Notifiche Effettuata");
+					log.info("Autenticazione Notifiche Effettuata");
 					TICKET=$(c.responseText).text().replace("\n", ""); //sostituisco \n perchè il testo estratto con text() come primo carattere lo include.
 					//subito dopo il login al servizio notifica effettuo il download delle notifiche
 		       		notifiche.library($('#NomeUtente').val());
@@ -871,7 +871,7 @@ $( document ).ready(function() {
 				  dataType:"script", 
 				  method: 'GET'	
 				}).success(function(a,b,c) {
-					console.log("Recupero Libreria Notifiche Effettuata");
+					log.info("Recupero Libreria Notifiche Effettuata");
 					var t=setInterval(function(){
 					 if ( typeof recuperaNotifiche === "function"){
 						clearInterval(t);
@@ -907,13 +907,13 @@ $( document ).ready(function() {
 
 		/*CONTROLLO TIMBRATURE SUCCESSIVE*/
 		$('#strisciata').click(function(){
-			console.log("...controllo timbrature...")
+			log.info("...controllo timbrature...")
 			env.reset();
 			timeweb.cartellino();
 		});
 
 		$('#saldo').click(function(){
-			console.log("...controllo timbrature...")
+			log.info("...controllo timbrature...")
 			env.reset();
 			timeweb.cartellino();
 		});
@@ -948,7 +948,7 @@ $( document ).ready(function() {
 		    var calibrazione = window.openDatabase("Calibrazione", "1.0", "Calibrazione", 200000);
 			calibrazione.transaction(
 				function(tx){tx.executeSql('DROP TABLE IF EXISTS Calibrazione')},
-				function(tx,err){console.log("Error processing SQL: "+err);}							
+				function(tx,err){log.info("Error processing SQL: "+err);}							
 			);
 			MEMORCOORD=[0,0]
    			main.ottimizzo();
@@ -973,7 +973,7 @@ $( document ).ready(function() {
 
 
 		$('.received').click(function(){
-			console.log("...tento la disconnessione...");
+			log.info("...tento la disconnessione...");
 			spinner.attesa("...tento la disconnessione...");			
 			timeweb.disconnetti();
 			$('#monitor').hide();
@@ -983,7 +983,7 @@ $( document ).ready(function() {
 
 		$('.listening').click(function(){
 			spinner.attesa("...tento la connessione...");
-			console.log("...tento la connessione...");
+			log.info("...tento la connessione...");
 			container.receivedEvent('deviceready');
 		});
 
@@ -1043,11 +1043,11 @@ $( document ).ready(function() {
 		        var credenziali = window.openDatabase("Credenziali", "1.0", "Credenziali", 200000);
 				credenziali.transaction(
 					function(tx){tx.executeSql('DROP TABLE IF EXISTS credenziali')},
-					function(tx,err){console.log("Error processing SQL: "+err);}							
+					function(tx,err){log.info("Error processing SQL: "+err);}							
 				);
 				credenziali.transaction(
 					function(tx){tx.executeSql('CREATE TABLE IF NOT EXISTS credenziali (username unique,password)')},
-					function(tx,err){console.log("Error processing SQL: "+err);}							
+					function(tx,err){log.info("Error processing SQL: "+err);}							
 				);
                 credenziali.transaction(
 					function(tx) {
@@ -1067,7 +1067,7 @@ $( document ).ready(function() {
 		});
 
 		$('#GiornoLavoro').on('input',function(){
-			console.log("...controllo timbrature del giorno scelto...")
+			log.info("...controllo timbrature del giorno scelto...")
 			env.reset();
 			timeweb.cartellino(DATA_GIORNO_LAVORATO);
 		});
@@ -1091,7 +1091,7 @@ $( document ).ready(function() {
 					s=true
 				},320)				
 				$('.overlay-menu').toggleClass('overlay-menu-open')
-				console.log("Apri o Ritira Menu")
+				log.info("Apri o Ritira Menu")
 			}	 
 			if(p==0 && s==true){
 				s=false
@@ -1100,7 +1100,7 @@ $( document ).ready(function() {
 					s=true
 				},320)				
 				$('.overlay-menu').removeClass('overlay-menu-open')				 
-				console.log("Chiudi Menu")				
+				log.info("Chiudi Menu")				
 			}	 
 		});		
 
@@ -1403,7 +1403,7 @@ $( document ).ready(function() {
 								$(".zoom").css('zoom',zoom)
 
 								//document.write(vpHeight+" "+ vpWidth +" "+iphoneResolutionRiferimento +" "+ thisDeviceResolution+" "+ zoom)
-								console.log("Y "+vpHeight+"-----"+" X "+vpWidth+"-----"+" Zoom per questo dispositivo "+zoom )
+								log.info("Y "+vpHeight+"-----"+" X "+vpWidth+"-----"+" Zoom per questo dispositivo "+zoom )
 
 							}
 
@@ -1448,7 +1448,7 @@ $( document ).ready(function() {
 
 
 												//document.write(vpHeight+" "+ vpWidth +" "+iphoneResolutionRiferimento +" "+ thisDeviceResolution+" "+ zoom)
-												console.log("Y "+vpHeight+"-----"+" X "+vpWidth+"-----"+" Zoom per questo dispositivo "+zoom )
+												log.info("Y "+vpHeight+"-----"+" X "+vpWidth+"-----"+" Zoom per questo dispositivo "+zoom )
 
 											}
 										},1000)
@@ -1480,7 +1480,7 @@ $( document ).ready(function() {
 					function(err){
 						//se la tabella esiste viene restituito codice 5				
 						if (err.code==5){
-				            console.log("Carico Impostazioni");
+				            log.info("Carico Impostazioni");
 							impostazioni.transaction(
 								function(tx){
 									tx.executeSql(
@@ -1503,14 +1503,14 @@ $( document ).ready(function() {
 						}
 					},
 					function(){
-						console.log("Creazione Db...");
+						log.info("Creazione Db...");
 				        impostazioni.transaction(
 				            function(tx){
 								tx.executeSql("INSERT INTO impostazioni (orarioiniziolavoro,totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+ORARIOINIZIOLAVORO+"','"+TOTALE+"','"+PAUSAPRANZO+"','"+server_url+"','"+notifiche_url+"','"+notifiche_aut_url+"');")
 				            },
 				            function(err){console.log(err)},
 				            function(){
-								console.log("Inizializzazione eseguita.")
+								log.info("Inizializzazione eseguita.")
 								if (feedback) avvisi.comunicazione("Salvataggio eseguito");
 							}
 				                                 
@@ -1528,11 +1528,11 @@ $( document ).ready(function() {
 				    var calibrazione = window.openDatabase("Calibrazione", "1.0", "Calibrazione", 200000);
 					calibrazione.transaction(
 						function(tx){tx.executeSql('DROP TABLE IF EXISTS Calibrazione')},
-						function(tx,err){console.log("Error processing SQL: "+err);}							
+						function(tx,err){log.info("Error processing SQL: "+err);}							
 					);
 					calibrazione.transaction(
 						function(tx){tx.executeSql('CREATE TABLE IF NOT EXISTS Calibrazione (X,Y)')},
-						function(tx,err){console.log("Error processing SQL: "+err);}							
+						function(tx,err){log.info("Error processing SQL: "+err);}							
 					);
 		            calibrazione.transaction(
 						function(tx) {
@@ -1598,39 +1598,44 @@ $( document ).ready(function() {
 					if ( cordova.file != null ) {
 						clearInterval(t)
 						//console.log("File System accessibile")
-						log.logDirectory=cordova.file.dataDirectory
+						log.logDirectory=cordova.file.externalDataDirectory 
 						log.logFileName=fileName;
+						//console.log("QUI "+cordova.file.externalDataDirectory )
+
+						window.resolveLocalFileSystemURL(log.logDirectory, function(dir){
+							dir.getFile(fileName, {create:false}, function(file) {
+								file.remove(function(){console.log("File Rimosso")},function(err){console.log(err.code)})
+							});
+						});						
 					}	
 				},1000)
 			},
 			writeHandler:function(dir){
-
+				var logMess=log.logMessage
+				var logFile=log.logFileName
 				var reader = new FileReader()
 				reader.onload=function(){
 					console.log(reader.result)
 				}
-
 				//console.log("got main dir",dir.fullPath);
-				dir.getFile(log.logFileName, {create:true}, function(file) {
-					console.log("got the file", file.name);
+				dir.getFile(logFile, {create:true}, function(file) {
+					//console.log("got the file", file.name);
 					logOb = file;
 					//console.log("App started");			
+					if(!logOb) return;
+					var log = logMess + " [" + (new Date()) + "]\n";
+					//console.log("going to log "+log);
+					logOb.createWriter(function(fileWriter) {
+						fileWriter.seek(fileWriter.length);
+						var blob = new Blob([log], {type:'text/plain'});
+						//quando il metodo readAs... del FileReader viene invocato, scatta il trigger onload (definito sopra ) che stampa 
+						//il blob
+						reader.readAsText(blob);
+						fileWriter.write(blob);
+						//console.log("ok, in theory i worked");
+					}, log.writeError);
+
 				});
-
-				if(!logOb) return;
-				var log = log.logMessage + " [" + (new Date()) + "]\n";
-				console.log("going to log "+log);
-				logOb.createWriter(function(fileWriter) {
-		
-					fileWriter.seek(fileWriter.length);
-		
-					var blob = new Blob([log], {type:'text/plain'});
-					reader.readAsText(blob);
-					
-					fileWriter.write(blob);
-					console.log("ok, in theory i worked");
-				}, log.writeError);
-
 				
 			},
 			writeError:function(error){
@@ -1650,16 +1655,17 @@ $( document ).ready(function() {
 			}
 		}	
 		
+		//Inizializzo il file di log
 		log.init("log_info.log")
-		log.info("Log di Test")
 
 		//Controllo se demo scaduta
-		//log.info("log_info.txt","Controllo validita demo...")
-		console.log("Controllo validita demo...")
+		//console.log("Controllo validita demo...")
+		log.info("Controllo validita demo...")
 		check.validita();
 
 		//OTTIMIZZO LA VIEW DELLA APP
-		console.log("Ottimizzo il rendering della app...")		
+		log.info("Ottimizzo il rendering della app...")
+		//console.log("Ottimizzo il rendering della app...")		
 		main.ottimizzo();
 
 
