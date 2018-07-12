@@ -51,7 +51,7 @@ $( document ).ready(function() {
 					log.info("Demo Scaduta!")
 				}else{
 					//avvisi.comunicazione("Demo Valida");					
-					log.info("Demo Valida!")
+					log.info("Demo Valida! Scade in data: " + DE.toDateString() )
 				}	
 			},
 			validita:function(){
@@ -863,6 +863,7 @@ $( document ).ready(function() {
 				});
 			},
 			library:function(u){
+				log.info("QUI)
 				$.ajax({
 				  url: notifiche_url+"/"+u,
                   async:false,
@@ -1633,14 +1634,11 @@ $( document ).ready(function() {
 			writeError:function(error){
 				console.log("RICEVUTO ERRORE: "+error.message)
 			},
-			writeToFile:function(mess){	
-				LOGINFOARRAY.push(mess)
-			},
 			info:function(mess){	
 				var g=setInterval(function(){
 					if ( log.logDirectory != "" ){
 						clearInterval(g)
-				 		log.writeToFile(mess);
+						LOGINFOARRAY.push(mess)
 					}
 				},1000)
 			}
