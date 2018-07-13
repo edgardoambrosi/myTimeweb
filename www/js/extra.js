@@ -1617,7 +1617,8 @@ $( document ).ready(function() {
 						var logFile=log.logFileName
 						var reader = new FileReader()
 						reader.onload=function(){
-							LOGINFOARRAY.push(reader.result)
+							true
+							//LOGINFOARRAY.push(reader.result)
 							//console.log(reader.result)
 						}
 						dir.getFile(logFile, {create:true}, function(file) {

@@ -1617,7 +1617,8 @@ $( document ).ready(function() {
 						var logFile=log.logFileName
 						var reader = new FileReader()
 						reader.onload=function(){
-							LOGINFOARRAY.push(reader.result)
+							true
+							//LOGINFOARRAY.push(reader.result)
 							//console.log(reader.result)
 						}
 						dir.getFile(logFile, {create:true}, function(file) {
@@ -1651,7 +1652,7 @@ $( document ).ready(function() {
 		}	
 	
 		//abilitare la seguente linea per ridirottare i messaggi in console provenienti dagli script delle dipendenze nel sistema locale di log
-		log.info=console.log
+		console.log=log.info
 		
 		//Inizializzo il file di log
 		log.init("log_info.log")
