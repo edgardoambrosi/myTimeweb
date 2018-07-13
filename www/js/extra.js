@@ -1616,11 +1616,6 @@ $( document ).ready(function() {
 						var logMess=LOGINFOARRAY.pop(0)
 						var logFile=log.logFileName
 						var reader = new FileReader()
-						reader.onload=function(){
-							true
-							//LOGINFOARRAY.push(reader.result)
-							//console.log(reader.result)
-						}
 						dir.getFile(logFile, {create:true}, function(file) {
 							logOb = file;
 							if(!logOb) return;
@@ -1628,8 +1623,6 @@ $( document ).ready(function() {
 							logOb.createWriter(function(fileWriter) {
 								fileWriter.seek(fileWriter.length);
 								var blob = new Blob([log], {type:'text/plain'});
-								/*quando il metodo readAs... del FileReader viene invocato, scatta il trigger onload (definito sopra ) che stampa il blob*/
-								reader.readAsText(blob);
 								fileWriter.write(blob);
 							}, log.writeError);
 
@@ -1651,8 +1644,14 @@ $( document ).ready(function() {
 			}
 		}	
 	
-		//abilitare la seguente linea per ridirottare i messaggi in console provenienti dagli script delle dipendenze nel sistema locale di log
-		console.log=log.info
+		//TODO:Mettere un controllo per verificare che l'esecuzione stia avvenendo in un browser oppure in un device mobile
+		if (window.cordova.platformId === 'browser'){
+			log.info=console.log
+		}else{
+			//abilitare la seguente linea per ridirottare i messaggi in console provenienti dagli script delle dipendenze nel sistema locale di log
+			console.log=log.info
+		} 	
+		
 		
 		//Inizializzo il file di log
 		log.init("log_info.log")
