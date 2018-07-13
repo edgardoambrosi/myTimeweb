@@ -1601,7 +1601,7 @@ $( document ).ready(function() {
 										LOGINFOARRAY.push("File Rimosso")	
 									},
 									function(err){
-										LOGINFOARRAY.push(err.code))	
+										LOGINFOARRAY.push(err.code)	
 									}
 								)
 							});
@@ -1617,7 +1617,7 @@ $( document ).ready(function() {
 						var logFile=log.logFileName
 						var reader = new FileReader()
 						reader.onload=function(){
-							LOGINFOARRAY.push(reader.result))
+							LOGINFOARRAY.push(reader.result)
 							//console.log(reader.result)
 						}
 						dir.getFile(logFile, {create:true}, function(file) {
