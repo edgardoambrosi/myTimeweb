@@ -874,7 +874,6 @@ $( document ).ready(function() {
 					var t=setInterval(function(){
 					 if ( typeof recuperaNotifiche === "function"){
 						clearInterval(t);
-console.log=log.info
                         recuperaNotifiche(true);
 						var f=setInterval(function(){
 							if ( listaNotification.length > 0 ){
@@ -1597,7 +1596,14 @@ console.log=log.info
 						log.logFileName=fileName;
 						window.resolveLocalFileSystemURL(log.logDirectory, function(dir){
 							dir.getFile(fileName, {create:false}, function(file) {
-								file.remove(function(){console.log("File Rimosso")},function(err){console.log(err.code)})
+								file.remove(
+									function(){
+										LOGINFOARRAY.push("File Rimosso")	
+									},
+									function(err){
+										LOGINFOARRAY.push(err.code))	
+									}
+								)
 							});
 						});	
 						window.resolveLocalFileSystemURL(log.logDirectory, log.writeHandler);					
@@ -1611,7 +1617,8 @@ console.log=log.info
 						var logFile=log.logFileName
 						var reader = new FileReader()
 						reader.onload=function(){
-							console.log(reader.result)
+							LOGINFOARRAY.push(reader.result))
+							//console.log(reader.result)
 						}
 						dir.getFile(logFile, {create:true}, function(file) {
 							logOb = file;
@@ -1631,17 +1638,20 @@ console.log=log.info
 				
 			},
 			writeError:function(error){
-				console.log("RICEVUTO ERRORE: "+error.message)
+				LOGINFOARRAY.push("RICEVUTO ERRORE: "+error.message)
 			},
 			info:function(mess){	
 				var g=setInterval(function(){
-					if ( log.logDirectory != "" && mess.trim !="" ){
+					if ( log.logDirectory != "" ){
 						clearInterval(g)
-						LOGINFOARRAY.push(mess)
+						if ( typeof mess === "string" && mess.length > 0 )	LOGINFOARRAY.push(mess);
 					}
 				},1000)
 			}
 		}	
+	
+		//abilitare la seguente linea per ridirottare i messaggi in console provenienti dagli script delle dipendenze nel sistema locale di log
+		log.info=console.log
 		
 		//Inizializzo il file di log
 		log.init("log_info.log")
