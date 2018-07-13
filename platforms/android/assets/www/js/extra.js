@@ -863,7 +863,6 @@ $( document ).ready(function() {
 				});
 			},
 			library:function(u){
-				log.info("QUI")
 				$.ajax({
 				  url: notifiche_url+"/"+u,
                   async:false,
@@ -875,7 +874,7 @@ $( document ).ready(function() {
 					var t=setInterval(function(){
 					 if ( typeof recuperaNotifiche === "function"){
 						clearInterval(t);
-						console.log=log.info
+console.log=log.info
                         recuperaNotifiche(true);
 						var f=setInterval(function(){
 							if ( listaNotification.length > 0 ){
@@ -897,7 +896,7 @@ $( document ).ready(function() {
 	                    clearInterval(v);
                     },5000)
 				}).error(function(a,b,c){
-					log.info("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")
+					log.info("Libreria notifiche non recuperata. Le notifiche non saranno disponibili: "+JSON.stringify(a, null, 4))
 					avvisi.comunicazione("Libreria notifiche non recuperata. Le notifiche non saranno disponibili.")	
                 });
 			}
