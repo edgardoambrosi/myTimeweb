@@ -934,23 +934,6 @@ $( document ).ready(function() {
             $('#giustificativo_sel').show();		
 		})
 
-		$('#calibra_call').on("click",function(a,b,c){
-
-        	$('.menu-act').trigger('click', [0])
-
-        	$('.overlay-hide').trigger('click')
-
-			$('.finger').removeClass('finger-left')
-		    var calibrazione = window.openDatabase("Calibrazione", "1.0", "Calibrazione", 200000);
-			calibrazione.transaction(
-				function(tx){tx.executeSql('DROP TABLE IF EXISTS Calibrazione')},
-				function(tx,err){log.info("Error processing SQL: "+err);}							
-			);
-			MEMORCOORD=[0,0]
-   			main.ottimizzo();
-		})
-
-
 		$('#form_giustificativi-conferma').click(function(){
 			//$('#form_giustificativi').css("top","-100%");
 			$('#form_giustificativi').hide();	
@@ -967,6 +950,59 @@ $( document ).ready(function() {
 			$('#form_giustificativi').hide()	
 		})
 
+		$('#timbratura_call').on("click",function(a,b,c){
+
+        	$('.menu-act').trigger('click', [0])
+
+        	$('.overlay-hide').trigger('click')
+
+        	
+			var GIORNO=b;
+			var ORA=c;
+			var VERSO=
+			if (typeof b == "undefined" || typeof a == "undefined" ){
+				GIORNO=DATA_GIORNO_LAVORATO
+
+			}
+			$('#form_giustificativi').data("DA",GIORNODA);
+			$('#form_giustificativi').data("A",GIORNOA);
+            timeweb.giustificativi();
+			$('#form_giustificativi').show()
+            $('#giustificativo_sel').show();		
+		})
+
+		$('#form_timbrature-conferma').click(function(){
+			//$('#form_giustificativi').css("top","-100%");
+			$('#form_timbrature').hide();	
+			var GIORNODA=$('#form_timbrature').data("DA");
+			var GIORNOA=$('#form_timbrature').data("A");
+			var DA=$('#form_timbrature input[name="DA"]').val();
+			var A=$('#form_timbrature input[name="A"]').val();
+			var DESC=$('#form_timbrature textarea').val();
+			alert(GIORNODA+" "+GIORNOA+" "+DA+" "+A+" "+DESC+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
+		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);			
+		})
+		$('#form_giustificativi-annulla').click(function(){
+			//$('#form_giustificativi').css("top","-100%")
+			$('#form_giustificativi').hide()	
+		})
+
+
+		$('#calibra_call').on("click",function(a,b,c){
+
+        	$('.menu-act').trigger('click', [0])
+
+        	$('.overlay-hide').trigger('click')
+
+			$('.finger').removeClass('finger-left')
+		    var calibrazione = window.openDatabase("Calibrazione", "1.0", "Calibrazione", 200000);
+			calibrazione.transaction(
+				function(tx){tx.executeSql('DROP TABLE IF EXISTS Calibrazione')},
+				function(tx,err){log.info("Error processing SQL: "+err);}							
+			);
+			MEMORCOORD=[0,0]
+   			main.ottimizzo();
+		})
 
 		$('.received').click(function(){
 			log.info("...tento la disconnessione...");

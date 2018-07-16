@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <!--ATTENZIONE ALLA MODIFICHE DI QUESTE DIRETTIVE PERCHE' POTREBBERO NON FUNZIONARE PIU' UNA SERIE DI COSE TRA CUI LE CHIAMATE AJAX JQUERY -->
+    <!--ATTENZIONE ALLA MODIFICHE DI QUESTE DIRETTIVE PERCHE' POTREBBERO NON FUNZIONARE PIU' UNA SERIE DI COSE TRA CUI LE CHIAMATE AJAX JQUERY: seguire le istruzioni dei seguenti siti
+    	https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-whitelist/
+    	https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+     -->
     <meta http-equiv="Content-Security-Policy" content="default-src *; script-src * 'unsafe-inline'; style-src * 'unsafe-inline';font-src *; media-src *; img-src * data:"/>
     
     <meta name="viewport" content="user-scalable=yes, initial-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/> 
@@ -381,6 +384,10 @@
 				<div class="row">
 					<div class="eigth columns">
 						<div>
+							<label for="GIORNODA">Dal Giorno:</label>						
+							<input type="date" name="GIORNODA" />							
+							<label for="GIORNOA">Al Giorno:</label>						
+							<input type="date" name="GIORNOA" />							
 							<label for="DA">Da che ora:</label>
 							<input type="time" name="DA" />
 							<label for="A">A che ora:</label>
@@ -392,6 +399,41 @@
 					<div class="offset-by-four four columns">
 						<button class="button-primary" type="button" id="form_giustificativi-conferma">Conferma</button>
 						<button  class="button-annulla" type="button" id="form_giustificativi-annulla">Annulla</button>
+					</div>
+				</div> 
+			</div> 
+		</div> 
+
+		<div id="form_timbrature" class="zoom section  overlay overlay-hide" style="display:none">
+			<div class="container">
+				<div class="row">
+					<div class="offset-by-one eleven columns">
+						<h1>Inserimento Timbratura Manuale</h1>
+					</div>		
+				</div>		
+				<div class="row">
+					<div class="offset-by-three six columns">
+				  	    <div id="giustificativo_sel">
+							<label for="GIUS">Motivazione:</label>
+						</div>
+						<label for="DESC">Inserire una nota:</label>
+						<textarea cols="30" name="DESC" rows="5"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="eigth columns">
+						<div>
+							<label for="DA">Da che ora:</label>
+							<input type="time" name="DA" />
+							<label for="A">A che ora:</label>
+							<input type="time" name="A" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-by-four four columns">
+						<button class="button-primary" type="button" id="form_timbrature-conferma">Conferma</button>
+						<button  class="button-annulla" type="button" id="form_timbrature-annulla">Annulla</button>
 					</div>
 				</div> 
 			</div> 
