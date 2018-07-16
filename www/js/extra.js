@@ -84,7 +84,7 @@ $( document ).ready(function() {
 				            function(tx){
 								tx.executeSql("INSERT INTO expired (date_avvio) VALUES ('"+new Date()+"');")
 				            },
-				            function(err){console.log(err)},
+				            function(err){log.info(err)},
 				            function(){
 								log.info("Inizializzazione periodo prova eseguita.")
 								avvisi.comunicazione("Salvataggio eseguito");
@@ -254,7 +254,7 @@ $( document ).ready(function() {
 				   NUOVASTRISCIATA.push(e);
 				})
 
-				console.log(NUOVASTRISCIATA.toString().replace(/,/g," "))		
+				log.info(NUOVASTRISCIATA.toString().replace(/,/g," "))		
 				
 				return NUOVASTRISCIATA.toString().replace(/,/g," ");
 			},		
@@ -706,7 +706,7 @@ $( document ).ready(function() {
 								if (Number(n) === n && n % 1 !== 0){									
 									CAUSALE=data.sommaorario(__CAUSALE,n);
 									__CAUSALE=CAUSALE;
-									console.log(__CAUSALE)
+									log.info(__CAUSALE)
 									  $('#quantita1').FlipClock(__CAUSALE.split('.')[0], {
 											clockFace: 'Counter'
 									  });
@@ -836,7 +836,7 @@ $( document ).ready(function() {
 				  method: 'POST'	
 				}).success(function(a,b,c) {
 					avvisi.comunicazione("Inserimento Effettuato!")
-				}).error(function(a){console.log(a)});
+				}).error(function(a){log.info(a)});
             }
         };
 
@@ -1072,11 +1072,11 @@ $( document ).ready(function() {
 		$('.menu-act').click(function(e,p){
 			if(p==undefined && s==true){
 				s=false
-				console.log(s)
+				log.info(s)
 				ss=setTimeout(function(){
 					clearTimeout(ss)
 					s=true
-					console.log(s)
+					log.info(s)
 				},420)				
 				$('.overlay-menu').toggleClass('overlay-menu-open')				
 			}
@@ -1302,16 +1302,16 @@ $( document ).ready(function() {
 		  var sogliaY=dimensioneIconaY
 		  /*questo condizione e' vera quando il click e' generato dal trigger*/	
 		  if (( typeof colpitoX == "undefined" ) && ( typeof colpitoY == "undefined" )){
-	   	  	  //console.log(dimensioneIconaX+"   "+colpitoX+"  "+sogliaX)
- 	   	  	  //console.log(dimensioneIconaY+"   "+colpitoY+"  "+sogliaY)
+	   	  	  //log.info(dimensioneIconaX+"   "+colpitoX+"  "+sogliaX)
+ 	   	  	  //log.info(dimensioneIconaY+"   "+colpitoY+"  "+sogliaY)
 			  $('.notifyjs-corner').remove()	
  	   	  	  $('.overlay-hide').hide()
 			  $('.menu-act').trigger('click', [0]) 	   	  	  
 			  //elimino tutte le notifiche	
 	   	  }	  
 		  if ((colpitoX > sogliaY ) && ( colpitoY < sogliaY )){
-	   	  	  //console.log(dimensioneIconaX+"   "+colpitoX+"  "+sogliaX)
- 	   	  	  //console.log(dimensioneIconaY+"   "+colpitoY+"  "+sogliaY)
+	   	  	  //log.info(dimensioneIconaX+"   "+colpitoX+"  "+sogliaX)
+ 	   	  	  //log.info(dimensioneIconaY+"   "+colpitoY+"  "+sogliaY)
 			  $('.notifyjs-corner').remove()	
  	   	  	  $('.overlay-hide').hide()
 			  $('.menu-act').trigger('click', [0]) 	   	  	  
@@ -1504,7 +1504,7 @@ $( document ).ready(function() {
 				            function(tx){
 								tx.executeSql("INSERT INTO impostazioni (orarioiniziolavoro,totale,pausa,server,notifiche_server,notifiche_auth) VALUES ('"+ORARIOINIZIOLAVORO+"','"+TOTALE+"','"+PAUSAPRANZO+"','"+server_url+"','"+notifiche_url+"','"+notifiche_aut_url+"');")
 				            },
-				            function(err){console.log(err)},
+				            function(err){log.info(err)},
 				            function(){
 								log.info("Inizializzazione eseguita.")
 								if (feedback) avvisi.comunicazione("Salvataggio eseguito");
@@ -1584,12 +1584,31 @@ $( document ).ready(function() {
 
 		}
 
+		/*Il seguente oggetto log contiene due metodi pubblici info(...) e init(...) e due metodi privati usati come call-back writeHandler e writeError.
+			Questo oggetto usa il plugin cordova.plugin-file e per l'utilizzo di questo plugin ho usato sia il codice sorgente, https://github.com/apache/cordova-plugin-file,  			
+			per capire alcuni meccanismi di utilizzo sia il sito https://www.raymondcamden.com/2014/11/05/Cordova-Example-Writing-to-a-file.
+			Questo oggetto funziona nel seguente modo: gestisce un array LOGINFOARRAY, ed in futuro potrebbe esserci uanche un LOFERRORARRAY oppure LOGDEBUGARRAY etc.
+			Il metodo init, prima di tutto controlla che l'esecuzione stia avvenendo in un browser oppure in un device mobile. Se si tratta di un browser
+			allora tutto l'output viene gestito dall'oggetto console mentre se si l'esecuzione e' su dispositivo allora l'output viene gestito dall'oggetto log.
+			Di seguito lancia un thread che ogni secondo controlla se il plugin cordova.file che viene attivato dopo il documentReady e' disponibile.
+			Quando questo diventa disponibile imposta due variabili che sono la directory del log, specifica per ios, android etc., e il file su cui scrivere i log.
+			Il file viene rimosso a ogni riavvio della APP, e poi ricreato con l'uso della funzione window.resolveLocalFileSystemURL(...) a cui viene passato oggetto che 
+			rappresenta la  directory e la call-back per gestire la scrittura. La funzione writeHandler avvia un thread che ogni 1/2 secondo, controlla sel nell'array dei
+			messagi ci sono ancora messaggi, se si, preleva il mess piu vecchio rimuovendolo dall'array,accede al file di log e accoda il messaggio prelevato.
+			Ogni volta che il metodo info vene invocato con una stringa di messaggio, se il messaggio e' un oggetto stringa valido e non vuoto questo viene inserito nell'array dei messaggi.
+		*/
+		
 		var log={
 			logDirectory:"",
 			logFileName:"",
 			init:function(fileName){
+				if (window.cordova.platformId === 'browser'){
+					log.info=console.log
+				}else{
+					console.log=log.info
+				} 	
 				var t=setInterval(function(){
-					if ( cordova.file == null ) console.log("File System ancora non accessibile")
+					if ( cordova.file == null ) LOGINFOARRAY.push("File System ancora non accessibile")
 					if ( cordova.file != null ) {
 						clearInterval(t)
 						log.logDirectory=cordova.file.externalDataDirectory 
@@ -1643,14 +1662,6 @@ $( document ).ready(function() {
 				},1000)
 			}
 		}	
-	
-		//TODO:Mettere un controllo per verificare che l'esecuzione stia avvenendo in un browser oppure in un device mobile
-		if (window.cordova.platformId === 'browser'){
-			log.info=console.log
-		}else{
-			//abilitare la seguente linea per ridirottare i messaggi in console provenienti dagli script delle dipendenze nel sistema locale di log
-			console.log=log.info
-		} 	
 		
 		
 		//Inizializzo il file di log
