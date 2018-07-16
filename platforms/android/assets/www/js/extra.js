@@ -920,20 +920,24 @@ $( document ).ready(function() {
 
         	$('.overlay-hide').trigger('click')
 
-			var GIORNODA=b;
+log.info(a)
+log.info(b)
+log.info(c)
+
+/*			var GIORNODA=b;
 			var GIORNOA=c;
 			if (typeof b == "undefined" || typeof a == "undefined" ){
 				GIORNODA=DATA_GIORNO_LAVORATO
 				GIORNOA=DATA_GIORNO_LAVORATO
 			}
-			log.info(data.iniziofinemese(new Date()))
 			$('#form_giustificativi input[name="GIORNODA"]').val(GIORNODA);
 			$('#form_giustificativi input[name="GIORNOA"]').val(GIORNOA);
 			$('#form_giustificativi').data("DA",GIORNODA);
 			$('#form_giustificativi').data("A",GIORNOA);
             timeweb.giustificativi();
+*/            		
 			$('#form_giustificativi').show()
-            $('#giustificativo_sel').show();		
+            $('#giustificativo_sel').show();
 		})
 
 		$('#form_giustificativi-conferma').click(function(){
