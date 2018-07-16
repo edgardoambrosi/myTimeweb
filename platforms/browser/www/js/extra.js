@@ -626,7 +626,7 @@ $( document ).ready(function() {
 								var t=GIORNOA;
 								var GIORNOA=t.split("/")[0]+"/"+t.split("/")[1]+"/"+"20"+t.split("/")[2]
 								alert("TODO: Creare il form per inserimento timbratura manuale")	
-								//$('#giustifica_call').trigger("click", [ GIORNODA, GIORNOA ]);								
+								$('#timbrature_call').trigger("click", [ GIORNODA, GIORNOA ]);								
 							})
 						}
 					})
@@ -920,13 +920,15 @@ $( document ).ready(function() {
 
         	$('.overlay-hide').trigger('click')
 
-        	
 			var GIORNODA=b;
 			var GIORNOA=c;
 			if (typeof b == "undefined" || typeof a == "undefined" ){
 				GIORNODA=DATA_GIORNO_LAVORATO
 				GIORNOA=DATA_GIORNO_LAVORATO
 			}
+			log.info(data.iniziofinemese(new Date()))
+			$('#form_giustificativi input[name="GIORNODA"]').val(GIORNODA);
+			$('#form_giustificativi input[name="GIORNOA"]').val(GIORNOA);
 			$('#form_giustificativi').data("DA",GIORNODA);
 			$('#form_giustificativi').data("A",GIORNOA);
             timeweb.giustificativi();
@@ -959,7 +961,7 @@ $( document ).ready(function() {
         	
 			var GIORNO=b;
 			var ORA=c;
-			var VERSO=
+			var VERSO=a;
 			if (typeof b == "undefined" || typeof a == "undefined" ){
 				GIORNO=DATA_GIORNO_LAVORATO
 
