@@ -916,28 +916,24 @@ $( document ).ready(function() {
 
 		$('#giustifica_call').on("click",function(a,b,c){
 
-        	$('.menu-act').trigger('click', [0])
+	       	$('.menu-act').trigger('click', [0])
 
         	$('.overlay-hide').trigger('click')
-
-log.info(a)
-log.info(b)
-log.info(c)
-
-/*			var GIORNODA=b;
+       	
+			var GIORNODA=b;
 			var GIORNOA=c;
-			if (typeof b == "undefined" || typeof a == "undefined" ){
+			if (typeof a == "undefined" || typeof b == "undefined" ){
 				GIORNODA=DATA_GIORNO_LAVORATO
 				GIORNOA=DATA_GIORNO_LAVORATO
 			}
-			$('#form_giustificativi input[name="GIORNODA"]').val(GIORNODA);
-			$('#form_giustificativi input[name="GIORNOA"]').val(GIORNOA);
+			$('#form_giustificativi input[name="GIORNODA"]').val(data.inverteComposizione(GIORNODA));
+			$('#form_giustificativi input[name="GIORNOA"]').val(data.inverteComposizione(GIORNOA));
 			$('#form_giustificativi').data("DA",GIORNODA);
 			$('#form_giustificativi').data("A",GIORNOA);
             timeweb.giustificativi();
-*/            		
+
 			$('#form_giustificativi').show()
-            $('#giustificativo_sel').show();
+            $('#giustificativo_sel').show();	            
 		})
 
 		$('#form_giustificativi-conferma').click(function(){
