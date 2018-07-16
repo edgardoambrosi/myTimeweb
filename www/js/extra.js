@@ -452,6 +452,12 @@ $( document ).ready(function() {
 					return oggi;
 				}
 			},
+			//inverte una data string in formato dd-mm-yyyy nel formato formato yyyy-mm-dd
+			inverteComposizione:function(d){
+				var ddmmyyyy=d;
+				var yyyy=ddmmyyyy.toString().split("-")[2];
+				return yyyy+"-"+ddmmyyyy.toString().split("-")[1]+"-"+ddmmyyyy.toString().split("-")[0]
+			},			
 			//calcola il range del mese corrente dal primo giorno al secondo giorno
             iniziofinemese:function(d){
                 var date = new Date(d);
@@ -922,7 +928,7 @@ $( document ).ready(function() {
        	
 			var GIORNODA=b;
 			var GIORNOA=c;
-			if (typeof a == "undefined" || typeof b == "undefined" ){
+			if (typeof b == "undefined" || typeof a == "undefined" ){
 				GIORNODA=DATA_GIORNO_LAVORATO
 				GIORNOA=DATA_GIORNO_LAVORATO
 			}
@@ -952,7 +958,7 @@ $( document ).ready(function() {
 			$('#form_giustificativi').hide()	
 		})
 
-		$('#timbratura_call').on("click",function(a,b,c){
+		$('#timbratura_call').on("click",function(a,b,c,d){
 
         	$('.menu-act').trigger('click', [0])
 
@@ -961,16 +967,17 @@ $( document ).ready(function() {
         	
 			var GIORNO=b;
 			var ORA=c;
-			var VERSO=a;
+			var VERSO=d;
 			if (typeof b == "undefined" || typeof a == "undefined" ){
 				GIORNO=DATA_GIORNO_LAVORATO
-
+				
 			}
-			$('#form_giustificativi').data("DA",GIORNODA);
-			$('#form_giustificativi').data("A",GIORNOA);
-            timeweb.giustificativi();
-			$('#form_giustificativi').show()
-            $('#giustificativo_sel').show();		
+			$('#form_timbrature input[name="GIORNODA"]').val(data.inverteComposizione(GIORNODA));			
+			$('#form_timbrature').data("GIORNO",GIORNO);
+			$('#form_timbrature').data("ORA",ORA);
+			$('#form_timbrature').data("VERSO",VERSO);			
+            timeweb.timbrature();
+			$('#form_timbrature').show()
 		})
 
 		$('#form_timbrature-conferma').click(function(){

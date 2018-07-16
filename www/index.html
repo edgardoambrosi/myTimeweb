@@ -68,7 +68,10 @@
 					<a href="#" id="totali_call" class="giustifica">Totali Mese</a>
 					</li>
 					<li>
-					<a href="#" id="giustifica_call" class="giustifica">Giustificativo</a>
+					<a href="#" id="giustifica_call" class="giustifica">Inserimento Giustificativo</a>
+					</li>
+					<li>
+					<a href="#" id="timbratura_call" class="giustifica">Inserimento Timbratura</a>
 					</li>
 					<li>
 					<a href="#" id="notifiche_call" class="giustifica badge" data-badge="0">Notifiche</a>
@@ -413,9 +416,6 @@
 				</div>		
 				<div class="row">
 					<div class="offset-by-three six columns">
-				  	    <div id="giustificativo_sel">
-							<label for="GIUS">Motivazione:</label>
-						</div>
 						<label for="DESC">Inserire una nota:</label>
 						<textarea cols="30" name="DESC" rows="5"></textarea>
 					</div>
@@ -423,10 +423,15 @@
 				<div class="row">
 					<div class="eigth columns">
 						<div>
-							<label for="DA">Da che ora:</label>
-							<input type="time" name="DA" />
-							<label for="A">A che ora:</label>
-							<input type="time" name="A" />
+							<label for="GIORNO">Timbratura del Giorno:</label>						
+							<input type="date" name="GIORNO" />			
+							<label for="ORA">Indicare ora:</label>
+							<input type="time" name="ORA" />
+							<label for="VERSO">Indicare ora:</label>
+							<select class="js-example-basic-single" name="VERSO">
+							  <option value="01">ENTRATA</option>
+							  <option value="02">USCITA</option>
+							</select>							
 						</div>
 					</div>
 				</div>
