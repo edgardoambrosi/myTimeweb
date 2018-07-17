@@ -865,8 +865,8 @@ $( document ).ready(function() {
 
 		                CAUSALI_TIMBRATURA=$(a).find('select[id="892"]');
 						$(CAUSALI_TIMBRATURA).removeAttr('multiple');
-						$('select[id="990"]').remove();
-		                $('#motivazione_sel').append(CAUSALI_TIMBRATURA);
+						$('select[id="892"]').remove();
+		                $('#causale_sel').append(CAUSALI_TIMBRATURA);
 						$(CAUSALI_TIMBRATURA).addClass('u-max-full-width')
 						/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
 						E' stato sostituito perche' il select html su android non funziona correttamente. 
@@ -883,8 +883,8 @@ $( document ).ready(function() {
 
 		                VERSO_TIMBRATURA=$(a).find('select[id="792"]');
 						$(VERSO_TIMBRATURA).removeAttr('multiple');
-						$('select[id="990"]').remove();
-		                $('#motivazione_sel').append(VERSO_TIMBRATURA);
+						$('select[id="792"]').remove();
+		                $('#verso_sel').append(VERSO_TIMBRATURA);
 						$(VERSO_TIMBRATURA).addClass('u-max-full-width')
 						/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
 						E' stato sostituito perche' il select html su android non funziona correttamente. 
