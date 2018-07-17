@@ -881,7 +881,7 @@ $( document ).ready(function() {
 						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
 						$(CAUSALI_TIMBRATURA).val('1').trigger('change')
 
-		                VERSO_TIMBRATURA=$(a).find('select[id="892"]');
+		                VERSO_TIMBRATURA=$(a).find('select[id="792"]');
 						$(VERSO_TIMBRATURA).removeAttr('multiple');
 						$('select[id="990"]').remove();
 		                $('#motivazione_sel').append(VERSO_TIMBRATURA);
@@ -1053,6 +1053,7 @@ $( document ).ready(function() {
 			$('#form_timbrature').show()
 			$('#motivazione_sel').show();
 			$('#causale_sel').show();		
+			$('#verso_sel').show();				
 		})
 
 		$('#form_timbrature-conferma').click(function(){
