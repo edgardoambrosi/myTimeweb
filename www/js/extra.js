@@ -27,6 +27,9 @@ $( document ).ready(function() {
 		var CAUSALE=0;
 		var CAUSALE_SEL="";
         var GIUSTIFICATIVI=new Object();
+        var MOTIVAZIONI_TIMBRATURA=new Object();
+        var CAUSALI_TIMBRATURA=new Object();
+        var VERSO_TIMBRATURA=new Object();                        
 		var GIUSTIFICATIVO=0;
 		var GIUSTIFICATIVO_SEL="";
 		var CONNESSO=false;
@@ -144,6 +147,9 @@ $( document ).ready(function() {
 				CAUSALE=0;
 				CAUSALE_SEL="";
                 GIUSTIFICATIVI=new Object();
+	        	MOTIVAZIONI_TIMBRATURA=new Object();
+    	    	CAUSALI_TIMBRATURA=new Object();
+    	    	VERSO_TIMBRATURA=new Object();                      
 				GIUSTIFICATIVO=0;
 				GIUSTIFICATIVO_SEL="";
 				TICKET="";
@@ -827,6 +833,43 @@ $( document ).ready(function() {
 						
 	            });
             },
+            timbrature_opzioni:function(){
+		        $.ajax({
+		            dataType:"html",
+		            dataFilter:function(d,t){
+		               return $(d);
+		            },
+		            url: server_url,
+		            data:"AZIONE=GESTIONETIMBRATURE",
+		            method: 'GET'
+		            }).success(function(a,b,c) {
+		                log.info("Recupero Motivazione, Causali e Verso per inserimento della timbratura manuale: ");
+
+		                MOTIVAZIONI_TIMBRATURA=$(a).find('select[id="990"]');
+						$(MOTIVAZIONI_TIMBRATURA).removeAttr('multiple');
+						$('select[id="990"]').remove();
+		                $('#motivazione_sel').append(MOTIVAZIONI_TIMBRATURA);
+						$(MOTIVAZIONI_TIMBRATURA).addClass('u-max-full-width')
+						/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
+						E' stato sostituito perche' il select html su android non funziona correttamente. 
+						Magari una futura release phonegap e cordova sistemeranno il bug. per ora alla versione 8 di 
+						Phonegap e Cordova non funziona.
+						*/
+						$(MOTIVAZIONI_TIMBRATURA).addClass('js-example-basic-single')
+						$(MOTIVAZIONI_TIMBRATURA).select2({
+							placeholder:'Selezionare un giustificativo...',
+							minimumResultsForSearch:Infinity
+						})
+						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
+						$(MOTIVAZIONI_TIMBRATURA).val('1').trigger('change')
+
+        //var CAUSALI_TIMBRATURA=new Object();
+        //var VERSO_TIMBRATURA=new Object();      		                
+
+
+						
+	            });
+            },            
 			giustificativo:function(da,a,oraI,oraF,desc,tipodivoce,iddip){
 				var DA=da;
 				var A=a
@@ -937,7 +980,6 @@ $( document ).ready(function() {
 			$('#form_giustificativi').data("DA",GIORNODA);
 			$('#form_giustificativi').data("A",GIORNOA);
             timeweb.giustificativi();
-
 			$('#form_giustificativi').show()
             $('#giustificativo_sel').show();	            
 		})
@@ -972,12 +1014,13 @@ $( document ).ready(function() {
 				GIORNO=DATA_GIORNO_LAVORATO
 				
 			}
-			$('#form_timbrature input[name="GIORNODA"]').val(data.inverteComposizione(GIORNODA));			
+			$('#form_timbrature input[name="GIORNO"]').val(data.inverteComposizione(GIORNO));			
 			$('#form_timbrature').data("GIORNO",GIORNO);
 			$('#form_timbrature').data("ORA",ORA);
-			$('#form_timbrature').data("VERSO",VERSO);			
-            timeweb.timbrature();
+			$('#form_timbrature').data("VERSO",VERSO);	
+			timeweb.timbrature_opzioni();		
 			$('#form_timbrature').show()
+			$('#motivazione_sel').show();	
 		})
 
 		$('#form_timbrature-conferma').click(function(){
