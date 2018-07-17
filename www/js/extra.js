@@ -857,16 +857,47 @@ $( document ).ready(function() {
 						*/
 						$(MOTIVAZIONI_TIMBRATURA).addClass('js-example-basic-single')
 						$(MOTIVAZIONI_TIMBRATURA).select2({
-							placeholder:'Selezionare un giustificativo...',
+							placeholder:'Selezionare una motivazione...',
 							minimumResultsForSearch:Infinity
 						})
 						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
 						$(MOTIVAZIONI_TIMBRATURA).val('1').trigger('change')
 
-        //var CAUSALI_TIMBRATURA=new Object();
-        //var VERSO_TIMBRATURA=new Object();      		                
+		                CAUSALI_TIMBRATURA=$(a).find('select[id="892"]');
+						$(CAUSALI_TIMBRATURA).removeAttr('multiple');
+						$('select[id="990"]').remove();
+		                $('#motivazione_sel').append(CAUSALI_TIMBRATURA);
+						$(CAUSALI_TIMBRATURA).addClass('u-max-full-width')
+						/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
+						E' stato sostituito perche' il select html su android non funziona correttamente. 
+						Magari una futura release phonegap e cordova sistemeranno il bug. per ora alla versione 8 di 
+						Phonegap e Cordova non funziona.
+						*/
+						$(CAUSALI_TIMBRATURA).addClass('js-example-basic-single')
+						$(CAUSALI_TIMBRATURA).select2({
+							placeholder:'Selezionare una causale...',
+							minimumResultsForSearch:Infinity
+						})
+						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
+						$(CAUSALI_TIMBRATURA).val('1').trigger('change')
 
-
+		                VERSO_TIMBRATURA=$(a).find('select[id="892"]');
+						$(VERSO_TIMBRATURA).removeAttr('multiple');
+						$('select[id="990"]').remove();
+		                $('#motivazione_sel').append(VERSO_TIMBRATURA);
+						$(VERSO_TIMBRATURA).addClass('u-max-full-width')
+						/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
+						E' stato sostituito perche' il select html su android non funziona correttamente. 
+						Magari una futura release phonegap e cordova sistemeranno il bug. per ora alla versione 8 di 
+						Phonegap e Cordova non funziona.
+						*/
+						$(VERSO_TIMBRATURA).addClass('js-example-basic-single')
+						$(VERSO_TIMBRATURA).select2({
+							placeholder:'Selezionare un verso...',
+							minimumResultsForSearch:Infinity
+						})
+						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
+						$(VERSO_TIMBRATURA).val('1').trigger('change')
 						
 	            });
             },            
@@ -1020,7 +1051,8 @@ $( document ).ready(function() {
 			$('#form_timbrature').data("VERSO",VERSO);	
 			timeweb.timbrature_opzioni();		
 			$('#form_timbrature').show()
-			$('#motivazione_sel').show();	
+			$('#motivazione_sel').show();
+			$('#causale_sel').show();		
 		})
 
 		$('#form_timbrature-conferma').click(function(){
