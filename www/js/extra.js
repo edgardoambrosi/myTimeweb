@@ -1,3 +1,4 @@
+var g=''
 $( document ).ready(function() {
 
 		var	XTIMBRATURE="";
@@ -32,6 +33,9 @@ $( document ).ready(function() {
         var VERSO_TIMBRATURA=new Object();                        
 		var GIUSTIFICATIVO=0;
 		var GIUSTIFICATIVO_SEL="";
+		var MOTIVAZIONE_SEL="";		
+		var CAUSALETIMBRATURE_SEL="";
+		var VERSO_SEL="";		
 		var CONNESSO=false;
 		var COMUNICAZIONI="";
 		var IDDIP="";
@@ -152,6 +156,9 @@ $( document ).ready(function() {
     	    	VERSO_TIMBRATURA=new Object();                      
 				GIUSTIFICATIVO=0;
 				GIUSTIFICATIVO_SEL="";
+				MOTIVAZIONE_SEL="";		
+				CAUSALETIMBRATURE_SEL="";
+				VERSO_SEL="";					
 				TICKET="";
 				IDDIP="";
 				//$('#tempo-restante').setTime(LAVORATO);
@@ -179,6 +186,9 @@ $( document ).ready(function() {
 				}
 				CAUSALE_SEL=$('select[name="VOCISELEZIONATE"]').val();
 				GIUSTIFICATIVO_SEL=$('select[name="VOCISELEZIONATE"]').val();
+				MOTIVAZIONE_SEL=$('select[name="990"]').val();
+				CAUSALETIMBRATURE_SEL=$('select[name="892"]').val();
+				VERSO_SEL=$('select[name="792"]').val();				
 
 				//salvataggio impostazioni 
 				main.salva_impostazioni();
@@ -492,7 +502,6 @@ $( document ).ready(function() {
 			}
 			
 		};
-
 		var timeweb={  
 			connetti:function(u,p,d){
 				$.ajax({
@@ -827,12 +836,52 @@ $( document ).ready(function() {
 							placeholder:'Selezionare un giustificativo...',
 							minimumResultsForSearch:Infinity
 						})
-						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
 						$(GIUSTIFICATIVI).val('1').trigger('change')
 
 						
 	            });
             },
+            giustificativi_bis:function(){
+
+		        $.ajax({
+		            dataType:"html",
+		            dataFilter:function(d,t){
+		               return $(d);
+		            },
+		            url: server_url,
+		            data:"AZIONE=GESTIONEGIUSTIFICATIVI",
+		            method: 'GET'
+		            }).success(function(a,b,c) {
+		                log.info("Recupero Giustificativi: ");	                
+
+_g=unescape(c.responseText.replace(/src="/g,'src=\"https://gescar.rm.cnr.it/timeweb\/'))
+var t=$.parseHTML(_g)
+$( "#NASCOSTA" ).load( t, function() {
+ 	GestisciCaricamentoPaginax(1)
+ 	g=$.find('select[id="990"]');
+});
+/*
+		                GIUSTIFICATIVI=$(a).find('select[id="990"]');
+						$(GIUSTIFICATIVI).removeAttr('multiple');
+						$('select[id="990"]').remove();
+		                $('#giustificativo_sel').append(GIUSTIFICATIVI);
+						$(GIUSTIFICATIVI).addClass('u-max-full-width')
+						
+
+						/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
+						E' stato sostituito perche' il select html su android non funziona correttamente. 
+						Magari una futura release phonegap e cordova sistemeranno il bug. per ora alla versione 8 di 
+						Phonegap e Cordova non funziona.
+	
+						$(GIUSTIFICATIVI).addClass('js-example-basic-single')
+						$(GIUSTIFICATIVI).select2({
+							placeholder:'Selezionare un giustificativo...',
+							minimumResultsForSearch:Infinity
+						})
+						$(GIUSTIFICATIVI).val('1').trigger('change')
+*/	            
+	            });
+            },            
             timbrature_opzioni:function(){
 		        $.ajax({
 		            dataType:"html",
@@ -860,13 +909,14 @@ $( document ).ready(function() {
 							placeholder:'Selezionare una motivazione...',
 							minimumResultsForSearch:Infinity
 						})
-						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
-						$(MOTIVAZIONI_TIMBRATURA).val('1').trigger('change')
+						$(MOTIVAZIONI_TIMBRATURA).val('0').trigger('change')
+
 
 		                CAUSALI_TIMBRATURA=$(a).find('select[id="892"]');
 						$(CAUSALI_TIMBRATURA).removeAttr('multiple');
 						$('select[id="892"]').remove();
-		                $('#causale_sel').append(CAUSALI_TIMBRATURA);
+		                $('#causaletimbrature_sel').append(CAUSALI_TIMBRATURA);
+
 						$(CAUSALI_TIMBRATURA).addClass('u-max-full-width')
 						/*gestione del plugin jquery SELECT2 per sostituire il controllo html select e options.
 						E' stato sostituito perche' il select html su android non funziona correttamente. 
@@ -878,8 +928,8 @@ $( document ).ready(function() {
 							placeholder:'Selezionare una causale...',
 							minimumResultsForSearch:Infinity
 						})
-						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
-						$(CAUSALI_TIMBRATURA).val('1').trigger('change')
+						$(CAUSALI_TIMBRATURA).val('0').trigger('change')
+
 
 		                VERSO_TIMBRATURA=$(a).find('select[id="792"]');
 						$(VERSO_TIMBRATURA).removeAttr('multiple');
@@ -893,11 +943,10 @@ $( document ).ready(function() {
 						*/
 						$(VERSO_TIMBRATURA).addClass('js-example-basic-single')
 						$(VERSO_TIMBRATURA).select2({
-							placeholder:'Selezionare un verso...',
+							placeholder:'Seleziona verso...',
 							minimumResultsForSearch:Infinity
 						})
-						//sembra che se non viene selezionato un valore iniziale e invocato il trigger change l'assegnazione di un valore non funziona	
-						$(VERSO_TIMBRATURA).val('1').trigger('change')
+						$(VERSO_TIMBRATURA).val('E').trigger('change')
 						
 	            });
             },            
@@ -916,7 +965,9 @@ $( document ).ready(function() {
 				  method: 'POST'	
 				}).success(function(a,b,c) {
 					avvisi.comunicazione("Inserimento Effettuato!")
-				}).error(function(a){log.info(a)});
+				}).error(function(a){
+							log.info(a.message)
+				});
             }
         };
 
@@ -996,6 +1047,8 @@ $( document ).ready(function() {
 
 		$('#giustifica_call').on("click",function(a,b,c){
 
+			env.reset()
+
 	       	$('.menu-act').trigger('click', [0])
 
         	$('.overlay-hide').trigger('click')
@@ -1010,21 +1063,28 @@ $( document ).ready(function() {
 			$('#form_giustificativi input[name="GIORNOA"]').val(data.inverteComposizione(GIORNOA));
 			$('#form_giustificativi').data("DA",GIORNODA);
 			$('#form_giustificativi').data("A",GIORNOA);
-            timeweb.giustificativi();
+   timeweb.giustificativi();
 			$('#form_giustificativi').show()
-            $('#giustificativo_sel').show();	            
+            $('#giustificativo_sel').show();	
+            $('#giustificativo_sel').on('change',function(){
+            	//GIUSTIFICATIVO_SEL=$(GIUSTIFICATIVI).select2('data')[0].text
+            	GIUSTIFICATIVO_SEL=$(GIUSTIFICATIVI).val()
+            })            
 		})
 
 		$('#form_giustificativi-conferma').click(function(){
 			//$('#form_giustificativi').css("top","-100%");
 			$('#form_giustificativi').hide();	
-			var GIORNODA=$('#form_giustificativi').data("DA");
-			var GIORNOA=$('#form_giustificativi').data("A");
+			var GIORNODA=$('#form_giustificativi input[name="GIORNODA"]').val();
+			var GIORNOA=$('#form_giustificativi input[name="GIORNOA"]').val();
 			var DA=$('#form_giustificativi input[name="DA"]').val();
 			var A=$('#form_giustificativi input[name="A"]').val();
 			var DESC=$('#form_giustificativi textarea').val();
-			alert(GIORNODA+" "+GIORNOA+" "+DA+" "+A+" "+DESC+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
-		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);			
+			//alert(GIORNODA+" "+GIORNOA+" "+DA+" "+A+" "+DESC+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
+			spinner.attesa("Attendere inserimento giustificativo...");
+		    alert(data.composizione(new Date(GIORNODA))+" "+data.composizione(new Date(GIORNOA))+" "+DA+" "+A+" "+DESC+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);			
+		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);	
+		    //timeweb.giustificativo(data.composizione(new Date(GIORNODA)),data.composizione(new Date(GIORNOA)),DA,A,DESC,GIUSTIFICATIVO_SEL,IDDIP);			
 		})
 		$('#form_giustificativi-annulla').click(function(){
 			//$('#form_giustificativi').css("top","-100%")
@@ -1037,37 +1097,44 @@ $( document ).ready(function() {
 
         	$('.overlay-hide').trigger('click')
 
-        	
 			var GIORNO=b;
 			var ORA=c;
 			var VERSO=d;
 			if (typeof b == "undefined" || typeof a == "undefined" ){
 				GIORNO=DATA_GIORNO_LAVORATO
-				
 			}
 			$('#form_timbrature input[name="GIORNO"]').val(data.inverteComposizione(GIORNO));			
 			$('#form_timbrature').data("GIORNO",GIORNO);
 			$('#form_timbrature').data("ORA",ORA);
-			$('#form_timbrature').data("VERSO",VERSO);	
 			timeweb.timbrature_opzioni();		
 			$('#form_timbrature').show()
 			$('#motivazione_sel').show();
-			$('#causale_sel').show();		
-			$('#verso_sel').show();				
+			$('#causaletimbrature_sel').show();		
+			$('#verso_sel').show();		
+			
+			$('#motivazione_sel').on('change',function(){
+     	       	MOTIVAZIONE_SEL=$(MOTIVAZIONI_TIMBRATURA).select2('data')[0].text
+            })  
+			$('#causaletimbrature_sel').on('change',function(){
+     	       	CAUSALETIMBRATURE_SEL=$(CAUSALI_TIMBRATURA).select2('data')[0].text
+            })  
+			$('#verso_sel').on('change',function(){
+     	       	VERSO_SEL=$(VERSO_TIMBRATURA).select2('data')[0].text
+            })
+	
 		})
 
 		$('#form_timbrature-conferma').click(function(){
 			//$('#form_giustificativi').css("top","-100%");
 			$('#form_timbrature').hide();	
-			var GIORNODA=$('#form_timbrature').data("DA");
-			var GIORNOA=$('#form_timbrature').data("A");
-			var DA=$('#form_timbrature input[name="DA"]').val();
-			var A=$('#form_timbrature input[name="A"]').val();
-			var DESC=$('#form_timbrature textarea').val();
-			alert(GIORNODA+" "+GIORNOA+" "+DA+" "+A+" "+DESC+" "+GIUSTIFICATIVO_SEL+" "+IDDIP);
+			var GIORNO=$('#form_timbrature input[name="GIORNO"]').val();
+			var ORA=$('#form_timbrature input[name="ORA"]').val();
+			var DESC=$('#form_timbrature textarea[name="DESC"]').val();
+			
+			alert(GIORNO+" "+ORA+" "+" "+DESC+" "+CAUSALETIMBRATURE_SEL+" "+MOTIVAZIONE_SEL+" "+VERSO_SEL+" "+IDDIP);
 		    //timeweb.giustificativo(GIORNODA,GIORNOA,"7:50","9:38","ADITERM RISONANZA MAGNETICA",GIUSTIFICATIVO_SEL,IDDIP);			
 		})
-		$('#form_giustificativi-annulla').click(function(){
+		$('#form_timbrature-annulla').click(function(){
 			//$('#form_giustificativi').css("top","-100%")
 			$('#form_giustificativi').hide()	
 		})

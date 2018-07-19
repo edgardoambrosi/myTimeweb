@@ -377,7 +377,7 @@
 				</div>		
 				<div class="row">
 					<div class="offset-by-three six columns">
-				  	    <div id="giustificativo_sel">
+				  	    <div id="giustificativo_sel" style="display:none">
 							<label for="GIUS">Giustificativo:</label>
 						</div>
 						<label for="DESC">Inserire una descrizione:</label>
@@ -407,6 +407,9 @@
 			</div> 
 		</div> 
 
+<div id="NASCOSTA">
+</div>
+
 		<div id="form_timbrature" class="zoom section  overlay overlay-hide" style="display:none">
 			<div class="container">
 				<div class="row">
@@ -415,24 +418,28 @@
 					</div>		
 				</div>		
 				<div class="row">
-					<div class="offset-by-three six columns">
-						<label for="DESC">Inserire una nota:</label>
-						<textarea cols="30" name="DESC" rows="5"></textarea>
-					</div>
-				</div>
-				<div class="row">
 					<div class="eigth columns">
 						<div>
+					  	    <div id="motivazione_sel" style="display:none">
+								<label for="MOTIV">Motivazione:</label>
+							</div>
+					  	    <div id="causaletimbrature_sel" style="display:none">
+								<label for="CAUSA">Causale:</label>
+							</div>
 							<label for="GIORNO">Timbratura del Giorno:</label>						
 							<input type="date" name="GIORNO" />			
 							<label for="ORA">Indicare ora:</label>
 							<input type="time" name="ORA" />
-							<label for="VERSO">Indicare ora:</label>
-							<select class="js-example-basic-single" name="VERSO">
-							  <option value="01">ENTRATA</option>
-							  <option value="02">USCITA</option>
-							</select>							
+					  	    <div id="verso_sel" style="display:none">
+								<label for="VERSO">Verso:</label>
+							</div>
 						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-by-three six columns">
+						<label for="DESC">Inserire una nota:</label>
+						<textarea cols="30" name="DESC" rows="5"></textarea>
 					</div>
 				</div>
 				<div class="row">
